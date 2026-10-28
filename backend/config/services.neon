@@ -1,0 +1,11 @@
+services:
+	- App\Core\RouterFactory
+	router: @App\Core\RouterFactory::create
+
+	# controllers
+	- App\Api\Health\HealthPresenter
+	- App\Api\Error\ErrorPresenter
+
+	# health
+	- App\Model\Health\HealthService
+	- App\Model\Health\HealthRepository

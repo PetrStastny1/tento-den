@@ -1,0 +1,20 @@
+# --- env files (never commit secrets) ---
+.env
+.env.*
+!.env.example
+
+# --- dependencies ---
+/backend/vendor/
+/frontend/node_modules/
+
+# --- build outputs ---
+/frontend/dist/
+
+# --- runtime output (backend/log/ and backend/temp/ keep their own .gitignore) ---
+/backend/tests/**/output/
+*.log
+
+# --- OS / IDE ---
+.DS_Store
+.idea/
+.vscode/

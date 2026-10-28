@@ -1,0 +1,59 @@
+name: tento-den
+
+services:
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "127.0.0.1:${HTTP_PORT:-8080}:80"
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php
+      - node
+
+  php:
+    build: ./docker/php
+    # only the variables the application needs – not the DB root password
+    environment:
+      APP_ENV: ${APP_ENV:?APP_ENV musí být v .env vyplněné}
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME:?DB_NAME musí být v .env vyplněné}
+      DB_USER: ${DB_USER:?DB_USER musí být v .env vyplněné}
+      DB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD musí být v .env vyplněné}
+    volumes:
+      - ./backend:/var/www/backend
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+  mariadb:
+    image: mariadb:11.4
+    ports:
+      - "127.0.0.1:${DB_HOST_PORT:-3307}:3306"
+    environment:
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?DB_ROOT_PASSWORD musí být v .env vyplněné}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+  node:
+    image: node:24-alpine
+    working_dir: /app
+    command: npm run dev -- --host 0.0.0.0
+    volumes:
+      - ./frontend:/app
+      # Linux binaries (esbuild…) stay inside Docker, separate from the host
+      - frontend_node_modules:/app/node_modules
+
+volumes:
+  mariadb_data:
+  frontend_node_modules:

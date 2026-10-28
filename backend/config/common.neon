@@ -1,0 +1,26 @@
+application:
+	# errors are rendered as JSON by the API error presenter, also in development
+	catchExceptions: true
+	errorPresenter: Api:Error
+	mapping:
+		Api: App\Api\*\**Presenter
+
+database:
+	dsn: 'mysql:host=%env.DB_HOST%;port=%env.DB_PORT%;dbname=%env.DB_NAME%;charset=utf8mb4'
+	user: %env.DB_USER%
+	password: %env.DB_PASSWORD%
+	options:
+		# connect on the first query, not on container creation
+		lazy: true
+
+http:
+	headers:
+		X-Powered-By: null
+		X-Content-Type-Options: nosniff
+	# a stateless JSON API needs no cookies
+	disableNetteCookie: true
+
+di:
+	export:
+		parameters: false
+		tags: false
