@@ -9,7 +9,7 @@ use App\Core\Console\Output;
 
 $output = new Output(STDOUT, STDERR);
 try {
-	$container = (new App\Bootstrap(getenv()))->createContainer();
+	$container = (new App\Bootstrap(getenv()))->bootConsoleApplication();
 } catch (App\Core\Config\InvalidConfigurationException $e) {
 	$output->error($e->getMessage());
 	exit(1);

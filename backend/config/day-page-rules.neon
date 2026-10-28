@@ -1,0 +1,21 @@
+# Explicit exceptions for cs.wikipedia day pages – narrow on purpose, see docs/rozhodnuti.md.
+# Anything not listed here still fails the import of the whole day.
+parameters:
+	dayPageRules:
+		# subsections of "Události" that are neither "Česko" nor "Svět" and carry no dated events
+		ignoredSubsections:
+			- Pravidelné události        # 6. 1. Tříkrálová sbírka (každoročně)
+			- Hospodářství a ekologie    # 17. 4.
+
+		# items without a year, identified by day and fingerprint of their text (EventText::hash);
+		# a changed text no longer matches and fails the day again. The fingerprint is printed
+		# in the import error "Položka bez roku (…, otisk …)".
+		knownItemsWithoutYear:
+			-
+				day: '06-30'
+				fingerprint: daf86f50412b0df6b37fc99da58e74a90e12c0973854415b4b34a61e6a516590
+				text: 'Jedno z dat, kdy je v případě potřeby zavedena přestupná sekunda.'
+			-
+				day: '12-14'
+				fingerprint: 9618241f7c349e8de3719507474add168ef65b81047b03f060ff49d811616764
+				text: 'Automobilka Tatra v závodě Kopřivnice vyrobila poslední exemplář modelu Tatra 148, ten obdržel výrobní číslo 113 988.'

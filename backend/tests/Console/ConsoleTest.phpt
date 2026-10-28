@@ -80,7 +80,7 @@ test('import:day reports the result, or the failure with exit code 1', function 
 
 	[$code, $stdout] = runConsole($container, ['import:day', '--date=10-28']);
 	Assert::same(0, $code);
-	Assert::same("10-28 ok (revize 26193496): Česko 15, Svět 16 | nové 31, upravené 0, beze změny 0, zmizelé 0, k revizi 0, obnovené 0\n", $stdout);
+	Assert::same("10-28 ok (revize 26193496): Česko 15, Svět 16 | nové 31, upravené 0, beze změny 0, zmizelé 0, k revizi 0, obnovené 0, přeskočeno pravidlem 0\n", $stdout);
 
 	$pages->fail('10-28');
 	[$code, , $stderr] = runConsole($container, ['import:day', '--date=10-28']);
@@ -105,7 +105,7 @@ test('import:year continues after failures, lists them, exits 1; --resume retrie
 	$pages->serveHtml('11-30', pageWithOneEvent(MonthDay::fromString('11-30')), 1);
 	[$code, $stdout] = runConsole($container, ['import:year', '--resume']);
 	Assert::same(0, $code);
-	Assert::same(364, substr_count($stdout, 'přeskočeno'));
+	Assert::same(364, substr_count($stdout, 'přeskočeno (už hotovo v tomto běhu)'));
 	Assert::contains('03-15 ok', $stdout);
 	Assert::contains('11-30 ok', $stdout);
 	Assert::contains('Hotovo, všechny dny v pořádku.', $stdout);

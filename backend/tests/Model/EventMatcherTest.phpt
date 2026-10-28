@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 use App\Model\Events\ArticleInfo;
 use App\Model\Events\DayPageParser;
+use App\Model\Events\DayPageRules;
 use App\Model\Events\EventMatch;
 use App\Model\Events\EventMatcher;
 use App\Model\Events\EventStatus;
@@ -15,6 +16,7 @@ use App\Model\Events\EventText;
 use App\Model\Events\IncomingEvent;
 use App\Model\Events\LinkFilter;
 use App\Model\Events\MatchPlan;
+use App\Model\Events\MonthDay;
 use App\Model\Events\ParsedEvent;
 use App\Model\Events\PrimaryArticleSelector;
 use App\Model\Events\ReviewCase;
@@ -207,13 +209,13 @@ test('events in review are matched only exactly, which keeps reimports idempoten
  */
 function planBetweenRevisions(string $day, int $oldRevision, int $newRevision): MatchPlan
 {
-	$parser = new DayPageParser(new LinkFilter);
+	$parser = new DayPageParser(new LinkFilter, new DayPageRules([], []));
 	$selector = new PrimaryArticleSelector(['Praha', 'Česko', 'Československo', 'Spojené státy americké']);
 	$toIncoming = function (ParsedEvent $event) use ($selector): IncomingEvent {
 		$articles = array_map(fn(string $title) => new ArticleInfo(crc32($title), $title, 1, null), $event->linkTitles);
 		return new IncomingEvent($event, $articles, $selector->select($articles));
 	};
-	$read = fn(int $revision) => $parser->parse((string) file_get_contents(FixtureDayPageSource::Dir . "/history/day-page-$day-rev$revision.html"));
+	$read = fn(int $revision) => $parser->parse((string) file_get_contents(FixtureDayPageSource::Dir . "/history/day-page-$day-rev$revision.html"), MonthDay::fromString($day))->events;
 
 	$stored = [];
 	foreach (array_map($toIncoming, $read($oldRevision)) as $i => $event) {

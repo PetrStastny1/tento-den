@@ -269,3 +269,33 @@ v samostatném kontejneru pod UID uživatele (soubor patří jemu, práva 0600 o
 
   Tyto dny mají v `import_days` stav `error` s důvodem; jejich ošetření (oprava na Wikipedii,
   nebo výslovná výjimka v konfiguraci) je otevřené rozhodnutí.
+
+## Krok 3b – výjimky pro nestandardní stránky dnů (2026-10-29)
+
+### Dvě úzká, výslovná pravidla místo obecného přeskakování
+`config/day-page-rules.neon`:
+1. **ignorované podsekce podle přesného názvu** („Pravidelné události“ 6. 1., „Hospodářství
+   a ekologie“ 17. 4.); jakákoli jiná neznámá podsekce dál shodí celý den,
+2. **známé položky bez roku podle dne + otisku textu** (SHA-256 normalizovaného textu, 30. 6.
+   a 14. 12.); jakmile se text změní, otisk nesedí a den znovu selže. Otisk vypíše chybová
+   hláška importu, takže položka se do seznamu dostane jen vědomým rozhodnutím.
+
+Každé přeskočení se zaloguje (`log/info.log`, s dnem a revizí) a import ho vypíše v souhrnu.
+
+**Proč ne obecné „neznámé přeskoč a pokračuj“:** parser by pak tiše vynechal i položku, kterou
+jen špatně přečetl (nový formát roku, rozbitý řádek), a párování by uloženou událost označilo
+jako `missing` – chyba parseru by se tvářila jako editace Wikipedie a mazala by obsah, na který
+můžou odkazovat oblíbené. Výslovné pravidlo naopak říká, *co přesně* a *proč* vynecháváme,
+a každá nová odchylka se projeví chybou dne, kterou lze posoudit.
+
+**Cena:** „Hospodářství a ekologie“ (17. 4.) obsahuje 13 datovaných položek, které se tím
+neimportují; jde o rozhodnutí podle názvu podsekce, ne podle obsahu.
+
+### Rok slovy „před naším letopočtem“
+Parser čte vedle „45 př. n. l.“ i „360 před naším letopočtem“ (obojí → záporný rok).
+
+### Konzole loguje do `log/` jako web
+Do kroku 3 měl Tracy logger adresář jen ve webovém vstupu; první zalogované přeskočení v CLI
+shodilo import („Logging directory is not specified“). `bin/console.php` a `bin/migrate.php`
+proto startují přes `Bootstrap::bootConsoleApplication()` (Tracy s `log/`, bez kontroly migrací);
+testy používají `createContainer()` a logger si nahrazují pamětí.

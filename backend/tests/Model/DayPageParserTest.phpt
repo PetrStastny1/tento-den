@@ -9,7 +9,11 @@ declare(strict_types=1);
 
 use App\Model\Events\DayPageParseException;
 use App\Model\Events\DayPageParser;
+use App\Model\Events\DayPageParseResult;
+use App\Model\Events\DayPageRules;
+use App\Model\Events\EventText;
 use App\Model\Events\LinkFilter;
+use App\Model\Events\MonthDay;
 use App\Model\Events\ParsedEvent;
 use App\Model\Events\Section;
 use Tester\Assert;
@@ -18,12 +22,29 @@ use Tests\Support\FixtureDayPageSource;
 require __DIR__ . '/../bootstrap.php';
 
 
+function parser(?DayPageRules $rules = null): DayPageParser
+{
+	return new DayPageParser(new LinkFilter, $rules ?? new DayPageRules([], []));
+}
+
+
 /**
  * @return list<ParsedEvent>
  */
 function parseFixture(string $file): array
 {
-	return (new DayPageParser(new LinkFilter))->parse((string) file_get_contents(FixtureDayPageSource::Dir . '/' . $file));
+	return parser()->parse((string) file_get_contents(FixtureDayPageSource::Dir . '/' . $file), new MonthDay(1, 1))->events;
+}
+
+
+function parseHtmlResult(string $events, ?DayPageRules $rules = null, string $day = '06-30'): DayPageParseResult
+{
+	return parser($rules)->parse(<<<HTML
+		<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>
+		<section><h2 id="Události">Události</h2>$events</section>
+		<section><h2 id="Narození">Narození</h2><ul><li>1900 – Někdo se narodil.</li></ul></section>
+		</body></html>
+		HTML, MonthDay::fromString($day));
 }
 
 
@@ -32,12 +53,7 @@ function parseFixture(string $file): array
  */
 function parseHtml(string $events): array
 {
-	return (new DayPageParser(new LinkFilter))->parse(<<<HTML
-		<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>
-		<section><h2 id="Události">Události</h2>$events</section>
-		<section><h2 id="Narození">Narození</h2><ul><li>1900 – Někdo se narodil.</li></ul></section>
-		</body></html>
-		HTML);
+	return parseHtmlResult($events)->events;
 }
 
 
@@ -119,6 +135,12 @@ test('years before Christ are negative', function () {
 });
 
 
+test('years before Christ written out in words', function () {
+	$events = parseHtml('<section><h3>Svět</h3><ul><li>360 před naším letopočtem – Zatmění Měsíce.</li><li>45 před&nbsp;naším letopočtem Kalendář.</li></ul></section>');
+	Assert::same([[-360, 'Zatmění Měsíce.'], [-45, 'Kalendář.']], array_map(fn(ParsedEvent $e) => [$e->year, $e->text], $events));
+});
+
+
 test('references, red links, years and date pages are not kept', function () {
 	$events = parseFixture('day-page-12-08.html');
 	$laurens = findEvent($events, 1792, 'Henry Laurens');
@@ -161,8 +183,64 @@ test('anything not understood fails the whole page instead of being skipped', fu
 		}
 	}
 	Assert::exception(
-		fn() => (new DayPageParser(new LinkFilter))->parse('<html><body><h2>Narození</h2></body></html>'),
+		fn() => parser()->parse('<html><body><h2>Narození</h2></body></html>', new MonthDay(1, 1)),
 		DayPageParseException::class,
 		'Stránka nemá sekci „Události“',
 	);
+});
+
+
+const TatraText = 'Automobilka Tatra vyrobila poslední exemplář modelu Tatra 148.';
+
+
+test('an ignored subsection is skipped by name and reported', function () {
+	$result = parseHtmlResult(
+		'<section><h3>Pravidelné události</h3><ul><li>Tříkrálová sbírka (každoročně od roku 2001)</li></ul></section>'
+		. '<section><h3>Česko</h3><ul><li>1950 – Událost.</li></ul></section>',
+		new DayPageRules(['Pravidelné události'], []),
+	);
+	Assert::count(1, $result->events);
+	Assert::same(['ignorovaná podsekce „Pravidelné události“ (1 položek)'], $result->skipped);
+});
+
+
+test('an unknown subsection still fails the day, even when other subsections are ignored', function () {
+	Assert::exception(
+		fn() => parseHtmlResult('<section><h3>Sport</h3><ul><li>2001 – Výsledek.</li></ul></section>', new DayPageRules(['Pravidelné události'], [])),
+		DayPageParseException::class,
+		'%a%neznámé podsekci „Sport“%a%',
+	);
+});
+
+
+test('a known item without a year is skipped on its day only', function () {
+	$rules = new DayPageRules([], [['day' => '12-14', 'fingerprint' => EventText::hash(TatraText)]]);
+	$html = '<section><h3>Česko</h3><ul><li>' . TatraText . '</li><li>1950 – Událost.</li></ul></section>';
+
+	$result = parseHtmlResult($html, $rules, '12-14');
+	Assert::count(1, $result->events);
+	Assert::same(['známá položka bez roku (cz): ' . TatraText], $result->skipped);
+
+	Assert::exception(fn() => parseHtmlResult($html, $rules, '12-15'), DayPageParseException::class, 'Položka bez roku%a%');
+});
+
+
+test('a changed text of a known item fails the day again and prints the new fingerprint', function () {
+	$rules = new DayPageRules([], [['day' => '12-14', 'fingerprint' => EventText::hash(TatraText)]]);
+	$changed = 'Automobilka Tatra vyrobila úplně poslední exemplář modelu Tatra 148.';
+	Assert::exception(
+		fn() => parseHtmlResult('<section><h3>Česko</h3><ul><li>' . $changed . '</li></ul></section>', $rules, '12-14'),
+		DayPageParseException::class,
+		'Položka bez roku (cz, otisk ' . EventText::hash($changed) . '): ' . $changed,
+	);
+});
+
+
+test('the configured rules are loaded and invalid fingerprints are refused', function () {
+	$rules = Tests\Support\TestContainer::create()->getByType(DayPageRules::class);
+	Assert::true($rules->isIgnoredSubsection('Pravidelné události'));
+	Assert::true($rules->isIgnoredSubsection('Hospodářství a ekologie'));
+	Assert::false($rules->isIgnoredSubsection('Česko'));
+	Assert::true($rules->isKnownItemWithoutYear(MonthDay::fromString('06-30'), 'Jedno z dat, kdy je v případě potřeby zavedena přestupná sekunda.'));
+	Assert::exception(fn() => new DayPageRules([], [['day' => '06-30', 'fingerprint' => 'abc']]), InvalidArgumentException::class);
 });

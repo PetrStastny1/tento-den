@@ -20,6 +20,7 @@ final readonly class DayImportResult
 		public int $missing,
 		public int $review,
 		public int $restored,
+		public int $skipped,
 	) {
 	}
 }

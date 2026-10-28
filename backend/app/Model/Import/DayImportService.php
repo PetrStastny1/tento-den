@@ -19,6 +19,7 @@ use App\Model\Events\ParsedEvent;
 use App\Model\Events\PrimaryArticleSelector;
 use App\Model\Events\ReviewRole;
 use App\Model\Events\Section;
+use Tracy\ILogger;
 
 
 /**
@@ -48,6 +49,7 @@ final class DayImportService
 		private readonly ImportLockRepository $lock,
 		private readonly Transaction $transaction,
 		private readonly Clock $clock,
+		private readonly ILogger $logger,
 	) {
 	}
 
@@ -76,8 +78,11 @@ final class DayImportService
 	private function importLocked(MonthDay $day, ?int $runId): DayImportResult
 	{
 		$page = $this->dayPages->fetch($day);
-		$parsed = $this->parser->parse($page->html);
-		$incoming = $this->resolveArticles($parsed);
+		$parseResult = $this->parser->parse($page->html, $day);
+		foreach ($parseResult->skipped as $skipped) {
+			$this->logger->log("Import {$day->format()} (revize {$page->revisionId}): přeskočeno podle pravidla – $skipped", ILogger::INFO);
+		}
+		$incoming = $this->resolveArticles($parseResult->events);
 
 		$activeBefore = $this->eventRepository->countActive($day);
 		if ($activeBefore >= self::MinEventsForRatioCheck && count($incoming) < $activeBefore * self::MinKeptRatio) {
@@ -110,6 +115,7 @@ final class DayImportService
 			missing: count($plan->missingIds) + count($plan->rejectedIds),
 			review: array_sum(array_map(fn($r): int => count($r->incoming), $plan->reviews)),
 			restored: count($plan->restoredIds),
+			skipped: count($parseResult->skipped),
 		);
 	}
 

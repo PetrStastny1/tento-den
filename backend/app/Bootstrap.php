@@ -47,7 +47,19 @@ final class Bootstrap
 
 
 	/**
-	 * CLI and tests: no migration check, so "make migrate" works on any database.
+	 * Console entry point: logs to log/ like the web, but without the migration check,
+	 * so "make migrate" works on any database.
+	 */
+	public function bootConsoleApplication(): Container
+	{
+		$configurator = $this->createConfigurator();
+		$configurator->enableTracy($this->rootDir . '/log');
+		return $configurator->createContainer();
+	}
+
+
+	/**
+	 * Tests: no Tracy, no migration check; loggers are replaced where a test needs them.
 	 */
 	public function createContainer(): Container
 	{
@@ -77,6 +89,7 @@ final class Bootstrap
 		$configurator->addConfig($this->rootDir . '/config/common.neon');
 		$configurator->addConfig($this->rootDir . '/config/services.neon');
 		$configurator->addConfig($this->rootDir . '/config/generic-articles.neon');
+		$configurator->addConfig($this->rootDir . '/config/day-page-rules.neon');
 		$configurator->addServices(['appConfig' => $this->config]);
 		return $configurator;
 	}

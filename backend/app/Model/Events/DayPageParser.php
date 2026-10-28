@@ -14,27 +14,30 @@ namespace App\Model\Events;
  * - "1918" + nested items         → one event per nested item, all in 1918
  * - "1992 text:" + nested items   → one event, nested items appended to the text
  * - empty item                    → ignored (carries no content)
+ * Years before Christ: "45 př. n. l." or "360 před naším letopočtem".
  * Births and deaths are separate h2 sections and are never read.
+ * The only other exceptions are the explicit DayPageRules (ignored subsections by name,
+ * known items without a year by day and text fingerprint).
  */
 final class DayPageParser
 {
-	private const YearPattern = '~^(\d{1,4})(?:[\s\x{00A0}]*(př\.[\s\x{00A0}]*n\.[\s\x{00A0}]*l\.))?(?:[\s\x{00A0}]*[–—-][\s\x{00A0}]*|[\s\x{00A0}]+|$)(.*)$~su';
+	private const YearPattern = '~^(\d{1,4})(?:[\s\x{00A0}]*(př\.[\s\x{00A0}]*n\.[\s\x{00A0}]*l\.|před[\s\x{00A0}]+naším[\s\x{00A0}]+letopočtem))?(?:[\s\x{00A0}]*[–—-][\s\x{00A0}]*|[\s\x{00A0}]+|$)(.*)$~su';
 
 
 	public function __construct(
 		private readonly LinkFilter $linkFilter,
+		private readonly DayPageRules $rules,
 	) {
 	}
 
 
 	/**
-	 * @return list<ParsedEvent>
 	 * @throws DayPageParseException
 	 */
-	public function parse(string $html): array
+	public function parse(string $html, MonthDay $day): DayPageParseResult
 	{
 		$events = $this->findEventsSection($this->load($html));
-		$parsed = [];
+		$parsed = $skipped = [];
 		$positions = [];
 
 		foreach ($this->childElements($events) as $child) {
@@ -45,6 +48,12 @@ final class DayPageParser
 			$section = $heading === null ? null : Section::fromHeading($heading);
 			$items = $this->topLevelItems($child);
 
+			if ($section === null && $heading !== null && $this->rules->isIgnoredSubsection($heading)) {
+				if ($items !== []) {
+					$skipped[] = sprintf('ignorovaná podsekce „%s“ (%d položek)', $heading, count($items));
+				}
+				continue;
+			}
 			if ($section === null) {
 				if ($items !== []) {
 					$where = $heading === null ? 'mimo podsekci' : "v neznámé podsekci „{$heading}“";
@@ -54,22 +63,23 @@ final class DayPageParser
 			}
 
 			foreach ($items as $item) {
-				foreach ($this->parseItem($item, $section) as [$year, $text, $links]) {
+				foreach ($this->parseItem($item, $section, $day, $skipped) as [$year, $text, $links]) {
 					$positions[$section->value] = ($positions[$section->value] ?? 0) + 1;
 					$parsed[] = new ParsedEvent($section, $year, $text, $positions[$section->value], $links);
 				}
 			}
 		}
 
-		return $parsed;
+		return new DayPageParseResult($parsed, $skipped);
 	}
 
 
 	/**
+	 * @param list<string> $skipped
 	 * @return list<array{int, string, list<string>}> [year, text, link titles]
 	 * @throws DayPageParseException
 	 */
-	private function parseItem(\DOMElement $item, Section $section): array
+	private function parseItem(\DOMElement $item, Section $section, MonthDay $day, array &$skipped): array
 	{
 		$ownText = $this->text($item);
 		$children = $this->nestedItems($item);
@@ -78,7 +88,17 @@ final class DayPageParser
 		}
 
 		if (!preg_match(self::YearPattern, $ownText, $m)) {
-			throw new DayPageParseException("Položka bez roku ({$section->value}): " . $this->excerpt($item));
+			$text = $this->text($item, includeNested: true);
+			if ($this->rules->isKnownItemWithoutYear($day, $text)) {
+				$skipped[] = "známá položka bez roku ({$section->value}): " . mb_substr($text, 0, 80);
+				return [];
+			}
+			throw new DayPageParseException(sprintf(
+				'Položka bez roku (%s, otisk %s): %s',
+				$section->value,
+				EventText::hash($text),
+				$this->excerpt($item),
+			));
 		}
 		try {
 			$year = Year::fromText((int) $m[1], $m[2] !== '');

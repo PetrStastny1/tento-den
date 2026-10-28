@@ -20,9 +20,11 @@ use App\Model\Import\ImportLockRepository;
 use Nette\Database\Explorer;
 use Nette\DI\Container;
 use Tester\Assert;
+use Tracy\ILogger;
 use Tests\Support\FakeArticleInfoSource;
 use Tests\Support\FakeClock;
 use Tests\Support\FixtureDayPageSource;
+use Tests\Support\MemoryLogger;
 use Tests\Support\TestContainer;
 
 require __DIR__ . '/../bootstrap.php';
@@ -33,6 +35,7 @@ final class ImportFixture
 	public readonly Container $container;
 	public readonly FixtureDayPageSource $pages;
 	public readonly FakeClock $clock;
+	public readonly MemoryLogger $logger;
 
 
 	public function __construct()
@@ -43,6 +46,8 @@ final class ImportFixture
 		TestContainer::replace($this->container, DayPageSource::class, $this->pages);
 		TestContainer::replace($this->container, ArticleInfoSource::class, new FakeArticleInfoSource(['Husité' => 'Husitství']));
 		TestContainer::replace($this->container, Clock::class, $this->clock);
+		$this->logger = new MemoryLogger;
+		TestContainer::replace($this->container, ILogger::class, $this->logger);
 	}
 
 
@@ -317,4 +322,20 @@ test('a day being imported by another process is not touched', function () {
 
 	$otherProcess->release(MonthDay::fromString('10-28'));
 	Assert::same(31, $fixture->import('10-28')->inserted);
+});
+
+
+test('items skipped by an explicit rule are logged with day and revision', function () {
+	$fixture = new ImportFixture;
+	$fixture->pages->serveHtml('01-06', '<html><body><section><h2>Události</h2>'
+		. '<section><h3>Pravidelné události</h3><ul><li>Tříkrálová sbírka (každoročně od roku 2001)</li></ul></section>'
+		. '<section><h3>Česko</h3><ul><li>1950 – Událost.</li></ul></section></section></body></html>', 555);
+
+	$result = $fixture->import('01-06');
+
+	Assert::same([1, 1], [$result->inserted, $result->skipped]);
+	Assert::same(
+		[['Import 01-06 (revize 555): přeskočeno podle pravidla – ignorovaná podsekce „Pravidelné události“ (1 položek)', ILogger::INFO]],
+		$fixture->logger->entries,
+	);
 });
