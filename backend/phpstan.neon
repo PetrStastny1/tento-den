@@ -4,6 +4,7 @@ parameters:
 		- app
 		- tests
 		- www
+		- bin
 	fileExtensions:
 		- php
 		- phpt

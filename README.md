@@ -63,6 +63,15 @@ Další příkazy: `docker compose exec php php bin/console.php` vypíše seznam
 události, u kterých import nerozhodl, zda jde o úpravu jiné; `articles:generic-candidates` –
 kandidáti na seznam obecných článků v `backend/config/generic-articles.neon`).
 
+Ověřovací reporty po importu (jen čtou, nic neopravují), spouštějí se v php kontejneru
+(`docker compose exec php php bin/report/…`):
+
+| Skript | Co ověřuje |
+|---|---|
+| `import-stats.php` | počty dní a událostí, medián/minimum na den, přepočet hlavního článku jen z DB |
+| `check-links.php [vzorek] [seed]` | shodu DB s výstupem **stejného** parseru na vzorku dní (stáhne HTML uložené revize) |
+| `compare-wikitext-links.php [min. rozdíl]` | nezávislou hrubou kontrolu parseru: odkazy ve wikitextu vs. DB po dnech |
+
 Po změně `docker/nginx/default.conf` je potřeba `docker compose restart nginx`.
 
 ## Proměnné prostředí (`.env`)

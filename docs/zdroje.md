@@ -404,12 +404,40 @@ Výslovná pravidla (`config/day-page-rules.neon`) se uplatnila jen u 4 vytipova
   z Česka, pokud existují“ tam doplní světové.
 - Bez hlavního článku je 371 událostí; 267 z nich neodkazuje na žádný existující článek,
   zbylých 104 jen na obecné články.
-- `event_articles` drží všechny odkazy: kontrola 30 dní (5 vytipovaných + 25 náhodných) proti
-  HTML stejné revize a čerstvě vyřešeným odkazům – 844 událostí, 0 chybějících, 0 přebývajících,
-  0 v jiném pořadí. Přepočet hlavního článku jen z DB (`event_articles` + seznam obecných)
-  souhlasí s uloženým `is_primary` u všech 9 345 událostí – změna pravidla nepotřebuje nové
-  stahování.
+- **Shoda DB s parserem** (`backend/bin/report/check-links.php`): pro 30 dní (5 vytipovaných
+  + 25 náhodných) znovu staženo HTML stejné revize, rozparsováno **stejným parserem** a odkazy
+  znovu vyřešeny – 844 událostí, 0 chybějících, 0 přebývajících, 0 v jiném pořadí. Tato kontrola
+  ověřuje jen to, že DB věrně drží výstup parseru; **neověřuje nezávisle, že parser najde všechny
+  odkazy**.
+- **Nezávislá hrubá kontrola parseru** (`backend/bin/report/compare-wikitext-links.php`): odkazy
+  `[[…]]` ve wikitextu sekcí Česko/Svět spočítané regulárními výrazy (bez roků, dat, jmenných
+  prostorů a interwiki, unikátní v rámci položky) proti řádkům `event_articles` po dnech.
+  Celkem 24 541 vs. 24 006 (rozdíl 2,2 %, očekávaný: odkazy na neexistující články, dva odkazy
+  na tentýž článek, přesměrování). Velký rozdíl (≥ 5 a ≥ 15 %) jen **18. 5.: 147 vs. 121** –
+  přesně odpovídá 26 odkazům na neexistující články (`class="new"`) v revizi 26103433, které
+  parser záměrně vynechává.
+- Přepočet hlavního článku jen z DB (`event_articles` + seznam obecných,
+  `backend/bin/report/import-stats.php`) souhlasí s uloženým `is_primary` u všech 9 345 událostí
+  – změna pravidla nepotřebuje nové stahování.
 - Nejčastěji odkazované články mimo seznam obecných (kandidáti, nic není změněno):
   Premiéra (48), Rudá armáda (48), Čína (48), Karel IV. (47), Napoleon Bonaparte (47),
   Škoda Auto (46), Moskva (44), Morava (43), Portugalsko (42), Sociální demokracie (Česko) (41),
   Švédsko (41), Adolf Hitler (40), Byzantská říše (39), T. G. Masaryk (39), Edvard Beneš (38).
+
+### Položky vynechané pravidlem „Hospodářství a ekologie“ (17. 4.)
+Zdroj: [17. duben, revize 26288829](https://cs.wikipedia.org/w/index.php?title=17._duben&oldid=26288829)
+(CC BY-SA 4.0). Všech 13 je datovaných – podsekce se přeskakuje podle názvu, ne obsahu:
+
+1. 360 před naším letopočtem – Historické zatmění Měsíce 16./17. duben je zdokumentován v několika babylonských klínových písmech. Je to důležité pro datování panovníků v Persii a Egyptě.
+2. 1784 – Německo-britský astronom Wilhelm Herschel objevil několik galaxií v souhvězdí Panny: NGC 4216, NGC 4267, NGC 4387, NGC 4388, NGC 4775 a NGC 4981.
+3. 1789 – Wilhelm Herschel nachází galaxie NGC 3448 a NGC 5585 v souhvězdí Velké medvědice.
+4. 1912 – Hybridní zatmění Slunce pokrývá východní Ameriku, severozápadní Afriku, Evropu a Střední východ. V Porúří je to téměř úplné s pokrytím sluncem 99,9 %.
+5. 1934 – De Havilland DH.89 Dragon Rapide, dvoumotorové dvouplošné dopravní letadlo, uskutečnilo svůj první let.
+6. 1964 – Jerrie Mock absolvuje první samostatný let ženy kolem světa na své Cessně 180. Po 29 dnech, 11 hodinách a 59 minutách přistává zpět na svém místě odletu v Columbusu ve státě Ohio.
+7. 1964 – Na světové výstavě v New Yorku představila automobilka Ford model Ford Mustang. S vozem, který technicky vychází z Fordu Falcon, vzniká třída „pony cars“.
+8. 1970 – Apollo 13 na palubě USS Iwo Jima. Po velkolepé čtyřdenní záchranné operaci se astronauti z neúspěšné mise Apollo 13 Jim Lovell, Jack Swigert a Fred Haise vracejí na Zemi. Po šplouchání dolů v Pacifiku jsou bezpečně nalodění na USS Iwo Jima (LPH-2).
+9. 1978 – Ali Maow Maalin, kuchař nemocnice v somálském městě Merca, se stal posledním známým případem neštovic na světě – v důsledku rozsáhlé akce SZO byly pravé neštovice celosvětově vymýceny.
+10. 1995 – 22 osob zemřelo na následky výbuchu plynu v bytovém domě na ul. Polské armády v Gdaňsku.
+11. 2002 – Němečtí a dánští limnologové objevili v Namibii nový řád hmyzu a nazvali ho Mantophasmatodea.
+12. 2007 – Byla vydána nová verze komunikačního programu ICQ pod názvem ICQ 6.
+13. 2010 – Ve Varšavě se konaly rozloučení s oběťmi leteckého neštěstí ve Smolensku.

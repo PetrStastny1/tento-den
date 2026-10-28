@@ -53,6 +53,7 @@ services:
 	- App\Model\Import\YearImportService
 	- App\Model\Import\ImportStatusRepository
 	- App\Model\Import\ImportLockRepository
+	- App\Model\Import\ImportReportRepository
 
 	# console
 	- App\Core\Console\ConsoleApplication(typed(App\Core\Console\Command))
