@@ -239,8 +239,39 @@ test('a changed text of a known item fails the day again and prints the new fing
 test('the configured rules are loaded and invalid fingerprints are refused', function () {
 	$rules = Tests\Support\TestContainer::create()->getByType(DayPageRules::class);
 	Assert::true($rules->isIgnoredSubsection('Pravidelné události'));
-	Assert::true($rules->isIgnoredSubsection('Hospodářství a ekologie'));
+	Assert::false($rules->isIgnoredSubsection('Hospodářství a ekologie'));
+	Assert::same(Section::World, $rules->mappedSection(MonthDay::fromString('04-17'), 'Hospodářství a ekologie'));
+	Assert::null($rules->mappedSection(MonthDay::fromString('04-18'), 'Hospodářství a ekologie'));
 	Assert::false($rules->isIgnoredSubsection('Česko'));
 	Assert::true($rules->isKnownItemWithoutYear(MonthDay::fromString('06-30'), 'Jedno z dat, kdy je v případě potřeby zavedena přestupná sekunda.'));
 	Assert::exception(fn() => new DayPageRules([], [['day' => '06-30', 'fingerprint' => 'abc']]), InvalidArgumentException::class);
+});
+
+
+test('17. 4.: the mapped subsection is imported as world, texts unchanged', function () {
+	$rules = new DayPageRules([], [], [['day' => '04-17', 'heading' => 'Hospodářství a ekologie', 'section' => 'world']]);
+	$html = (string) file_get_contents(FixtureDayPageSource::Dir . '/day-page-04-17.html');
+
+	$result = parser($rules)->parse($html, MonthDay::fromString('04-17'));
+
+	$sections = array_count_values(array_map(fn(ParsedEvent $e): string => $e->section->value, $result->events));
+	Assert::same(['cz' => 13, 'world' => 51], ['cz' => $sections['cz'], 'world' => $sections['world']]);
+	Assert::same([], $result->skipped);
+	$eclipse = findEvent($result->events, -360, 'Historické zatmění Měsíce');
+	Assert::same(Section::World, $eclipse->section);
+	Assert::same('Historické zatmění Měsíce 16./17. duben je zdokumentován v několika babylonských klínových písmech. Je to důležité pro datování panovníků v Persii a Egyptě.', $eclipse->text);
+	findEvent($result->events, 1964, 'Na světové výstavě v');
+	$positions = array_map(fn(ParsedEvent $e) => $e->position, array_values(array_filter($result->events, fn($e) => $e->section === Section::World)));
+	Assert::same(range(1, 51), $positions);
+});
+
+
+test('the mapping applies only on its day; elsewhere the heading is an unknown subsection', function () {
+	$rules = new DayPageRules([], [], [['day' => '04-17', 'heading' => 'Hospodářství a ekologie', 'section' => 'world']]);
+	$html = (string) file_get_contents(FixtureDayPageSource::Dir . '/day-page-04-17.html');
+	Assert::exception(
+		fn() => parser($rules)->parse($html, MonthDay::fromString('04-18')),
+		DayPageParseException::class,
+		'%A%neznámé podsekci „Hospodářství a ekologie“%A%',
+	);
 });

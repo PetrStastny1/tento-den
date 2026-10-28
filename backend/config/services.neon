@@ -35,7 +35,7 @@ services:
 	# events
 	- App\Model\Events\LinkFilter
 	- App\Model\Events\DayPageParser
-	- App\Model\Events\DayPageRules(%dayPageRules.ignoredSubsections%, %dayPageRules.knownItemsWithoutYear%)
+	- App\Model\Events\DayPageRules(%dayPageRules.ignoredSubsections%, %dayPageRules.knownItemsWithoutYear%, %dayPageRules.mappedSubsections%)
 	- App\Model\Events\EventMatcher
 	- App\Model\Events\PrimaryArticleSelector(genericTitles: %genericArticles%)
 	- App\Model\Events\EventRepository

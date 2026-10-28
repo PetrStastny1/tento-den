@@ -5,8 +5,14 @@ parameters:
 		# subsections of "Události" that are neither "Česko" nor "Svět"; skipped by name, whatever they contain
 		ignoredSubsections:
 			- Pravidelné události        # 6. 1.: one undated item (Tříkrálová sbírka, každoročně)
-			- Hospodářství a ekologie    # 17. 4.: 13 DATED events (Apollo 13, Ford Mustang, neštovice…) –
-			                             # they are lost on purpose until decided otherwise, see docs/rozhodnuti.md
+
+		# a subsection imported as "Česko" (cz) or "Svět" (world) – only on the given day;
+		# the same heading on any other day is still an unknown subsection
+		mappedSubsections:
+			-
+				day: '04-17'
+				heading: Hospodářství a ekologie   # 13 dated world events (Apollo 13, Ford Mustang, neštovice…)
+				section: world
 
 		# items without a year, identified by day and fingerprint of their text (EventText::hash);
 		# a changed text no longer matches and fails the day again. The fingerprint is printed

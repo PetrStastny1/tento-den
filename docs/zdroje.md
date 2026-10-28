@@ -424,9 +424,11 @@ Výslovná pravidla (`config/day-page-rules.neon`) se uplatnila jen u 4 vytipova
   Škoda Auto (46), Moskva (44), Morava (43), Portugalsko (42), Sociální demokracie (Česko) (41),
   Švédsko (41), Adolf Hitler (40), Byzantská říše (39), T. G. Masaryk (39), Edvard Beneš (38).
 
-### Položky vynechané pravidlem „Hospodářství a ekologie“ (17. 4.)
+### Podsekce „Hospodářství a ekologie“ (17. 4.)
 Zdroj: [17. duben, revize 26288829](https://cs.wikipedia.org/w/index.php?title=17._duben&oldid=26288829)
-(CC BY-SA 4.0). Všech 13 je datovaných – podsekce se přeskakuje podle názvu, ne obsahu:
+(CC BY-SA 4.0). Všech 13 položek je datovaných; po kroku 3c se importují jako Svět
+(výslovné mapování jen pro 17. 4.). Po reimportu 17. 4.: Česko 13, Svět 51 (+13); celkem
+aktivních Česko 3 071, Svět 6 287.
 
 1. 360 před naším letopočtem – Historické zatmění Měsíce 16./17. duben je zdokumentován v několika babylonských klínových písmech. Je to důležité pro datování panovníků v Persii a Egyptě.
 2. 1784 – Německo-britský astronom Wilhelm Herschel objevil několik galaxií v souhvězdí Panny: NGC 4216, NGC 4267, NGC 4387, NGC 4388, NGC 4775 a NGC 4981.

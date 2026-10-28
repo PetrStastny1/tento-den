@@ -17,7 +17,7 @@ namespace App\Model\Events;
  * Years before Christ: "45 př. n. l." or "360 před naším letopočtem".
  * Births and deaths are separate h2 sections and are never read.
  * The only other exceptions are the explicit DayPageRules (ignored subsections by name,
- * known items without a year by day and text fingerprint).
+ * a subsection mapped to a section on one day, known items without a year by day and text fingerprint).
  */
 final class DayPageParser
 {
@@ -45,7 +45,7 @@ final class DayPageParser
 				continue;
 			}
 			$heading = $child->nodeName === 'section' ? $this->headingText($child) : null;
-			$section = $heading === null ? null : Section::fromHeading($heading);
+			$section = $heading === null ? null : (Section::fromHeading($heading) ?? $this->rules->mappedSection($day, $heading));
 			$items = $this->topLevelItems($child);
 
 			if ($section === null && $heading !== null && $this->rules->isIgnoredSubsection($heading)) {

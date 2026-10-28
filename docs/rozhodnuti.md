@@ -288,8 +288,11 @@ jako `missing` – chyba parseru by se tvářila jako editace Wikipedie a mazala
 můžou odkazovat oblíbené. Výslovné pravidlo naopak říká, *co přesně* a *proč* vynecháváme,
 a každá nová odchylka se projeví chybou dne, kterou lze posoudit.
 
-**Cena:** „Hospodářství a ekologie“ (17. 4.) obsahuje 13 datovaných položek, které se tím
-neimportují; jde o rozhodnutí podle názvu podsekce, ne podle obsahu.
+**Oprava (krok 3c):** „Hospodářství a ekologie“ (17. 4.) obsahuje 13 datovaných světových
+událostí, ignorování by je zahodilo. Nahrazeno třetím úzkým pravidlem – **mapováním podsekce
+na sekci jen pro daný den** (`mappedSubsections`: 17. 4. → Svět). Stejný nadpis v jiném dni je
+dál neznámá podsekce. Duplicity se Světem 17. 4. zkontrolovány: nejvyšší podobnost 0,42 (jiné
+roky), shodný text žádný; texty se přebírají beze změny.
 
 ### Rok slovy „před naším letopočtem“
 Parser čte vedle „45 př. n. l.“ i „360 před naším letopočtem“ (obojí → záporný rok).

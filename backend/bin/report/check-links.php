@@ -33,12 +33,18 @@ $fixed = array_intersect_key($okDays, array_flip(['01-06', '04-17', '06-30', '12
 $others = array_diff_key($okDays, $fixed);
 $sample = $fixed + array_intersect_key($others, array_flip((array) array_rand($others, min($sampleSize, count($others)))));
 
-$events = $missing = $extra = $order = $notFound = 0;
+$events = $missing = $extra = $order = $notFound = $unavailable = 0;
 foreach ($sample as $dayString => $revision) {
 	$day = MonthDay::fromString($dayString);
-	$response = $http->get('https://cs.wikipedia.org/api/rest_v1/page/html/' . rawurlencode(str_replace(' ', '_', $day->dayPageTitle())) . "/$revision");
-	if ($response->header('Content-Revision-Id') !== (string) $revision) {
-		echo "$dayString: HTML revize $revision nedostupné\n";
+	try {
+		$response = $http->get('https://cs.wikipedia.org/api/rest_v1/page/html/' . rawurlencode(str_replace(' ', '_', $day->dayPageTitle())) . "/$revision");
+	} catch (App\Core\Http\HttpException $e) {
+		$response = null;
+	}
+	if ($response === null || $response->status !== 200 || $response->header('Content-Revision-Id') !== (string) $revision) {
+		// a day that cannot be checked is a failed check, not a skipped one
+		$unavailable++;
+		echo "$dayString: HTML revize $revision nedostupné nebo nesouhlasí – kontrola selhala\n";
 		continue;
 	}
 	$parsed = $parser->parse($response->body, $day)->events;
@@ -66,12 +72,13 @@ foreach ($sample as $dayString => $revision) {
 	echo "$dayString revize $revision: zkontrolováno\n";
 }
 printf(
-	"Vzorek %d dní, %d událostí: chybějící odkazy %d, přebývající %d, jiné pořadí %d, událost nenalezena %d\n",
+	"Vzorek %d dní, %d událostí: chybějící odkazy %d, přebývající %d, jiné pořadí %d, událost nenalezena %d, nedostupná revize %d\n",
 	count($sample),
 	$events,
 	$missing,
 	$extra,
 	$order,
 	$notFound,
+	$unavailable,
 );
-exit($missing + $extra + $order + $notFound === 0 ? 0 : 1);
+exit($missing + $extra + $order + $notFound + $unavailable === 0 ? 0 : 1);
