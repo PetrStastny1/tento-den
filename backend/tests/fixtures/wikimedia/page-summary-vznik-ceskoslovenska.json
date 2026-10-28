@@ -1,0 +1,39 @@
+{
+ "type": "standard",
+ "title": "Vznik Československa",
+ "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Vznik Československa</span></span>",
+ "namespace": {
+  "id": 0,
+  "text": ""
+ },
+ "wikibase_item": "Q3565888",
+ "titles": {
+  "canonical": "Vznik_Československa",
+  "normalized": "Vznik Československa",
+  "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Vznik Československa</span></span>"
+ },
+ "pageid": 15689,
+ "lang": "cs",
+ "dir": "ltr",
+ "revision": "26271507",
+ "tid": "42200de3-c041-11f1-9d15-653429d140a9",
+ "timestamp": "2026-10-04T22:16:34Z",
+ "description": "vznik nového státu v roce 1918",
+ "description_source": "central",
+ "content_urls": {
+  "desktop": {
+   "page": "https://cs.wikipedia.org/wiki/Vznik_%C4%8Ceskoslovenska",
+   "revisions": "https://cs.wikipedia.org/wiki/Vznik_%C4%8Ceskoslovenska?action=history",
+   "edit": "https://cs.wikipedia.org/wiki/Vznik_%C4%8Ceskoslovenska?action=edit",
+   "talk": "https://cs.wikipedia.org/wiki/Diskuse:Vznik_%C4%8Ceskoslovenska"
+  },
+  "mobile": {
+   "page": "https://cs.wikipedia.org/wiki/Vznik_%C4%8Ceskoslovenska",
+   "revisions": "https://cs.wikipedia.org/wiki/Special:History/Vznik_%C4%8Ceskoslovenska",
+   "edit": "https://cs.wikipedia.org/wiki/Vznik_%C4%8Ceskoslovenska?action=edit",
+   "talk": "https://cs.wikipedia.org/wiki/Diskuse:Vznik_%C4%8Ceskoslovenska"
+  }
+ },
+ "extract": "Vznik Československa byl proces, který vedl k ustavení samostatného československého státu. Československo bylo vyhlášeno 28. října 1918. Jeho hranice byly vymezeny mírovými smlouvami a z nich vycházejícími rozhodnutími v rámci versailleského mírového systému.",
+ "extract_html": "<p><b>Vznik Československa</b> byl proces, který vedl k ustavení samostatného československého státu. Československo bylo vyhlášeno 28. října 1918. Jeho hranice byly vymezeny mírovými smlouvami a z nich vycházejícími rozhodnutími v rámci versailleského mírového systému.</p>"
+}

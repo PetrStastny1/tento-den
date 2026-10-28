@@ -1,0 +1,696 @@
+{
+ "events": [
+  {
+   "text": "V zahradě Kinských v Praze vyhořel dřevěný kostel svatého archanděla Michaela",
+   "pages": [
+    {
+     "type": "standard",
+     "title": "Kinského_zahrada",
+     "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Kinského zahrada</span></span>",
+     "namespace": {
+      "id": 0,
+      "text": ""
+     },
+     "wikibase_item": "Q3510321",
+     "titles": {
+      "canonical": "Kinského_zahrada",
+      "normalized": "Kinského zahrada",
+      "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Kinského zahrada</span></span>"
+     },
+     "pageid": 258555,
+     "lang": "cs",
+     "dir": "ltr",
+     "revision": "26286498",
+     "tid": "6919623a-c31b-11f1-82e0-bf080f053a81",
+     "timestamp": "2026-10-08T13:23:12Z",
+     "description": "park, Smíchov, Praha, Česká republika",
+     "description_source": "central",
+     "content_urls": {
+      "desktop": {
+       "page": "https://cs.wikipedia.org/wiki/Kinsk%C3%A9ho_zahrada",
+       "revisions": "https://cs.wikipedia.org/wiki/Kinsk%C3%A9ho_zahrada?action=history",
+       "edit": "https://cs.wikipedia.org/wiki/Kinsk%C3%A9ho_zahrada?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Kinsk%C3%A9ho_zahrada"
+      },
+      "mobile": {
+       "page": "https://cs.wikipedia.org/wiki/Kinsk%C3%A9ho_zahrada",
+       "revisions": "https://cs.wikipedia.org/wiki/Special:History/Kinsk%C3%A9ho_zahrada",
+       "edit": "https://cs.wikipedia.org/wiki/Kinsk%C3%A9ho_zahrada?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Kinsk%C3%A9ho_zahrada"
+      }
+     },
+     "extract": "Kinského zahrada je park/lesopark v Praze na Smíchově. Spojuje oblast Holečkovy ulice s Petřínským vrchem, na jehož jižním a jihovýchodním úbočí se nachází; od malostranské části Petřína je Kinského zahrada oddělena Hladovou zdí. Zahrada se rozkládá v nadmořské výšce 200–315 metrů nad mořem a její rozloha činí 17 hektarů.",
+     "extract_html": "<p><b>Kinského zahrada</b> je park/lesopark v Praze na Smíchově. Spojuje oblast Holečkovy ulice s Petřínským vrchem, na jehož jižním a jihovýchodním úbočí se nachází; od malostranské části Petřína je Kinského zahrada oddělena Hladovou zdí. Zahrada se rozkládá v nadmořské výšce 200–315 metrů nad mořem a její rozloha činí 17 hektarů.</p>",
+     "normalizedtitle": "Kinského zahrada"
+    },
+    {
+     "type": "standard",
+     "title": "Chrám_svatého_archanděla_Michaela_(Petřín)",
+     "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Chrám svatého archanděla Michaela (Petřín)</span></span>",
+     "namespace": {
+      "id": 0,
+      "text": ""
+     },
+     "wikibase_item": "Q12028858",
+     "titles": {
+      "canonical": "Chrám_svatého_archanděla_Michaela_(Petřín)",
+      "normalized": "Chrám svatého archanděla Michaela (Petřín)",
+      "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Chrám svatého archanděla Michaela (Petřín)</span></span>"
+     },
+     "pageid": 484737,
+     "lang": "cs",
+     "dir": "ltr",
+     "revision": "26226052",
+     "tid": "93fb5d52-b4b5-11f1-b11f-015a436fa06e",
+     "timestamp": "2026-09-20T05:38:59Z",
+     "description": "kostel v Praze",
+     "description_source": "central",
+     "content_urls": {
+      "desktop": {
+       "page": "https://cs.wikipedia.org/wiki/Chr%C3%A1m_svat%C3%A9ho_archand%C4%9Bla_Michaela_(Pet%C5%99%C3%ADn)",
+       "revisions": "https://cs.wikipedia.org/wiki/Chr%C3%A1m_svat%C3%A9ho_archand%C4%9Bla_Michaela_(Pet%C5%99%C3%ADn)?action=history",
+       "edit": "https://cs.wikipedia.org/wiki/Chr%C3%A1m_svat%C3%A9ho_archand%C4%9Bla_Michaela_(Pet%C5%99%C3%ADn)?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Chr%C3%A1m_svat%C3%A9ho_archand%C4%9Bla_Michaela_(Pet%C5%99%C3%ADn)"
+      },
+      "mobile": {
+       "page": "https://cs.wikipedia.org/wiki/Chr%C3%A1m_svat%C3%A9ho_archand%C4%9Bla_Michaela_(Pet%C5%99%C3%ADn)",
+       "revisions": "https://cs.wikipedia.org/wiki/Special:History/Chr%C3%A1m_svat%C3%A9ho_archand%C4%9Bla_Michaela_(Pet%C5%99%C3%ADn)",
+       "edit": "https://cs.wikipedia.org/wiki/Chr%C3%A1m_svat%C3%A9ho_archand%C4%9Bla_Michaela_(Pet%C5%99%C3%ADn)?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Chr%C3%A1m_svat%C3%A9ho_archand%C4%9Bla_Michaela_(Pet%C5%99%C3%ADn)"
+      }
+     },
+     "extract": "Chrám sv. archanděla Michaela, též karpatský kostelík sv. Michaela apod., je celodřevěný pravoslavný, původně řeckokatolický chrám lemkovského typu, postavený v roce 1625 ve vsi Velyki Lučky u Mukačeva, v roce 1793 byl prodán a přemístěn do Medvedivců. V roce 1929 byl na Podkarpatské Rusi rozebrán, převezen a znovu postaven v Kinského zahradě na Smíchově v Praze 5. 28. října 2020 kostel vyhořel; následně byl rekonstruován.",
+     "extract_html": "<p><b>Chrám sv. archanděla Michaela</b>, též <i>karpatský kostelík sv. Michaela</i> apod., je celodřevěný pravoslavný, původně řeckokatolický chrám lemkovského typu, postavený v roce 1625 ve vsi Velyki Lučky u Mukačeva, v roce 1793 byl prodán a přemístěn do Medvedivců. V roce 1929 byl na Podkarpatské Rusi rozebrán, převezen a znovu postaven v Kinského zahradě na Smíchově v Praze 5. 28. října 2020 kostel vyhořel; následně byl rekonstruován.</p>",
+     "normalizedtitle": "Chrám svatého archanděla Michaela (Petřín)"
+    }
+   ],
+   "year": 2020
+  },
+  {
+   "text": "Přes 100 lidí bylo zabito při bombovém útoku v pákistánském Péšávaru.",
+   "pages": [
+    {
+     "type": "standard",
+     "title": "Bombový_útok_v_Péšávaru_(28._říjen_2009)",
+     "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Bombový útok v Péšávaru (28. říjen 2009)</span></span>",
+     "namespace": {
+      "id": 0,
+      "text": ""
+     },
+     "wikibase_item": "Q2509895",
+     "titles": {
+      "canonical": "Bombový_útok_v_Péšávaru_(28._říjen_2009)",
+      "normalized": "Bombový útok v Péšávaru (28. říjen 2009)",
+      "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Bombový útok v Péšávaru (28. říjen 2009)</span></span>"
+     },
+     "pageid": 503037,
+     "lang": "cs",
+     "dir": "ltr",
+     "revision": "25515796",
+     "tid": "2e0ff216-d8f1-11f0-a2a9-3d0c91538e83",
+     "timestamp": "2025-12-14T13:31:22Z",
+     "description": "teroristický útok v Pákistánu",
+     "description_source": "central",
+     "content_urls": {
+      "desktop": {
+       "page": "https://cs.wikipedia.org/wiki/Bombov%C3%BD_%C3%BAtok_v_P%C3%A9%C5%A1%C3%A1varu_(28._%C5%99%C3%ADjen_2009)",
+       "revisions": "https://cs.wikipedia.org/wiki/Bombov%C3%BD_%C3%BAtok_v_P%C3%A9%C5%A1%C3%A1varu_(28._%C5%99%C3%ADjen_2009)?action=history",
+       "edit": "https://cs.wikipedia.org/wiki/Bombov%C3%BD_%C3%BAtok_v_P%C3%A9%C5%A1%C3%A1varu_(28._%C5%99%C3%ADjen_2009)?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Bombov%C3%BD_%C3%BAtok_v_P%C3%A9%C5%A1%C3%A1varu_(28._%C5%99%C3%ADjen_2009)"
+      },
+      "mobile": {
+       "page": "https://cs.wikipedia.org/wiki/Bombov%C3%BD_%C3%BAtok_v_P%C3%A9%C5%A1%C3%A1varu_(28._%C5%99%C3%ADjen_2009)",
+       "revisions": "https://cs.wikipedia.org/wiki/Special:History/Bombov%C3%BD_%C3%BAtok_v_P%C3%A9%C5%A1%C3%A1varu_(28._%C5%99%C3%ADjen_2009)",
+       "edit": "https://cs.wikipedia.org/wiki/Bombov%C3%BD_%C3%BAtok_v_P%C3%A9%C5%A1%C3%A1varu_(28._%C5%99%C3%ADjen_2009)?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Bombov%C3%BD_%C3%BAtok_v_P%C3%A9%C5%A1%C3%A1varu_(28._%C5%99%C3%ADjen_2009)"
+      }
+     },
+     "extract": "Bombový útok v Péšávaru ze dne 28. října 2009 byl spáchán v pákistánském městě Péšávar. Došlo k němu na tržnici známé jako Mina Bazar, určené pouze pro ženy a děti. Exploze usmrtila přes 100 osob a dalších více než 200 lehce či těžce zranila a událost se tak stala nejkrvavějším teroristickým útokem v péšávarské historii. Pákistánská vláda se domnívá, že za útokem stálo teroristické hnutí Taliban, ten však své zapojení i spolu s Al-Káidou odmítl. Útoku se dostalo celosvětového odsouzení.",
+     "extract_html": "<p><b>Bombový útok v Péšávaru</b> ze dne 28. října 2009 byl spáchán v pákistánském městě Péšávar. Došlo k němu na tržnici známé jako Mina Bazar, určené pouze pro ženy a děti. Exploze usmrtila přes 100 osob a dalších více než 200 lehce či těžce zranila a událost se tak stala nejkrvavějším teroristickým útokem v péšávarské historii. Pákistánská vláda se domnívá, že za útokem stálo teroristické hnutí Taliban, ten však své zapojení i spolu s Al-Káidou odmítl. Útoku se dostalo celosvětového odsouzení.</p>",
+     "normalizedtitle": "Bombový útok v Péšávaru (28. říjen 2009)"
+    },
+    {
+     "type": "standard",
+     "title": "Péšávar",
+     "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Péšávar</span></span>",
+     "namespace": {
+      "id": 0,
+      "text": ""
+     },
+     "wikibase_item": "Q1113311",
+     "titles": {
+      "canonical": "Péšávar",
+      "normalized": "Péšávar",
+      "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Péšávar</span></span>"
+     },
+     "pageid": 326963,
+     "lang": "cs",
+     "dir": "ltr",
+     "revision": "26150755",
+     "tid": "a50461b0-9d83-11f1-ad78-df224ffbca40",
+     "timestamp": "2026-08-21T17:13:36Z",
+     "description": "hlavní město pákistánské provincie Chajbar Paštúnchwá",
+     "description_source": "central",
+     "content_urls": {
+      "desktop": {
+       "page": "https://cs.wikipedia.org/wiki/P%C3%A9%C5%A1%C3%A1var",
+       "revisions": "https://cs.wikipedia.org/wiki/P%C3%A9%C5%A1%C3%A1var?action=history",
+       "edit": "https://cs.wikipedia.org/wiki/P%C3%A9%C5%A1%C3%A1var?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:P%C3%A9%C5%A1%C3%A1var"
+      },
+      "mobile": {
+       "page": "https://cs.wikipedia.org/wiki/P%C3%A9%C5%A1%C3%A1var",
+       "revisions": "https://cs.wikipedia.org/wiki/Special:History/P%C3%A9%C5%A1%C3%A1var",
+       "edit": "https://cs.wikipedia.org/wiki/P%C3%A9%C5%A1%C3%A1var?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:P%C3%A9%C5%A1%C3%A1var"
+      }
+     },
+     "extract": "Péšávar je hlavní město pákistánské provincie Chajbar Paštúnchwá a administrativní centrum pro Federálně spravovaného kmenového území Pákistánu. Samotný pojem Péšávar pochází z perštiny a znamená doslova „vysoká pevnost“. Území, na kterém se město nachází, má za sebou dlouhou a pestrou minulost, během které bylo obsazeno Peršany, Durrany, Řeky, Maurjy i Mughaly, Sikhy a Brity.",
+     "extract_html": "<p><b>Péšávar</b> je hlavní město pákistánské provincie Chajbar Paštúnchwá a administrativní centrum pro Federálně spravovaného kmenového území Pákistánu. Samotný pojem <i>Péšávar</i> pochází z perštiny a znamená doslova „vysoká pevnost“. Území, na kterém se město nachází, má za sebou dlouhou a pestrou minulost, během které bylo obsazeno Peršany, Durrany, Řeky, Maurjy i Mughaly, Sikhy a Brity.</p>",
+     "normalizedtitle": "Péšávar"
+    }
+   ],
+   "year": 2009
+  },
+  {
+   "text": "Edvard Beneš byl potvrzen ve funkci prezidenta.",
+   "pages": [
+    {
+     "type": "standard",
+     "title": "Edvard_Beneš",
+     "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Edvard Beneš</span></span>",
+     "namespace": {
+      "id": 0,
+      "text": ""
+     },
+     "wikibase_item": "Q152274",
+     "titles": {
+      "canonical": "Edvard_Beneš",
+      "normalized": "Edvard Beneš",
+      "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Edvard Beneš</span></span>"
+     },
+     "pageid": 2059,
+     "lang": "cs",
+     "dir": "ltr",
+     "revision": "26318515",
+     "tid": "122f91a1-ceac-11f1-ae79-e2cc151e2b80",
+     "timestamp": "2026-10-23T06:36:26Z",
+     "description": "český politik",
+     "description_source": "central",
+     "content_urls": {
+      "desktop": {
+       "page": "https://cs.wikipedia.org/wiki/Edvard_Bene%C5%A1",
+       "revisions": "https://cs.wikipedia.org/wiki/Edvard_Bene%C5%A1?action=history",
+       "edit": "https://cs.wikipedia.org/wiki/Edvard_Bene%C5%A1?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Edvard_Bene%C5%A1"
+      },
+      "mobile": {
+       "page": "https://cs.wikipedia.org/wiki/Edvard_Bene%C5%A1",
+       "revisions": "https://cs.wikipedia.org/wiki/Special:History/Edvard_Bene%C5%A1",
+       "edit": "https://cs.wikipedia.org/wiki/Edvard_Bene%C5%A1?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Edvard_Bene%C5%A1"
+      }
+     },
+     "extract": "Edvard Beneš byl československý politik a státník, druhý československý prezident v letech 1935–1948, resp. v letech 1935–1938 a 1945–1948. V období tzv. Druhé republiky a následné německé okupace do května 1945 žil a politicky působil v exilu. Od roku 1940 až do osvobození Československa byl mezinárodně uznaným vrcholným představitelem československého odboje a exilovým prezidentem republiky. Úřadujícím československým prezidentem byl opět v letech 1945–1948.",
+     "extract_html": "<p><b>Edvard Beneš</b> byl československý politik a státník, druhý československý prezident v letech 1935–1948, resp. v letech 1935–1938 a 1945–1948. V období tzv. Druhé republiky a následné německé okupace do května 1945 žil a politicky působil v exilu. Od roku 1940 až do osvobození Československa byl mezinárodně uznaným vrcholným představitelem československého odboje a exilovým prezidentem republiky. Úřadujícím československým prezidentem byl opět v letech 1945–1948.</p>",
+     "normalizedtitle": "Edvard Beneš"
+    }
+   ],
+   "year": 1945
+  },
+  {
+   "text": "Vyhlášeno znárodnění bank a většiny průmyslu. Na památku této události byl 28. říjen 1952 až 1987 slaven jako Den znárodnění.",
+   "pages": [
+    {
+     "type": "standard",
+     "title": "Znárodnění",
+     "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Znárodnění</span></span>",
+     "namespace": {
+      "id": 0,
+      "text": ""
+     },
+     "wikibase_item": "Q178564",
+     "titles": {
+      "canonical": "Znárodnění",
+      "normalized": "Znárodnění",
+      "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Znárodnění</span></span>"
+     },
+     "pageid": 28300,
+     "lang": "cs",
+     "dir": "ltr",
+     "revision": "26193865",
+     "tid": "db88e054-aa03-11f1-b4d4-fbca561d6891",
+     "timestamp": "2026-09-06T15:01:37Z",
+     "description": "převod soukromého majetku do veřejného",
+     "description_source": "central",
+     "content_urls": {
+      "desktop": {
+       "page": "https://cs.wikipedia.org/wiki/Zn%C3%A1rodn%C4%9Bn%C3%AD",
+       "revisions": "https://cs.wikipedia.org/wiki/Zn%C3%A1rodn%C4%9Bn%C3%AD?action=history",
+       "edit": "https://cs.wikipedia.org/wiki/Zn%C3%A1rodn%C4%9Bn%C3%AD?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Zn%C3%A1rodn%C4%9Bn%C3%AD"
+      },
+      "mobile": {
+       "page": "https://cs.wikipedia.org/wiki/Zn%C3%A1rodn%C4%9Bn%C3%AD",
+       "revisions": "https://cs.wikipedia.org/wiki/Special:History/Zn%C3%A1rodn%C4%9Bn%C3%AD",
+       "edit": "https://cs.wikipedia.org/wiki/Zn%C3%A1rodn%C4%9Bn%C3%AD?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Zn%C3%A1rodn%C4%9Bn%C3%AD"
+      }
+     },
+     "extract": "Znárodnění (nacionalizace), zestátnění (etatizace) nebo vyvlastnění (expropriace) je převod soukromého majetku do veřejného, tj. především státního vlastnictví, ve veřejném zájmu. Jde o úkon opačný k privatizaci.",
+     "extract_html": "<p><b>Znárodnění</b> (<i>nacionalizace</i>), <b>zestátnění</b> (<i>etatizace</i>) nebo <b>vyvlastnění</b> (<i>expropriace</i>) je převod soukromého majetku do veřejného, tj. především státního vlastnictví, ve veřejném zájmu. Jde o úkon opačný k privatizaci.</p>",
+     "normalizedtitle": "Znárodnění"
+    },
+    {
+     "type": "standard",
+     "title": "1952",
+     "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">1952</span></span>",
+     "namespace": {
+      "id": 0,
+      "text": ""
+     },
+     "wikibase_item": "Q5272",
+     "titles": {
+      "canonical": "1952",
+      "normalized": "1952",
+      "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">1952</span></span>"
+     },
+     "pageid": 3566,
+     "lang": "cs",
+     "dir": "ltr",
+     "revision": "26281565",
+     "tid": "f7181f79-c22f-11f1-b201-0e42a4b41a1a",
+     "timestamp": "2026-10-07T09:17:49Z",
+     "description": "rok",
+     "description_source": "central",
+     "content_urls": {
+      "desktop": {
+       "page": "https://cs.wikipedia.org/wiki/1952",
+       "revisions": "https://cs.wikipedia.org/wiki/1952?action=history",
+       "edit": "https://cs.wikipedia.org/wiki/1952?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:1952"
+      },
+      "mobile": {
+       "page": "https://cs.wikipedia.org/wiki/1952",
+       "revisions": "https://cs.wikipedia.org/wiki/Special:History/1952",
+       "edit": "https://cs.wikipedia.org/wiki/1952?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:1952"
+      }
+     },
+     "extract": "1952 (MCMLII) byl rok, který dle gregoriánského kalendáře započal úterým.",
+     "extract_html": "<p><b>1952</b> (<b>MCMLII</b>) byl rok, který dle gregoriánského kalendáře započal úterým.</p>",
+     "normalizedtitle": "1952"
+    }
+   ],
+   "year": 1945
+  },
+  {
+   "text": "V řadě měst protektorátu Čechy a Morava proběhly protiněmecké demonstrace. V Praze byl při nich smrtelně zraněn medik Jan Opletal a dělník Václav Sedláček.",
+   "pages": [
+    {
+     "type": "standard",
+     "title": "Protektorát_Čechy_a_Morava",
+     "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Protektorát Čechy a Morava</span></span>",
+     "namespace": {
+      "id": 0,
+      "text": ""
+     },
+     "wikibase_item": "Q152750",
+     "titles": {
+      "canonical": "Protektorát_Čechy_a_Morava",
+      "normalized": "Protektorát Čechy a Morava",
+      "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Protektorát Čechy a Morava</span></span>"
+     },
+     "pageid": 13938,
+     "lang": "cs",
+     "dir": "ltr",
+     "revision": "26279008",
+     "tid": "dd7ac741-c19e-11f1-9736-5ba716783ed4",
+     "timestamp": "2026-10-06T15:59:09Z",
+     "description": "státní zřízení za druhé světové války",
+     "description_source": "central",
+     "content_urls": {
+      "desktop": {
+       "page": "https://cs.wikipedia.org/wiki/Protektor%C3%A1t_%C4%8Cechy_a_Morava",
+       "revisions": "https://cs.wikipedia.org/wiki/Protektor%C3%A1t_%C4%8Cechy_a_Morava?action=history",
+       "edit": "https://cs.wikipedia.org/wiki/Protektor%C3%A1t_%C4%8Cechy_a_Morava?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Protektor%C3%A1t_%C4%8Cechy_a_Morava"
+      },
+      "mobile": {
+       "page": "https://cs.wikipedia.org/wiki/Protektor%C3%A1t_%C4%8Cechy_a_Morava",
+       "revisions": "https://cs.wikipedia.org/wiki/Special:History/Protektor%C3%A1t_%C4%8Cechy_a_Morava",
+       "edit": "https://cs.wikipedia.org/wiki/Protektor%C3%A1t_%C4%8Cechy_a_Morava?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Protektor%C3%A1t_%C4%8Cechy_a_Morava"
+      }
+     },
+     "extract": "Protektorát Čechy a Morava byla část československého území, od 15., respektive 16. března 1939 do 8.–9. května 1945 okupovaná nacistickým Německem. Jednalo se o území, které Německo okupovalo ze všech nejdéle. Okupované území Německo anektovalo a zřídilo Protektorát Čechy a Morava, vyhlášený 16. března 1939 výnosem o zřízení Protektorátu Čechy a Morava. Okupací a anexí okupovaného území Německo porušilo Mnichovskou dohodu, kterou samo 30. září 1938 uzavřelo. Výnosem byl Protektorát prohlášen za autonomní a formálně tedy měl právo na samosprávu. Svá práva však musel vykonávat ve shodě s politickými, vojenskými a hospodářskými potřebami Německa. Autonomie tedy zůstala pouze na papíře – Německo ji mohlo omezovat, přičemž v některých oblastech ji úplně odstranilo.",
+     "extract_html": "<p><b>Protektorát Čechy a Morava</b> byla část československého území, od 15., respektive 16. března 1939 do 8.–9. května 1945 okupovaná nacistickým Německem. Jednalo se o území, které Německo okupovalo ze všech nejdéle. Okupované území Německo anektovalo a zřídilo Protektorát Čechy a Morava, vyhlášený 16. března 1939 výnosem o zřízení Protektorátu Čechy a Morava. Okupací a anexí okupovaného území Německo porušilo Mnichovskou dohodu, kterou samo 30. září 1938 uzavřelo. Výnosem byl Protektorát prohlášen za autonomní a formálně tedy měl právo na samosprávu. Svá práva však musel vykonávat ve shodě s politickými, vojenskými a hospodářskými potřebami Německa. Autonomie tedy zůstala pouze na papíře – Německo ji mohlo omezovat, přičemž v některých oblastech ji úplně odstranilo.</p>",
+     "normalizedtitle": "Protektorát Čechy a Morava"
+    },
+    {
+     "type": "standard",
+     "title": "Protesty_proti_nacistické_okupaci_v_Protektorátu_Čechy_a_Morava_28._října_1939",
+     "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Protesty proti nacistické okupaci v Protektorátu Čechy a Morava 28. října 1939</span></span>",
+     "namespace": {
+      "id": 0,
+      "text": ""
+     },
+     "wikibase_item": "Q26936104",
+     "titles": {
+      "canonical": "Protesty_proti_nacistické_okupaci_v_Protektorátu_Čechy_a_Morava_28._října_1939",
+      "normalized": "Protesty proti nacistické okupaci v Protektorátu Čechy a Morava 28. října 1939",
+      "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Protesty proti nacistické okupaci v Protektorátu Čechy a Morava 28. října 1939</span></span>"
+     },
+     "pageid": 1230142,
+     "lang": "cs",
+     "dir": "ltr",
+     "revision": "26009129",
+     "tid": "1c206ec8-77b1-11f1-9571-5e01398d30e6",
+     "timestamp": "2026-07-04T14:03:19Z",
+     "content_urls": {
+      "desktop": {
+       "page": "https://cs.wikipedia.org/wiki/Protesty_proti_nacistick%C3%A9_okupaci_v_Protektor%C3%A1tu_%C4%8Cechy_a_Morava_28._%C5%99%C3%ADjna_1939",
+       "revisions": "https://cs.wikipedia.org/wiki/Protesty_proti_nacistick%C3%A9_okupaci_v_Protektor%C3%A1tu_%C4%8Cechy_a_Morava_28._%C5%99%C3%ADjna_1939?action=history",
+       "edit": "https://cs.wikipedia.org/wiki/Protesty_proti_nacistick%C3%A9_okupaci_v_Protektor%C3%A1tu_%C4%8Cechy_a_Morava_28._%C5%99%C3%ADjna_1939?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Protesty_proti_nacistick%C3%A9_okupaci_v_Protektor%C3%A1tu_%C4%8Cechy_a_Morava_28._%C5%99%C3%ADjna_1939"
+      },
+      "mobile": {
+       "page": "https://cs.wikipedia.org/wiki/Protesty_proti_nacistick%C3%A9_okupaci_v_Protektor%C3%A1tu_%C4%8Cechy_a_Morava_28._%C5%99%C3%ADjna_1939",
+       "revisions": "https://cs.wikipedia.org/wiki/Special:History/Protesty_proti_nacistick%C3%A9_okupaci_v_Protektor%C3%A1tu_%C4%8Cechy_a_Morava_28._%C5%99%C3%ADjna_1939",
+       "edit": "https://cs.wikipedia.org/wiki/Protesty_proti_nacistick%C3%A9_okupaci_v_Protektor%C3%A1tu_%C4%8Cechy_a_Morava_28._%C5%99%C3%ADjna_1939?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Protesty_proti_nacistick%C3%A9_okupaci_v_Protektor%C3%A1tu_%C4%8Cechy_a_Morava_28._%C5%99%C3%ADjna_1939"
+      }
+     },
+     "extract": "Protesty proti nacistické okupaci dne 28. října 1939 v Protektorátu Čechy a Morava se proměnily v mohutnou národní demonstraci, která se vedle odporu polského lidu stala nejmasovějším protinacistickým činem v tehdejší Evropě.",
+     "extract_html": "<p><b>Protesty proti nacistické okupaci dne 28. října 1939</b> v Protektorátu Čechy a Morava se proměnily v mohutnou národní demonstraci, která se vedle odporu polského lidu stala nejmasovějším protinacistickým činem v tehdejší Evropě.</p>",
+     "normalizedtitle": "Protesty proti nacistické okupaci v Protektorátu Čechy a Morava 28. října 1939"
+    }
+   ],
+   "year": 1939
+  },
+  {
+   "text": "V Praze byl vyhlášen samostatný československý stát.",
+   "pages": [
+    {
+     "type": "standard",
+     "title": "Praha",
+     "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Praha</span></span>",
+     "namespace": {
+      "id": 0,
+      "text": ""
+     },
+     "wikibase_item": "Q1085",
+     "titles": {
+      "canonical": "Praha",
+      "normalized": "Praha",
+      "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Praha</span></span>"
+     },
+     "pageid": 893,
+     "lang": "cs",
+     "dir": "ltr",
+     "revision": "26275880",
+     "tid": "941f6ec7-c0ef-11f1-be78-8e51fe7424c8",
+     "timestamp": "2026-10-05T19:04:24Z",
+     "description": "hlavní město Česka",
+     "description_source": "central",
+     "content_urls": {
+      "desktop": {
+       "page": "https://cs.wikipedia.org/wiki/Praha",
+       "revisions": "https://cs.wikipedia.org/wiki/Praha?action=history",
+       "edit": "https://cs.wikipedia.org/wiki/Praha?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Praha"
+      },
+      "mobile": {
+       "page": "https://cs.wikipedia.org/wiki/Praha",
+       "revisions": "https://cs.wikipedia.org/wiki/Special:History/Praha",
+       "edit": "https://cs.wikipedia.org/wiki/Praha?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Praha"
+      }
+     },
+     "extract": "Praha je hlavní město a současně největší město Česka, zároveň je 13. nejlidnatějším městem Evropské unie. Leží mírně na sever od středu Čech na řece Vltavě. Praha se rozkládá na území 496 km² a žije zde okolo 1,4 milionu obyvatel, v pražské metropolitní oblasti žije zhruba 2,1 milionu obyvatel. Praha je jedním z krajů a zároveň správním centrem Středočeského kraje, který ji obklopuje. V Praze se koncentruje většina státních institucí, sídlí zde prezident republiky, parlament, vláda, ústřední státní orgány a vrchní soud. Hlavní město je také ekonomickým, výzkumným, kulturním a náboženským centrem země.",
+     "extract_html": "<p><b>Praha</b> je hlavní město a současně největší město Česka, zároveň je 13. nejlidnatějším městem Evropské unie. Leží mírně na sever od středu Čech na řece Vltavě. Praha se rozkládá na území 496 km² a žije zde okolo 1,4 milionu obyvatel, v pražské metropolitní oblasti žije zhruba 2,1 milionu obyvatel. Praha je jedním z krajů a zároveň správním centrem Středočeského kraje, který ji obklopuje. V Praze se koncentruje většina státních institucí, sídlí zde prezident republiky, parlament, vláda, ústřední státní orgány a vrchní soud. Hlavní město je také ekonomickým, výzkumným, kulturním a náboženským centrem země.</p>",
+     "normalizedtitle": "Praha"
+    },
+    {
+     "type": "standard",
+     "title": "Vznik_Československa",
+     "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Vznik Československa</span></span>",
+     "namespace": {
+      "id": 0,
+      "text": ""
+     },
+     "wikibase_item": "Q3565888",
+     "titles": {
+      "canonical": "Vznik_Československa",
+      "normalized": "Vznik Československa",
+      "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Vznik Československa</span></span>"
+     },
+     "pageid": 15689,
+     "lang": "cs",
+     "dir": "ltr",
+     "revision": "26271507",
+     "tid": "42200de3-c041-11f1-9d15-653429d140a9",
+     "timestamp": "2026-10-04T22:16:34Z",
+     "description": "vznik nového státu v roce 1918",
+     "description_source": "central",
+     "content_urls": {
+      "desktop": {
+       "page": "https://cs.wikipedia.org/wiki/Vznik_%C4%8Ceskoslovenska",
+       "revisions": "https://cs.wikipedia.org/wiki/Vznik_%C4%8Ceskoslovenska?action=history",
+       "edit": "https://cs.wikipedia.org/wiki/Vznik_%C4%8Ceskoslovenska?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Vznik_%C4%8Ceskoslovenska"
+      },
+      "mobile": {
+       "page": "https://cs.wikipedia.org/wiki/Vznik_%C4%8Ceskoslovenska",
+       "revisions": "https://cs.wikipedia.org/wiki/Special:History/Vznik_%C4%8Ceskoslovenska",
+       "edit": "https://cs.wikipedia.org/wiki/Vznik_%C4%8Ceskoslovenska?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Vznik_%C4%8Ceskoslovenska"
+      }
+     },
+     "extract": "Vznik Československa byl proces, který vedl k ustavení samostatného československého státu. Československo bylo vyhlášeno 28. října 1918. Jeho hranice byly vymezeny mírovými smlouvami a z nich vycházejícími rozhodnutími v rámci versailleského mírového systému.",
+     "extract_html": "<p><b>Vznik Československa</b> byl proces, který vedl k ustavení samostatného československého státu. Československo bylo vyhlášeno 28. října 1918. Jeho hranice byly vymezeny mírovými smlouvami a z nich vycházejícími rozhodnutími v rámci versailleského mírového systému.</p>",
+     "normalizedtitle": "Vznik Československa"
+    }
+   ],
+   "year": 1918
+  },
+  {
+   "text": "Vznikla Československá tisková kancelář.",
+   "pages": [
+    {
+     "type": "standard",
+     "title": "Česká_tisková_kancelář",
+     "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Česká tisková kancelář</span></span>",
+     "namespace": {
+      "id": 0,
+      "text": ""
+     },
+     "wikibase_item": "Q341118",
+     "titles": {
+      "canonical": "Česká_tisková_kancelář",
+      "normalized": "Česká tisková kancelář",
+      "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Česká tisková kancelář</span></span>"
+     },
+     "pageid": 98025,
+     "lang": "cs",
+     "dir": "ltr",
+     "revision": "26276219",
+     "tid": "d303f0cd-c0f4-11f1-8cd2-f0425dab7515",
+     "timestamp": "2026-10-05T19:41:57Z",
+     "description": "česká veřejnoprávní zpravodajská agentura",
+     "description_source": "central",
+     "content_urls": {
+      "desktop": {
+       "page": "https://cs.wikipedia.org/wiki/%C4%8Cesk%C3%A1_tiskov%C3%A1_kancel%C3%A1%C5%99",
+       "revisions": "https://cs.wikipedia.org/wiki/%C4%8Cesk%C3%A1_tiskov%C3%A1_kancel%C3%A1%C5%99?action=history",
+       "edit": "https://cs.wikipedia.org/wiki/%C4%8Cesk%C3%A1_tiskov%C3%A1_kancel%C3%A1%C5%99?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:%C4%8Cesk%C3%A1_tiskov%C3%A1_kancel%C3%A1%C5%99"
+      },
+      "mobile": {
+       "page": "https://cs.wikipedia.org/wiki/%C4%8Cesk%C3%A1_tiskov%C3%A1_kancel%C3%A1%C5%99",
+       "revisions": "https://cs.wikipedia.org/wiki/Special:History/%C4%8Cesk%C3%A1_tiskov%C3%A1_kancel%C3%A1%C5%99",
+       "edit": "https://cs.wikipedia.org/wiki/%C4%8Cesk%C3%A1_tiskov%C3%A1_kancel%C3%A1%C5%99?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:%C4%8Cesk%C3%A1_tiskov%C3%A1_kancel%C3%A1%C5%99"
+      }
+     },
+     "extract": "Česká tisková kancelář je česká zpravodajská agentura.",
+     "extract_html": "<p><b>Česká tisková kancelář</b> je česká zpravodajská agentura.</p>",
+     "normalizedtitle": "Česká tisková kancelář"
+    }
+   ],
+   "year": 1918
+  },
+  {
+   "text": "Polsko obsadilo okrajová území Pruského Slezska.",
+   "pages": [
+    {
+     "type": "standard",
+     "title": "Druhá_Polská_republika",
+     "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Druhá Polská republika</span></span>",
+     "namespace": {
+      "id": 0,
+      "text": ""
+     },
+     "wikibase_item": "Q207272",
+     "titles": {
+      "canonical": "Druhá_Polská_republika",
+      "normalized": "Druhá Polská republika",
+      "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Druhá Polská republika</span></span>"
+     },
+     "pageid": 371733,
+     "lang": "cs",
+     "dir": "ltr",
+     "revision": "26037163",
+     "tid": "c82a3dac-7f9d-11f1-a5e8-c015a7a06990",
+     "timestamp": "2026-07-14T16:05:07Z",
+     "description": "historický státní útvar",
+     "description_source": "central",
+     "content_urls": {
+      "desktop": {
+       "page": "https://cs.wikipedia.org/wiki/Druh%C3%A1_Polsk%C3%A1_republika",
+       "revisions": "https://cs.wikipedia.org/wiki/Druh%C3%A1_Polsk%C3%A1_republika?action=history",
+       "edit": "https://cs.wikipedia.org/wiki/Druh%C3%A1_Polsk%C3%A1_republika?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Druh%C3%A1_Polsk%C3%A1_republika"
+      },
+      "mobile": {
+       "page": "https://cs.wikipedia.org/wiki/Druh%C3%A1_Polsk%C3%A1_republika",
+       "revisions": "https://cs.wikipedia.org/wiki/Special:History/Druh%C3%A1_Polsk%C3%A1_republika",
+       "edit": "https://cs.wikipedia.org/wiki/Druh%C3%A1_Polsk%C3%A1_republika?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Druh%C3%A1_Polsk%C3%A1_republika"
+      }
+     },
+     "extract": "Druhá Polská republika byl státní útvar, který existoval v letech 1918–1939.",
+     "extract_html": "<p><b>Druhá Polská republika</b> byl státní útvar, který existoval v letech 1918–1939.</p>",
+     "normalizedtitle": "Druhá Polská republika"
+    },
+    {
+     "type": "standard",
+     "title": "Pruské_Slezsko",
+     "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Pruské Slezsko</span></span>",
+     "namespace": {
+      "id": 0,
+      "text": ""
+     },
+     "wikibase_item": "Q675032",
+     "titles": {
+      "canonical": "Pruské_Slezsko",
+      "normalized": "Pruské Slezsko",
+      "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Pruské Slezsko</span></span>"
+     },
+     "pageid": 30979,
+     "lang": "cs",
+     "dir": "ltr",
+     "revision": "25152605",
+     "tid": "8dfae180-7ce1-11f0-b385-e603e1a590ec",
+     "timestamp": "2025-08-19T09:47:44Z",
+     "description": "provincie Pruska (1815–1919)",
+     "description_source": "central",
+     "content_urls": {
+      "desktop": {
+       "page": "https://cs.wikipedia.org/wiki/Prusk%C3%A9_Slezsko",
+       "revisions": "https://cs.wikipedia.org/wiki/Prusk%C3%A9_Slezsko?action=history",
+       "edit": "https://cs.wikipedia.org/wiki/Prusk%C3%A9_Slezsko?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Prusk%C3%A9_Slezsko"
+      },
+      "mobile": {
+       "page": "https://cs.wikipedia.org/wiki/Prusk%C3%A9_Slezsko",
+       "revisions": "https://cs.wikipedia.org/wiki/Special:History/Prusk%C3%A9_Slezsko",
+       "edit": "https://cs.wikipedia.org/wiki/Prusk%C3%A9_Slezsko?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Prusk%C3%A9_Slezsko"
+      }
+     },
+     "extract": "Pruské Slezsko bylo v letech 1742–1945 jednou z částí Pruska, v letech 1815–1919 a pak 1938–1941 jednou z jeho provincií. Jeho součástí se v roce 1743 stalo i Kladsko, do té doby jeden z vnějších krajů Čech. Metropolí bylo město Vratislav. Oblast patřila k hospodářsky důležitým oblastem Pruska i celého Německa, zejména díky bohatým nalezištím černého uhlí. Zhruba tři čtvrtiny obyvatel tvořili Němci, necelou čtvrtinu Poláci, soustředění na východě, a na nejjižnějším okraji převažovali českým nářečím hovořící Moravci.",
+     "extract_html": "<p><b>Pruské Slezsko</b> bylo v letech 1742–1945 jednou z částí Pruska, v letech 1815–1919 a pak 1938–1941 jednou z jeho provincií. Jeho součástí se v roce 1743 stalo i Kladsko, do té doby jeden z vnějších krajů Čech. Metropolí bylo město Vratislav. Oblast patřila k hospodářsky důležitým oblastem Pruska i celého Německa, zejména díky bohatým nalezištím černého uhlí. Zhruba tři čtvrtiny obyvatel tvořili Němci, necelou čtvrtinu Poláci, soustředění na východě, a na nejjižnějším okraji převažovali českým nářečím hovořící Moravci.</p>",
+     "normalizedtitle": "Pruské Slezsko"
+    }
+   ],
+   "year": 1918
+  },
+  {
+   "text": "V ruském Čeljabinsku proběhl pohřeb legionáře Josefa Jiřího Švece.",
+   "pages": [
+    {
+     "type": "standard",
+     "title": "Čeljabinsk",
+     "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Čeljabinsk</span></span>",
+     "namespace": {
+      "id": 0,
+      "text": ""
+     },
+     "wikibase_item": "Q906",
+     "titles": {
+      "canonical": "Čeljabinsk",
+      "normalized": "Čeljabinsk",
+      "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Čeljabinsk</span></span>"
+     },
+     "pageid": 32867,
+     "lang": "cs",
+     "dir": "ltr",
+     "revision": "25871370",
+     "tid": "59173d09-4d07-11f1-98f7-3673036dd8a3",
+     "timestamp": "2026-05-11T07:02:18Z",
+     "description": "sídlo v Čeljabinské oblasti v Rusku",
+     "description_source": "central",
+     "content_urls": {
+      "desktop": {
+       "page": "https://cs.wikipedia.org/wiki/%C4%8Celjabinsk",
+       "revisions": "https://cs.wikipedia.org/wiki/%C4%8Celjabinsk?action=history",
+       "edit": "https://cs.wikipedia.org/wiki/%C4%8Celjabinsk?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:%C4%8Celjabinsk"
+      },
+      "mobile": {
+       "page": "https://cs.wikipedia.org/wiki/%C4%8Celjabinsk",
+       "revisions": "https://cs.wikipedia.org/wiki/Special:History/%C4%8Celjabinsk",
+       "edit": "https://cs.wikipedia.org/wiki/%C4%8Celjabinsk?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:%C4%8Celjabinsk"
+      }
+     },
+     "extract": "Čeljabinsk je město v Ruské federaci, na východním úpatí pohoří Ural. Žije zde přibližně 1,18 milionu obyvatel a jde o administrativní centrum Čeljabinské oblasti. Prochází tudy jižní větev transsibiřské magistrály ; město je důležitou železniční křižovatkou. Od roku 1943 zde sídlí univerzita.",
+     "extract_html": "<p><b>Čeljabinsk</b> je město v Ruské federaci, na východním úpatí pohoří Ural. Žije zde <span class=\"wd\">přibližně 1,18 milionu</span> obyvatel a jde o administrativní centrum Čeljabinské oblasti. Prochází tudy jižní větev transsibiřské magistrály ; město je důležitou železniční křižovatkou. Od roku 1943 zde sídlí univerzita.</p>",
+     "normalizedtitle": "Čeljabinsk"
+    },
+    {
+     "type": "standard",
+     "title": "Josef_Jiří_Švec",
+     "displaytitle": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Josef Jiří Švec</span></span>",
+     "namespace": {
+      "id": 0,
+      "text": ""
+     },
+     "wikibase_item": "Q12026169",
+     "titles": {
+      "canonical": "Josef_Jiří_Švec",
+      "normalized": "Josef Jiří Švec",
+      "display": "<span lang=\"cs\" dir=\"ltr\"><span class=\"mw-page-title-main\">Josef Jiří Švec</span></span>"
+     },
+     "pageid": 257127,
+     "lang": "cs",
+     "dir": "ltr",
+     "revision": "26171269",
+     "tid": "b1d33563-a4aa-11f1-958e-c880b0db6aa0",
+     "timestamp": "2026-08-30T19:40:46Z",
+     "description": "československý legionář",
+     "description_source": "central",
+     "content_urls": {
+      "desktop": {
+       "page": "https://cs.wikipedia.org/wiki/Josef_Ji%C5%99%C3%AD_%C5%A0vec",
+       "revisions": "https://cs.wikipedia.org/wiki/Josef_Ji%C5%99%C3%AD_%C5%A0vec?action=history",
+       "edit": "https://cs.wikipedia.org/wiki/Josef_Ji%C5%99%C3%AD_%C5%A0vec?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Josef_Ji%C5%99%C3%AD_%C5%A0vec"
+      },
+      "mobile": {
+       "page": "https://cs.wikipedia.org/wiki/Josef_Ji%C5%99%C3%AD_%C5%A0vec",
+       "revisions": "https://cs.wikipedia.org/wiki/Special:History/Josef_Ji%C5%99%C3%AD_%C5%A0vec",
+       "edit": "https://cs.wikipedia.org/wiki/Josef_Ji%C5%99%C3%AD_%C5%A0vec?action=edit",
+       "talk": "https://cs.wikipedia.org/wiki/Diskuse:Josef_Ji%C5%99%C3%AD_%C5%A0vec"
+      }
+     },
+     "extract": "Josef Jiří Švec byl učitel tělocviku, sokolský pracovník, legionář a plukovník legií v Rusku.",
+     "extract_html": "<p><b>Josef Jiří Švec</b> byl učitel tělocviku, sokolský pracovník, legionář a plukovník legií v Rusku.</p>",
+     "normalizedtitle": "Josef Jiří Švec"
+    }
+   ],
+   "year": 1918
+  }
+ ]
+}
