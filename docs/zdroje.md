@@ -386,3 +386,30 @@ CREATE TABLE event_articles (
 
 Výsledná pětice dne (`day_selections`: month, day, position, event_id) přijde s algoritmem
 výběru v dalším kroku.
+
+## 9. Výsledek prvního importu celého roku (29. 10. 2026)
+
+`make import-year` (krok 3): **366 / 366 dní ok**, exit code 0, žádný nový typ chyby.
+Výslovná pravidla (`config/day-page-rules.neon`) se uplatnila jen u 4 vytipovaných dnů
+(6. 1., 17. 4., 30. 6., 14. 12.).
+
+| | Česko | Svět |
+|---|---|---|
+| aktivní události | 3 071 | 6 274 |
+| medián na den | 7 | 15 |
+| minimum na den | 1 (8. 12., 26. 12.) | 3 (29. 2.) |
+| bez hlavního článku | 93 | 278 |
+
+- Dny s méně než 2 českými událostmi: **8. 12. a 26. 12.** (po jedné) – pravidlo „aspoň 2
+  z Česka, pokud existují“ tam doplní světové.
+- Bez hlavního článku je 371 událostí; 267 z nich neodkazuje na žádný existující článek,
+  zbylých 104 jen na obecné články.
+- `event_articles` drží všechny odkazy: kontrola 30 dní (5 vytipovaných + 25 náhodných) proti
+  HTML stejné revize a čerstvě vyřešeným odkazům – 844 událostí, 0 chybějících, 0 přebývajících,
+  0 v jiném pořadí. Přepočet hlavního článku jen z DB (`event_articles` + seznam obecných)
+  souhlasí s uloženým `is_primary` u všech 9 345 událostí – změna pravidla nepotřebuje nové
+  stahování.
+- Nejčastěji odkazované články mimo seznam obecných (kandidáti, nic není změněno):
+  Premiéra (48), Rudá armáda (48), Čína (48), Karel IV. (47), Napoleon Bonaparte (47),
+  Škoda Auto (46), Moskva (44), Morava (43), Portugalsko (42), Sociální demokracie (Česko) (41),
+  Švédsko (41), Adolf Hitler (40), Byzantská říše (39), T. G. Masaryk (39), Edvard Beneš (38).
