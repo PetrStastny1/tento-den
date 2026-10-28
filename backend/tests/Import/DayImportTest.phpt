@@ -62,6 +62,28 @@ final class ImportFixture
 	}
 
 
+	public function find(string $day, int $year, string $textStart): EventSummary
+	{
+		foreach ($this->events($day) as $event) {
+			if ($event->year === $year && str_starts_with($event->text, $textStart)) {
+				return $event;
+			}
+		}
+		throw new LogicException("Event $year '$textStart' not found");
+	}
+
+
+	public function byId(string $day, int $id): EventSummary
+	{
+		foreach ($this->events($day) as $event) {
+			if ($event->id === $id) {
+				return $event;
+			}
+		}
+		throw new LogicException("Event #$id not found");
+	}
+
+
 	/**
 	 * @return array<string, mixed>
 	 */
@@ -125,27 +147,85 @@ test('importing the same revision again changes nothing', function () {
 });
 
 
-test('a reworded sentence keeps its id, a removed event becomes missing and can come back', function () {
+test('a reworded sentence keeps its id', function () {
 	$fixture = new ImportFixture;
 	$fixture->pages->serve('11-17', 'history/day-page-11-17-rev23525658.html', 23525658);
 	$fixture->import('11-17');
-	$academy = array_values(array_filter($fixture->events('11-17'), fn($e) => $e->year === 1952))[0];
-	$funeral = array_values(array_filter($fixture->events('11-17'), fn($e) => $e->year === 1939 && str_contains($e->text, 'pohřbu')))[0];
+	$academy = $fixture->find('11-17', 1952, 'Byly zrušeny');
+
+	$fixture->pages->serve('11-17', 'history/day-page-11-17-rev23526886.html', 23526886);
+	$fixture->import('11-17');
+
+	$academyNow = $fixture->byId('11-17', $academy->id);
+	Assert::same('Založena Československá akademie věd, zrušeny všechny dosavadní vědecké instituce a učené společnosti.', $academyNow->text);
+	Assert::same([EventStatus::Active, 23526886], [$academyNow->status, $academyNow->sourceRevisionId]);
+});
+
+
+test('a legitimately split event goes to review and is not selectable until resolved (known limitation)', function () {
+	$fixture = new ImportFixture;
+	$fixture->pages->serve('11-17', 'history/day-page-11-17-rev23525658.html', 23525658);
+	$fixture->import('11-17');
+	$funeral = $fixture->find('11-17', 1939, 'Po pohřbu');
 
 	$fixture->pages->serve('11-17', 'history/day-page-11-17-rev23526886.html', 23526886);
 	$result = $fixture->import('11-17');
 
-	$academyNow = array_values(array_filter($fixture->events('11-17'), fn($e) => $e->id === $academy->id))[0];
-	Assert::same('Založena Československá akademie věd, zrušeny všechny dosavadní vědecké instituce a učené společnosti.', $academyNow->text);
-	Assert::same([EventStatus::Active, 23526886], [$academyNow->status, $academyNow->sourceRevisionId]);
-	Assert::same(1, $result->missing);
-	Assert::same([$funeral->id], array_map(fn($e) => $e->id, $fixture->events('11-17', EventStatus::Missing)));
+	Assert::same([0, 2], [$result->missing, $result->review]);
+	$funeralNow = $fixture->byId('11-17', $funeral->id);
+	Assert::same(EventStatus::NeedsReview, $funeralNow->status);
+	Assert::match('Možná nahrazena: #%d%, #%d% (revize 23526886, podobnost %f%)', (string) $funeralNow->reviewNote);
+	$inReview = array_map(fn($e) => $e->year, $fixture->events('11-17', EventStatus::NeedsReview));
+	Assert::same([1939, 1939, 1939], $inReview);
+	Assert::same([], array_filter($fixture->events('11-17', EventStatus::Active), fn($e) => $e->year === 1939));
+});
 
-	// the editor reverts: the vanished event is active again under its old id
-	$fixture->pages->serve('11-17', 'history/day-page-11-17-rev23525658.html', 23525658);
-	$fixture->import('11-17');
-	$funeralNow = array_values(array_filter($fixture->events('11-17'), fn($e) => $e->id === $funeral->id))[0];
-	Assert::same(EventStatus::Active, $funeralNow->status);
+
+test('a removed event becomes missing and comes back under its id when the text returns', function () {
+	$fixture = new ImportFixture;
+	$fixture->pages->serve('01-01', 'history/day-page-01-01-rev23905020.html', 23905020);
+	$fixture->import('01-01');
+	$speech = $fixture->find('01-01', 1990, 'První novoroční projev');
+
+	$fixture->pages->serve('01-01', 'history/day-page-01-01-rev23959580.html', 23959580);
+	$fixture->import('01-01');
+	Assert::same(EventStatus::Missing, $fixture->byId('01-01', $speech->id)->status);
+
+	$fixture->pages->serve('01-01', 'history/day-page-01-01-rev23905020.html', 23905020);
+	$fixture->import('01-01');
+	Assert::same(EventStatus::Active, $fixture->byId('01-01', $speech->id)->status);
+});
+
+
+test('vandalism reverted: the original id is active again, the vandalized text never is', function () {
+	$fixture = new ImportFixture;
+	$fixture->pages->serve('01-01', 'history/day-page-01-01-rev24784971.html', 24784971); // original
+	$fixture->import('01-01');
+	$original = $fixture->find('01-01', 1770, 'Císařovna Marie Terezie vydala');
+	$activeBefore = count($fixture->events('01-01', EventStatus::Active));
+
+	$fixture->pages->serve('01-01', 'history/day-page-01-01-rev24807572.html', 24807572); // vandalism
+	$fixture->import('01-01');
+	$vandalism = $fixture->find('01-01', 1770, 'Císařovna Marie Terezie si prdla');
+	Assert::same(EventStatus::NeedsReview, $fixture->byId('01-01', $original->id)->status);
+	Assert::same(EventStatus::NeedsReview, $vandalism->status);
+
+	$fixture->pages->serve('01-01', 'history/day-page-01-01-rev24807575.html', 24807575); // reverted
+	$restored = $fixture->import('01-01');
+	Assert::same(1, $restored->restored);
+
+	foreach (['after the revert' => 0, 'after a repeated import' => 1] as $moment => $repeat) {
+		if ($repeat) {
+			$again = $fixture->import('01-01');
+			Assert::same([0, 0, 0, 0, 0], [$again->inserted, $again->updated, $again->missing, $again->review, $again->restored], $moment);
+		}
+		$originalNow = $fixture->byId('01-01', $original->id);
+		$vandalismNow = $fixture->byId('01-01', $vandalism->id);
+		Assert::same([EventStatus::Active, 24807575, null], [$originalNow->status, $originalNow->sourceRevisionId, $originalNow->reviewNote], $moment);
+		Assert::same(EventStatus::Missing, $vandalismNow->status, $moment);
+		Assert::same([], $fixture->events('01-01', EventStatus::NeedsReview), $moment);
+		Assert::same($activeBefore, count($fixture->events('01-01', EventStatus::Active)), $moment);
+	}
 });
 
 

@@ -58,7 +58,7 @@ final class ImportDayCommand implements Command
 	public static function describe(DayImportResult $result): string
 	{
 		return sprintf(
-			'%s ok (revize %d): Česko %d, Svět %d | nové %d, upravené %d, beze změny %d, zmizelé %d, k revizi %d',
+			'%s ok (revize %d): Česko %d, Svět %d | nové %d, upravené %d, beze změny %d, zmizelé %d, k revizi %d, obnovené %d',
 			$result->day->format(),
 			$result->revisionId,
 			$result->czechCount,
@@ -68,6 +68,7 @@ final class ImportDayCommand implements Command
 			$result->unchanged,
 			$result->missing,
 			$result->review,
+			$result->restored,
 		);
 	}
 }

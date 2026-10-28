@@ -33,13 +33,15 @@ function emptyDatabase(string $environment): Container
 
 test('an empty database has every migration pending', function () {
 	$migrations = emptyDatabase('production')->getByType(Migrations::class);
-	Assert::same(['2026-10-29-001-events.sql'], $migrations->pending());
+	$files = array_map('basename', glob(__DIR__ . '/../../migrations/structures/*.sql') ?: []);
+	Assert::true(count($files) >= 2);
+	Assert::same($files, $migrations->pending());
 });
 
 
 test('production refuses to serve with pending migrations', function () {
 	$check = emptyDatabase('production')->getByType(PendingMigrationsCheck::class);
-	Assert::exception(fn() => $check->check(), PendingMigrationsException::class, '%a%make migrate%a%2026-10-29-001-events.sql');
+	Assert::exception(fn() => $check->check(), PendingMigrationsException::class, '%a%make migrate%a%2026-10-29-001-events.sql%a%');
 });
 
 

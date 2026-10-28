@@ -18,6 +18,8 @@ final readonly class StoredEvent
 		public string $textHash,
 		public EventStatus $status,
 		public ?int $primaryPageId,
+		public ?int $reviewGroup = null,
+		public ?ReviewRole $reviewRole = null,
 	) {
 	}
 }

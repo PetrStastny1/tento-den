@@ -80,7 +80,7 @@ test('import:day reports the result, or the failure with exit code 1', function 
 
 	[$code, $stdout] = runConsole($container, ['import:day', '--date=10-28']);
 	Assert::same(0, $code);
-	Assert::same("10-28 ok (revize 26193496): Česko 15, Svět 16 | nové 31, upravené 0, beze změny 0, zmizelé 0, k revizi 0\n", $stdout);
+	Assert::same("10-28 ok (revize 26193496): Česko 15, Svět 16 | nové 31, upravené 0, beze změny 0, zmizelé 0, k revizi 0, obnovené 0\n", $stdout);
 
 	$pages->fail('10-28');
 	[$code, , $stderr] = runConsole($container, ['import:day', '--date=10-28']);
@@ -122,5 +122,5 @@ test('events:review lists events waiting for a decision', function () {
 	[$code, $stdout] = runConsole($container, ['events:review']);
 	Assert::same(0, $code);
 	Assert::contains('Celkem k revizi: 2', $stdout);
-	Assert::match('%A%01-01 cz 1770: Císařovna Marie Terezie vydala nový trestní zákoník%A%Možná nahrazena událostí #%d% (revize 24807572, podobnost 0.36)%A%', $stdout);
+	Assert::match('%A%01-01 cz 1770: Císařovna Marie Terezie vydala nový trestní zákoník%A%Možná nahrazena: #%d% (revize 24807572, podobnost 0.36)%A%', $stdout);
 });

@@ -18,6 +18,7 @@ use App\Model\Events\MatchPlan;
 use App\Model\Events\ParsedEvent;
 use App\Model\Events\PrimaryArticleSelector;
 use App\Model\Events\ReviewCase;
+use App\Model\Events\ReviewRole;
 use App\Model\Events\Section;
 use App\Model\Events\StoredEvent;
 use Tester\Assert;
@@ -95,6 +96,38 @@ test('an unclear edit is not guessed: new event and its candidate go to review',
 });
 
 
+test('an event disappearing while a dissimilar one appears in the same year is not a safe new event', function () {
+	$plan = (new EventMatcher)->match(
+		[stored(4, 1939, 'Po pohřbu studenta Jana Opletala nacisté uzavřeli české vysoké školy.')],
+		[incoming(1939, 'Ve Vídni zemřel malíř.')], // similarity well below 0.30
+	);
+	Assert::same([[], [], []], [$plan->matches, $plan->inserts, $plan->missingIds]);
+	Assert::count(1, $plan->reviews);
+	Assert::same([4], array_keys($plan->reviews[0]->candidates));
+	Assert::true($plan->reviews[0]->candidates[4] < 0.30);
+});
+
+
+test('a new event in a year where nothing disappeared is simply new', function () {
+	$plan = (new EventMatcher)->match(
+		[stored(4, 1939, 'Zavřeny vysoké školy.')],
+		[incoming(1939, 'Zavřeny vysoké školy.'), incoming(1939, 'Ve Vídni zemřel malíř.')],
+	);
+	Assert::count(1, $plan->inserts);
+	Assert::same([], $plan->reviews);
+});
+
+
+test('a long missing event does not block an unrelated addition', function () {
+	$plan = (new EventMatcher)->match(
+		[stored(4, 1939, 'Zavřeny vysoké školy.', null, EventStatus::Missing)],
+		[incoming(1939, 'Narodil se houslista Jan Kubelík a o rok později byl založen fotbalový klub.')], // similarity 0.19
+	);
+	Assert::count(1, $plan->inserts);
+	Assert::same([], $plan->reviews);
+});
+
+
 test('two similar candidates are ambiguous, so nothing is matched', function () {
 	$plan = (new EventMatcher)->match(
 		[stored(1, 1989, 'Studenti vyšli do ulic Prahy.'), stored(2, 1989, 'Studenti vyšli do ulic Brna.')],
@@ -112,6 +145,47 @@ test('a vanished event becomes missing and comes back when it reappears', functi
 	$plan = (new EventMatcher)->match([stored(3, 1939, 'Zavřeny vysoké školy.', null, EventStatus::Missing)], [incoming(1939, 'Zavřeny vysoké školy.')]);
 	Assert::same(3, $plan->matches[0]->stored->id);
 	Assert::same([], $plan->missingIds); // already missing events are not reported again
+});
+
+
+test('when the original text returns without its replacement, the review group is settled', function () {
+	$original = 'Marie Terezie vydala nový trestní zákoník.';
+	$plan = (new EventMatcher)->match(
+		[
+			new StoredEvent(1, Section::Czech, 1770, $original, EventText::hash($original), EventStatus::NeedsReview, null, 2, ReviewRole::Original),
+			new StoredEvent(2, Section::Czech, 1770, 'Vandalismus.', EventText::hash('Vandalismus.'), EventStatus::NeedsReview, null, 2, ReviewRole::Replacement),
+		],
+		[incoming(1770, $original)],
+	);
+	Assert::same([1], $plan->restoredIds);
+	Assert::same([2], $plan->rejectedIds);
+	Assert::same([[], [], []], [$plan->inserts, $plan->reviews, $plan->missingIds]);
+});
+
+
+test('while the replacement is still on the page, the group stays in review', function () {
+	$original = 'Marie Terezie vydala nový trestní zákoník.';
+	$plan = (new EventMatcher)->match(
+		[
+			new StoredEvent(1, Section::Czech, 1770, $original, EventText::hash($original), EventStatus::NeedsReview, null, 2, ReviewRole::Original),
+			new StoredEvent(2, Section::Czech, 1770, 'Vandalismus.', EventText::hash('Vandalismus.'), EventStatus::NeedsReview, null, 2, ReviewRole::Replacement),
+		],
+		[incoming(1770, $original), incoming(1770, 'Vandalismus.')],
+	);
+	Assert::same([[], []], [$plan->restoredIds, $plan->rejectedIds]);
+});
+
+
+test('a further change of an event in review joins the review instead of becoming active', function () {
+	$plan = (new EventMatcher)->match(
+		[
+			stored(1, 1770, 'Marie Terezie vydala nový trestní zákoník.', null, EventStatus::NeedsReview),
+			stored(2, 1770, 'Vandalismus.', null, EventStatus::NeedsReview),
+		],
+		[incoming(1770, 'Jiný vandalismus.')],
+	);
+	Assert::same([], $plan->inserts);
+	Assert::same([1, 2], array_keys($plan->reviews[0]->candidates));
 });
 
 
@@ -155,7 +229,15 @@ function planBetweenRevisions(string $day, int $oldRevision, int $newRevision): 
  */
 function years(array $items): array
 {
-	$years = array_map(fn($item) => ($item instanceof IncomingEvent ? $item : $item->incoming)->parsed->year, array_values($items));
+	$years = [];
+	foreach ($items as $item) {
+		$events = match (true) {
+			$item instanceof IncomingEvent => [$item],
+			$item instanceof EventMatch => [$item->incoming],
+			default => $item->incoming,
+		};
+		array_push($years, ...array_map(fn(IncomingEvent $e): int => $e->parsed->year, $events));
+	}
 	sort($years);
 	return $years;
 }
@@ -164,9 +246,9 @@ function years(array $items): array
 test('real edits: 17. listopad, rewording of several Czech events', function () {
 	$plan = planBetweenRevisions('11-17', 23525658, 23526886);
 	Assert::same([1945, 1952, 1968, 1989, 1989, 1989, 1999, 2014], years(array_filter($plan->matches, fn($m) => !$m->exact)));
-	Assert::same([], $plan->reviews);
-	Assert::same([1939, 1939], years($plan->inserts)); // one event split into two new ones
-	Assert::count(1, $plan->missingIds);
+	// one event split into two new ones: a legitimate edit, but undecidable → review (known limitation)
+	Assert::same([1939, 1939], years($plan->reviews));
+	Assert::same([[], []], [$plan->inserts, $plan->missingIds]);
 });
 
 

@@ -17,6 +17,7 @@ use App\Model\Events\MatchPlan;
 use App\Model\Events\MonthDay;
 use App\Model\Events\ParsedEvent;
 use App\Model\Events\PrimaryArticleSelector;
+use App\Model\Events\ReviewRole;
 use App\Model\Events\Section;
 
 
@@ -106,8 +107,9 @@ final class DayImportService
 			inserted: count($plan->inserts),
 			updated: $updated,
 			unchanged: count($plan->matches) - $updated,
-			missing: count($plan->missingIds),
-			review: count($plan->reviews),
+			missing: count($plan->missingIds) + count($plan->rejectedIds),
+			review: array_sum(array_map(fn($r): int => count($r->incoming), $plan->reviews)),
+			restored: count($plan->restoredIds),
 		);
 	}
 
@@ -146,22 +148,34 @@ final class DayImportService
 			$this->eventRepository->insert($day, $event, $page->title, $page->revisionId, EventStatus::Active, null, $now);
 		}
 		foreach ($plan->reviews as $review) {
-			$newId = $this->eventRepository->insert(
-				$day,
-				$review->incoming,
-				$page->title,
-				$page->revisionId,
-				EventStatus::NeedsReview,
-				'Možná úprava události ' . $this->describeCandidates($review->candidates),
-				$now,
-			);
+			$newIds = [];
+			$group = null; // the group is named after its first replacement
+			foreach ($review->incoming as $event) {
+				$id = $this->eventRepository->insert($day, $event, $page->title, $page->revisionId, EventStatus::NeedsReview, null, $now);
+				$newIds[] = $id;
+				$group ??= $id;
+			}
+			if ($group === null) {
+				continue; // a review case always has incoming events; nothing to do otherwise
+			}
+			foreach ($newIds as $id) {
+				$this->eventRepository->markForReview($id, 'Možná nahrazuje: ' . $this->describeCandidates($review->candidates), $group, ReviewRole::Replacement);
+			}
 			foreach ($review->candidates as $candidateId => $similarity) {
 				$this->eventRepository->markForReview(
 					$candidateId,
-					sprintf('Možná nahrazena událostí #%d (revize %d, podobnost %.2f)', $newId, $page->revisionId, $similarity),
+					sprintf('Možná nahrazena: #%s (revize %d, podobnost %.2f)', implode(', #', $newIds), $page->revisionId, $similarity),
+					$group,
+					ReviewRole::Original,
 				);
 			}
 		}
+		$this->eventRepository->restoreFromReview($plan->restoredIds);
+		$this->eventRepository->rejectFromReview(
+			$plan->rejectedIds,
+			sprintf('Zamítnuto: na stránce se vrátil původní text (revize %d)', $page->revisionId),
+			$now,
+		);
 		$this->eventRepository->markMissing($plan->missingIds, $now);
 	}
 

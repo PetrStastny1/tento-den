@@ -147,16 +147,24 @@ jedna věcná událost. Rodič jen s rokem („1918“) naopak sdružuje nezávi
 
 ### Identita události: vlastní ID, párování podle textu, nic se nemaže
 Wikipedie nedává stabilní ID události, proto má každá událost vlastní `id` (na ně se odkazují
-oblíbené). Při importu se položky párují v rámci dne + sekce + roku:
+oblíbené). **Podobnost pomáhá udržet identitu, neověřuje pravdivost.** Při importu se položky
+párují v rámci dne + sekce + roku:
 1. **přesná shoda** normalizovaného textu (velikost písmen, mezery),
-2. **podobná věta** – jen vzájemně nejlepší dvojice 1:1 s odstupem ≥ 0,15 od druhého kandidáta
+2. **návrat původního textu**: skupina k revizi, jejíž původní událost je zpět s přesně svým
+   textem a žádná náhrada už na stránce není, se vyřeší sama – původní události jsou opět
+   `active` (stejné ID), náhrady `missing` (typicky vrácený vandalismus),
+3. **podobná věta** – jen vzájemně nejlepší dvojice 1:1 s odstupem ≥ 0,15 od druhého kandidáta
    a podobností ≥ 0,70, nebo ≥ 0,60 při stejném hlavním článku,
-3. jinak, má-li položka kandidáta s podobností ≥ 0,30, **neodhaduje se**: nová položka i
-   kandidát dostanou `needs_review` a poznámku s ID protějšku; výběr je ignoruje.
+4. co zbude, se **neodhaduje**: když v téže sekci a roce zároveň přibyde nová položka a zmizí
+   (nebo už čeká na revizi) uložená, jdou všechny do jedné skupiny k revizi – **i při
+   podobnosti pod 0,30**. Uložené dostanou roli `original`, nové `replacement`, výběr je ignoruje.
+   Jen nová položka bez zmizení = nová událost; jen zmizení = `missing`.
 
 Zmizelá událost dostane `missing` (+ `missing_since`), nemaže se; když se vrátí, je opět
-`active`. Události v revizi se párují jen přesně, proto opakovaný import téže revize nevytvoří
-další záznamy k revizi (test `DayImportTest`).
+`active`. Dávno zmizelá (`missing`) událost se do revize přidá jen při podobnosti ≥ 0,30
+s novou položkou, jinak by blokovala každé pozdější přidání v tom roce. Události v revizi se
+párují jen přesně, proto opakovaný import téže revize nevytvoří další záznamy k revizi
+(test `DayImportTest`).
 
 ### Práh podobnosti nastaven podle skutečných úprav
 Podobnost = vyšší z (a) znakové podobnosti (`similar_text`, zachytí překlepy a drobné úpravy)
@@ -177,7 +185,7 @@ test v `EventMatcherTest`):
 | | 1989 | obnova sociální demokracie – přepsání | 0,61 | ano | spárováno |
 | | 1999 | doplněno jméno | 0,88 | ano | spárováno |
 | | 2014 | Albertov – přepsání | 0,61 | ano | spárováno |
-| | 1939 | jedna událost rozdělena do dvou nových (nejvyšší podobnost 0,23) | – | – | stará `missing`, 2 nové |
+| | 1939 | jedna událost rozdělena do dvou nových (nejvyšší podobnost 0,23) | – | – | k revizi (všechny 3) |
 | 1. 1., 23905020 → 23959580 | 1990 | amnestie – přeformulování | 0,87 | ano | spárováno |
 | | 1993 | přehozený slovosled | 0,67 | ano | spárováno |
 | | 2000 | doplněno „V“, „samosprávných“ | 0,83 | ano | spárováno |
@@ -195,9 +203,13 @@ Proč tyto prahy:
   dvou *různých* vět ve vzorku je 0,42 – rezerva 0,28.
 - **0,60 se stejným článkem**: přeformulované věty o stejném článku mají 0,61–0,71; oprava faktu
   se stejným článkem (1923) má 0,51 a do revize patří.
-- **0,30 kandidát na revizi**: první návrh (0,40) poslal vandalismus (0,36) a přepsaný okres
-  (0,35) do „nová událost + zmizelá“ – vandalismus by tak byl *aktivní* událostí. Pod 0,30 jsou
-  jen skutečně různé události (0,23).
+- **revize bez dolní hranice**: první návrh (kandidát od 0,40, později 0,30) posílal
+  vandalismus (0,36) a přepsaný okres (0,35) do „nová událost + zmizelá“ – vandalismus by tak
+  byl *aktivní* událostí. Nízká podobnost ale neznamená, že nová položka je v pořádku, proto
+  současné zmizení a přidání ve stejném roce jde do revize vždy.
+- **0,30 jen pro dávno zmizelé události**: krátké nesouvisející věty mají kvůli shodným
+  písmenům podobnost až 0,32 („Zavřeny vysoké školy.“ × „Ve Vídni zemřel malíř.“), takže
+  hranice chybuje na bezpečnou stranu (revize navíc), ne opačně.
 
 ### Zámek dne přes `GET_LOCK` v MariaDB
 Transakce sama nezabrání dvěma souběžným importům téhož dne vložit stejnou novou událost.
@@ -234,3 +246,26 @@ php službě.
 ### `bin/init-env.php` v PHP kontejneru
 Lokálně PHP není a Compose bez `.env` nenastartuje, proto `make init-env` spouští skript
 v samostatném kontejneru pod UID uživatele (soubor patří jemu, práva 0600 od vytvoření).
+
+### Známá omezení (stav po kroku 3)
+- **Legitimní rozdělení události skončí v revizi.** Když editor jednu událost rozdělí na dvě
+  (17. 11. 1939: pohřeb Jana Opletala → uzavření vysokých škol + zatýkání studentů), import
+  to nerozliší od vandalismu nebo záměny – původní i obě nové události dostanou `needs_review`
+  a **do vyřešení se nevybírají**. Vyřešení zatím jen ručně (`events:review` vypíše skupinu;
+  příkaz na sloučení/přijetí přijde později).
+- **Hlavní článek bývá kontext, ne předmět události.** Pravidlo „první odkaz, který není rok,
+  datum ani obecný článek“ vybere např. pro bitvu u Milvijského mostu *Starověký Řím*, pro
+  založení Harvardu *Cambridge (Massachusetts)*, pro vyhlášení války Japonsku *Čínu*.
+  Nové heuristiky zatím záměrně nepřidáváme; hlavní článek proto nelze brát jako spolehlivý
+  signál výběru.
+- **Stránky dnů s nestandardním obsahem se neimportují** (striktní parser). Ověřeno 29. 10. 2026:
+
+  | Den | Důvod chyby |
+  |---|---|
+  | 6. 1. | podsekce „Pravidelné události“ (Tříkrálová sbírka, bez roku) |
+  | 17. 4. | podsekce „Hospodářství a ekologie“; navíc rok slovy („360 před naším letopočtem“) |
+  | 30. 6. | řádek bez roku ve Světě („Jedno z dat, kdy je … přestupná sekunda“) |
+  | 14. 12. | řádek bez roku v Česku (Tatra 148 – rok chybí) |
+
+  Tyto dny mají v `import_days` stav `error` s důvodem; jejich ošetření (oprava na Wikipedii,
+  nebo výslovná výjimka v konfiguraci) je otevřené rozhodnutí.

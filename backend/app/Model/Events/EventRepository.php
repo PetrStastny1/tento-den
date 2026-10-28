@@ -30,7 +30,7 @@ final class EventRepository
 	public function findForMatching(MonthDay $day): array
 	{
 		$rows = $this->database->fetchAll('
-			SELECT e.id, e.section, e.year, e.text, e.text_hash, e.status, ea.page_id AS primary_page_id
+			SELECT e.id, e.section, e.year, e.text, e.text_hash, e.status, e.review_group, e.review_role, ea.page_id AS primary_page_id
 			FROM events e
 			LEFT JOIN event_articles ea ON ea.event_id = e.id AND ea.is_primary = 1
 			WHERE e.month = ? AND e.day = ?
@@ -44,6 +44,8 @@ final class EventRepository
 			textHash: $row->text_hash,
 			status: EventStatus::from($row->status),
 			primaryPageId: $row->primary_page_id,
+			reviewGroup: $row->review_group,
+			reviewRole: $row->review_role === null ? null : ReviewRole::from($row->review_role),
 		), $rows);
 	}
 
@@ -115,14 +117,51 @@ final class EventRepository
 	}
 
 
-	public function markForReview(int $id, string $note): void
+	/**
+	 * Puts the event into a review group; an event keeps the role it already had in an earlier group.
+	 */
+	public function markForReview(int $id, string $note, int $group, ReviewRole $role): void
 	{
 		$this->database->query(
-			'UPDATE events SET status = ?, review_note = ? WHERE id = ?',
+			'UPDATE events SET status = ?, review_note = ?, review_group = ?, review_role = COALESCE(review_role, ?) WHERE id = ?',
 			EventStatus::NeedsReview->value,
 			mb_substr($note, 0, 500),
+			$group,
+			$role->value,
 			$id,
 		);
+	}
+
+
+	/**
+	 * @param list<int> $ids originals whose exact text is back on the page
+	 */
+	public function restoreFromReview(array $ids): void
+	{
+		if ($ids !== []) {
+			$this->database->query(
+				'UPDATE events SET status = ?, review_note = NULL, review_group = NULL, review_role = NULL, missing_since = NULL WHERE id IN (?)',
+				EventStatus::Active->value,
+				$ids,
+			);
+		}
+	}
+
+
+	/**
+	 * @param list<int> $ids members of a settled review group that are not on the page
+	 */
+	public function rejectFromReview(array $ids, string $note, \DateTimeImmutable $now): void
+	{
+		if ($ids !== []) {
+			$this->database->query(
+				'UPDATE events SET status = ?, missing_since = ?, review_note = ?, review_group = NULL, review_role = NULL WHERE id IN (?)',
+				EventStatus::Missing->value,
+				$now,
+				mb_substr($note, 0, 500),
+				$ids,
+			);
+		}
 	}
 
 
