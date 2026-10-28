@@ -1,12 +1,11 @@
 <?php
 
 /**
- * Integration test of GET /api/health against the real database.
+ * GET /api/health against the test database.
  */
 
 declare(strict_types=1);
 
-use App\Bootstrap;
 use Nette\Application\BadRequestException;
 use Nette\Application\IPresenterFactory;
 use Nette\Application\Request;
@@ -15,7 +14,9 @@ use Nette\Database\ConnectionException;
 use Nette\Http\IResponse;
 use Nette\Utils\Json;
 use Tester\Assert;
-use Tests\MemoryLogger;
+use Tests\Support\MemoryLogger;
+use Tests\Support\TestContainer;
+use Tracy\ILogger;
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -26,9 +27,8 @@ require __DIR__ . '/../bootstrap.php';
  */
 function requestHealth(array $env, MemoryLogger $logger, string $method = 'GET'): array
 {
-	$container = (new Bootstrap($env))->bootTestContainer();
-	$container->removeService('tracy.logger');
-	$container->addService('tracy.logger', $logger);
+	$container = TestContainer::create($env);
+	TestContainer::replace($container, ILogger::class, $logger);
 
 	$presenter = $container->getByType(IPresenterFactory::class)->createPresenter('Api:Health');
 	$response = $presenter->run(new Request('Api:Health', $method));
@@ -44,7 +44,7 @@ function requestHealth(array $env, MemoryLogger $logger, string $method = 'GET')
 
 test('returns 200 and status ok when the database is reachable', function () {
 	$logger = new MemoryLogger;
-	[$code, $body] = requestHealth(getenv(), $logger);
+	[$code, $body] = requestHealth([], $logger);
 
 	Assert::same(200, $code);
 	Assert::same('{"status":"ok"}', $body);
@@ -54,7 +54,7 @@ test('returns 200 and status ok when the database is reachable', function () {
 
 test('returns 503 without details and logs the reason when the database is unreachable', function () {
 	$logger = new MemoryLogger;
-	[$code, $body] = requestHealth(['DB_PASSWORD' => 'wrong-password'] + getenv(), $logger);
+	[$code, $body] = requestHealth(['DB_PASSWORD' => 'wrong-password'], $logger);
 
 	Assert::same(503, $code);
 	Assert::same('{"status":"error"}', $body);
@@ -65,7 +65,7 @@ test('returns 503 without details and logs the reason when the database is unrea
 
 test('rejects other methods than GET with 405', function () {
 	$e = Assert::exception(
-		fn() => requestHealth(getenv(), new MemoryLogger, 'POST'),
+		fn() => requestHealth([], new MemoryLogger, 'POST'),
 		BadRequestException::class,
 	);
 	assert($e instanceof BadRequestException);

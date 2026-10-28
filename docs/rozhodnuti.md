@@ -99,3 +99,138 @@ vyžaduje ošetření `null` a je u nového projektu bez dluhu snadno udržiteln
 
 ### React Router zatím ne
 Stránka je jedna; Router se přidá s druhou stránkou (prohlížení podle dne a měsíce).
+
+## Krok 3 – databáze a import událostí (2026-10-29)
+
+### Nextras Migrations přes vlastní službu, bez DI extension a bez Symfony Console
+`App\Core\Database\Migrations` sestaví Runner, skupinu `structures` a SQL handler explicitně –
+je vidět, co se děje, a stejná třída umí vypsat čekající migrace (i na prázdné DB, kde ještě
+není tabulka `migrations`). Konzolový printer Nextras chybu znovu vyhodí, takže `make migrate`
+při chybě skončí nenulovým kódem.
+
+### Kontrola čekajících migrací jen ve webovém vstupu
+`Bootstrap::bootWebApplication()` ji spouští, `createContainer()` (CLI, testy) ne – kontrola
+tak nikdy nezablokuje `make migrate`. Produkce odpoví 503 a důvod zapíše do logu, development
+jen varuje.
+
+### Validace konfigurace přes Nette Schema před sestavením kontejneru
+Z proměnných prostředí vznikne neměnný `AppConfig`; chybějící nebo špatná hodnota zastaví start
+se seznamem všech problémů najednou. `APP_ENV` musí být výslovně `development` nebo `production`
+(dřív „cokoli jiného = produkce“) – překlep se tak neschová.
+
+### Rozhraní zdrojů (`DayPageSource`, `ArticleInfoSource`) a služby registrované pod nimi
+Import nezná Wikipedii, jen rozhraní; testy dosadí zdroje z fixtures. Služby jsou v DI
+registrované pod typem rozhraní, takže ostatní kód na konkrétní implementaci záviset nemůže.
+
+### HTML konkrétní revize a ověření hlavičky
+Revize stránky dne se zjistí z Action API a Parsoid HTML se načte pro **tu revizi**
+(`/page/html/{titul}/{revize}`). REST endpoint nekontroluje, že revize patří k titulu
+(revize 1 jiné stránky vrátila 200), proto se porovnává `Content-Revision-Id`.
+
+### Feed „On this day“ v tomto kroku nepoužit
+Revize, ID stránky, Wikidata ID i přesměrování dá Action API po 50 titulech jednoznačně;
+feed by přidal druhou cestu kódu a párování textů. Zapojí se s úvody článků.
+
+### Parser: co neumí přečíst, odmítne celý den
+Nerozpoznaná položka v sekci Události (bez roku, rok bez textu, rok 0, neznámá podsekce,
+položka mimo Česko/Svět) je chyba dne, ne přeskočený řádek – jinak by uložená událost
+dostala `missing` kvůli chybě parseru. Výjimkou je jen úplně prázdná položka (`*` bez textu).
+Pojistka „stránka ztratila víc než polovinu aktivních událostí“ je jen doplněk této kontroly.
+
+### Rodič s vlastním textem a podbody = jedna událost
+„1992 ve 23:59 končí existence Československa…:“ s podbody (zaniká ČSFR; zanikají ČST…) je
+jedna věcná událost. Rodič jen s rokem („1918“) naopak sdružuje nezávislé události.
+
+### Roky př. n. l.
+`-1` = 1 př. n. l., `-45` = 45 př. n. l., rok 0 neexistuje (parser ho odmítne, DB má
+`CHECK (year <> 0)`).
+
+### Identita události: vlastní ID, párování podle textu, nic se nemaže
+Wikipedie nedává stabilní ID události, proto má každá událost vlastní `id` (na ně se odkazují
+oblíbené). Při importu se položky párují v rámci dne + sekce + roku:
+1. **přesná shoda** normalizovaného textu (velikost písmen, mezery),
+2. **podobná věta** – jen vzájemně nejlepší dvojice 1:1 s odstupem ≥ 0,15 od druhého kandidáta
+   a podobností ≥ 0,70, nebo ≥ 0,60 při stejném hlavním článku,
+3. jinak, má-li položka kandidáta s podobností ≥ 0,30, **neodhaduje se**: nová položka i
+   kandidát dostanou `needs_review` a poznámku s ID protějšku; výběr je ignoruje.
+
+Zmizelá událost dostane `missing` (+ `missing_since`), nemaže se; když se vrátí, je opět
+`active`. Události v revizi se párují jen přesně, proto opakovaný import téže revize nevytvoří
+další záznamy k revizi (test `DayImportTest`).
+
+### Práh podobnosti nastaven podle skutečných úprav
+Podobnost = vyšší z (a) znakové podobnosti (`similar_text`, zachytí překlepy a drobné úpravy)
+a (b) překryvu slov (zachytí přeházené pořadí). Shoda hlavního článku nemůže být podmínkou:
+ve **13 ze 40** jednoznačných úprav ze 150 revizí tří stránek (28. 10., 1. 1., 17. 11.) se hlavní
+článek změnil (oprava přesměrování, přejmenování, nově přidaný odkaz).
+
+Vyhodnocení na 4 dvojicích revizí ve fixtures (`tests/fixtures/wikimedia/history/`, regresní
+test v `EventMatcherTest`):
+
+| Den, revize | Rok | Úprava | Podobnost | Stejný článek | Výsledek |
+|---|---|---|---|---|---|
+| 17. 11., 23525658 → 23526886 | 1945 | interpunkce („Sb.“ → „Sb.,“) | 1,00 | ano | spárováno |
+| | 1952 | přeformulování, přehozené pořadí vět | 0,71 | ano | spárováno |
+| | 1968 | „university za podporu progresivních reforem“ → „vysoké školy na podporu reforem“ | 0,72 | ne (přibyl odkaz) | spárováno |
+| | 1989 | „zásah policie … provázel“ → „zásah Veřejné bezpečnosti … odstartoval“ | 0,83 | ano | spárováno |
+| | 1989 | polární záře – zkrácení věty | 0,69 | ano | spárováno |
+| | 1989 | obnova sociální demokracie – přepsání | 0,61 | ano | spárováno |
+| | 1999 | doplněno jméno | 0,88 | ano | spárováno |
+| | 2014 | Albertov – přepsání | 0,61 | ano | spárováno |
+| | 1939 | jedna událost rozdělena do dvou nových (nejvyšší podobnost 0,23) | – | – | stará `missing`, 2 nové |
+| 1. 1., 23905020 → 23959580 | 1990 | amnestie – přeformulování | 0,87 | ano | spárováno |
+| | 1993 | přehozený slovosled | 0,67 | ano | spárováno |
+| | 2000 | doplněno „V“, „samosprávných“ | 0,83 | ano | spárováno |
+| | 2011 | přehozený slovosled | 1,00 (slova) | ano | spárováno |
+| | 2016 | „CHKO“ → „Chráněná krajinná oblast“ | 0,69 | ano | spárováno |
+| | 1992 | **oprava faktu** (zánik ČST → vznik ČT) | 0,50 | ne | k revizi |
+| | 1996 | přepsání „Vznikl 76. okres Jeseník.“ na delší větu | 0,35 | – | k revizi |
+| | 1990 | Havlův projev odstraněn (vůči amnestii 0,42, ta má vlastní pár) | – | – | `missing` |
+| | 1983 | nová událost | – | – | nová |
+| 28. 10., 23260912 → 23272755 | 1923 | **oprava faktu** (let Praha–Bratislava → oblet letiště) | 0,51 | ano | k revizi |
+| 1. 1., 24784971 → 24807572 | 1770 | **vandalismus** („…si prdla a byla zabita…“) | 0,36 | – | k revizi |
+
+Proč tyto prahy:
+- **0,70** automaticky: nejnižší správný pár bez shody článku má 0,72; nejvyšší podobnost
+  dvou *různých* vět ve vzorku je 0,42 – rezerva 0,28.
+- **0,60 se stejným článkem**: přeformulované věty o stejném článku mají 0,61–0,71; oprava faktu
+  se stejným článkem (1923) má 0,51 a do revize patří.
+- **0,30 kandidát na revizi**: první návrh (0,40) poslal vandalismus (0,36) a přepsaný okres
+  (0,35) do „nová událost + zmizelá“ – vandalismus by tak byl *aktivní* událostí. Pod 0,30 jsou
+  jen skutečně různé události (0,23).
+
+### Zámek dne přes `GET_LOCK` v MariaDB
+Transakce sama nezabrání dvěma souběžným importům téhož dne vložit stejnou novou událost.
+Pojmenovaný zámek `tento_den.import.MM-DD` patří spojení, uvolní se i při pádu procesu; import,
+který zámek nedostane, skončí chybou a stav dne nemění.
+
+### Výpadek ≠ úspěch
+Vše, co může selhat (síť, parser, pojistka), proběhne před transakcí; data dne a stav „ok“ se
+zapíšou v jedné transakci. Chyba zapíše jen `error` a čas pokusu, uložené události i údaje
+posledního úspěchu (revize, počet, čas) zůstanou.
+
+### HTTP: vlastní klient nad cURL, slušnost jako dekorátor
+`CurlHttpClient` (timeout, gzip, User-Agent s kontaktem) a `PoliteHttpClient` (sériově nejvýš
+200 požadavků/min, 429/503 podle `Retry-After`, jinak exponenciálně od 5 s). `maxlag` hlásí API
+jako HTTP 200 s `error.code = "maxlag"` v těle – kontroluje ho `ActionApiClient`. Čas a čekání
+přes rozhraní `Clock`, testy neusínají.
+
+### Hlavní článek a seznam obecných článků
+První odkaz, který není rok, datum ani obecný článek z `config/generic-articles.neon`
+(25 článků odkazovaných z ≥ 48 událostí za rok, docs/zdroje.md). `articles:generic-candidates`
+jen vypisuje četnost odkazů – automaticky nic neoznačuje, výsledek by závisel na tom, kolik dní
+je naimportováno.
+
+### Minimální konzole bez frameworku
+`ConsoleApplication` jen vybere příkaz, rozparsuje `--volba[=hodnota]` a chybu argumentů převede
+na exit code 2. Příkazy jsou DI služby s rozhraním `Command`.
+
+### Testovací databáze `<DB_NAME>_test`, test hygieny v jednorázovém kontejneru
+`make up` ji idempotentně založí (root heslo zůstává v kontejneru MariaDB). DB testy se řadí za
+sebou přes zámek Testeru. Test hygieny potřebuje celý repozitář a git, a tedy by viděl i `.env`
+s root heslem – proto běží v jednorázovém kontejneru s repozitářem jen pro čtení, ne v běžící
+php službě.
+
+### `bin/init-env.php` v PHP kontejneru
+Lokálně PHP není a Compose bez `.env` nenastartuje, proto `make init-env` spouští skript
+v samostatném kontejneru pod UID uživatele (soubor patří jemu, práva 0600 od vytvoření).

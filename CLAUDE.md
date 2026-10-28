@@ -28,9 +28,20 @@ Každý den 5 karet se zajímavými událostmi (výsledný mix po všech verzíc
 - Oblíbené v `localStorage`, bez přihlášení.
 - **Jen čeština.**
 
+### Zdroje (podrobně v [docs/zdroje.md](docs/zdroje.md))
+- **Česko i Svět** z české stránky dne („28. říjen“, sekce Události → Česko / Svět) jako Parsoid
+  HTML konkrétní revize. Anglická Wikipedie jen jako signál, nikdy jako zdroj textu.
+- Feed „On this day“ je jen doplněk (revize a úvody článků); jeho výpadek nesmí blokovat import.
+- 29. 2.: jako „dnes“ jen v přestupném roce, při prohlížení výročí dostupný vždy.
+
 ### Výběr událostí
-- Kombinace signálů: zobrazení článku, počet jazykových verzí, délka článku, výběr redaktorů
+- Kombinace signálů: zobrazení článku (**60 dní**, PageViewInfo – kvůli nižším nákladům
+  na načítání), počet jazykových verzí (**z Wikidat**, sitelinks), délka článku, výběr redaktorů
   („selected“). **Žádný signál sám o sobě nerozhoduje.**
+- Signály se **normalizují v rámci dne a sekce** (Česko a Svět se hodnotí odděleně); „selected“
+  je jen bonus.
+- **Hlavní článek** události = první odkazovaný článek, který není rok, datum ani **obecný článek**
+  (Praha, USA, Druhá světová válka… – konfigurovaný seznam).
 - K tomu filtry nudy (sport, otevření obchodu apod.) a rozmanitost pětice.
 - **AI výběr nedělá.**
 
@@ -44,7 +55,10 @@ Každý den 5 karet se zajímavými událostmi (výsledný mix po všech verzíc
   - **komentář** – vtipné podání (smí ho napsat AI, ale nesmí přidat žádný nový fakt),
   - **„proč to stojí za to vědět“** – krátký poučný kontext, opět jen ze zdroje.
 - **Aktuality:** cs Portál:Aktuality, en Portal:Current events. S nimi archiv konkrétních dat.
-- **Kuriozity:** archiv „Víte, že…“ (cs) a „Did you know…“ (en).
+  Feed `in_the_news` češtinu nepodporuje → cs stránku parsujeme sami.
+- **Kuriozity:** archiv „Víte, že…“ (cs) a „Did you know…“ (en). Feed `did_you_know` češtinu
+  nepodporuje → cs stránku parsujeme sami.
+- AI komentář, který převypráví text ze zdroje, je adaptace → šíří se pod CC BY-SA 4.0.
 - **Angličtina** („This Day“): přepínač CZ / EN, výchozí jazyk podle prohlížeče, volba
   v `localStorage`. Přeložené rozhraní i obsah; anglická fakta přednostně z anglické Wikipedie
   (přes propojení článků), ne z volného překladu.
@@ -54,9 +68,12 @@ Každý den 5 karet se zajímavými událostmi (výsledný mix po všech verzíc
 ## Zásady dat
 
 - **Wikipedie není záruka pravdivosti, jen dohledatelnosti.** Ke každé události ukládáme ID revize
-  článku (`oldid`) a čas načtení; odkaz vede na tuto revizi.
-- **Licence CC BY-SA:** u každé karty název článku, odkaz, licence a odkaz na historii článku
-  (autoři). **Žádné obrázky.**
+  (`oldid`) **stránky dne** (zdroj textu události) **i hlavního článku** a čas načtení; odkazy vedou
+  na tyto revize.
+- **Licence CC BY-SA 4.0:** u každé karty název stránky dne a článku, odkaz na revizi, licence,
+  odkaz na historii (autoři) a označení **„upraveno“**, pokud text měníme. **Žádné obrázky.**
+- Wikimedia API: User-Agent s kontaktem (`WIKIMEDIA_CONTACT` v `.env`), limit 200 požadavků/min,
+  při 429 čekat podle `Retry-After`, nejvýš 3 souběžné požadavky.
 - Fakta se **nikdy nevymýšlí** – jen to, co je ve zdroji.
 
 ## Stack (neměnit bez souhlasu uživatele)

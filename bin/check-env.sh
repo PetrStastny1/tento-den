@@ -1,12 +1,12 @@
 #!/bin/sh
-# Fails with a readable message when .env is missing or a required secret is empty.
+# Fails with a readable message when .env is missing or a required value is empty.
 set -eu
 
 ENV_FILE="${1:-.env}"
-REQUIRED="DB_PASSWORD DB_ROOT_PASSWORD"
+REQUIRED="DB_PASSWORD DB_ROOT_PASSWORD WIKIMEDIA_CONTACT"
 
 if [ ! -f "$ENV_FILE" ]; then
-	echo "Chyba: soubor $ENV_FILE neexistuje. Vytvořte ho: cp .env.example .env a vyplňte hesla." >&2
+	echo "Chyba: soubor $ENV_FILE neexistuje. Vytvořte ho: make init-env" >&2
 	exit 1
 fi
 
@@ -21,7 +21,7 @@ for name in $REQUIRED; do
 done
 
 if [ -n "$missing" ]; then
-	echo "Chyba: v $ENV_FILE nejsou vyplněná hesla:$missing" >&2
-	echo "Vyplňte je náhodnou hodnotou, např.: openssl rand -hex 24" >&2
+	echo "Chyba: v $ENV_FILE nejsou vyplněné hodnoty:$missing" >&2
+	echo "Hesla vyplňte náhodnou hodnotou (openssl rand -hex 24), WIKIMEDIA_CONTACT kontaktním e-mailem." >&2
 	exit 1
 fi

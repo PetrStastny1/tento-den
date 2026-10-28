@@ -1,0 +1,31 @@
+# Generic articles that can never be the primary article of an event: they are linked from
+# many events as context (place, state, war), so their signals would drown the event itself.
+# Initial list = articles linked from >= 48 events in "Události" over the whole year
+# (docs/zdroje.md, 2026-10-28). Edit by hand; "articles:generic-candidates" suggests more.
+parameters:
+	genericArticles:
+		- Praha
+		- Spojené státy americké
+		- Francie
+		- Spojené království
+		- Brno
+		- Sovětský svaz
+		- Druhá světová válka
+		- Německo
+		- Anglie
+		- Španělsko
+		- Československo
+		- Papež
+		- Londýn
+		- Paříž
+		- Česko
+		- Rusko
+		- Polsko
+		- New York
+		- Japonsko
+		- První světová válka
+		- Rakousko
+		- Židé
+		- Řím
+		- Vídeň
+		- Itálie

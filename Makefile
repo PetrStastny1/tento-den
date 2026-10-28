@@ -1,6 +1,11 @@
 COMPOSE := docker compose
+PHP_IMAGE := php:8.3-fpm-alpine
 
-.PHONY: up down test lint check-env
+.PHONY: up down test lint check-env init-env migrate import-day import-year
+
+## Create .env with random passwords (never overwrites an existing one)
+init-env:
+	docker run --rm --user "$$(id -u):$$(id -g)" -v "$(CURDIR)":/app -w /app $(PHP_IMAGE) php bin/init-env.php /app
 
 ## Build images, install dependencies and start everything (waits until healthy)
 up: check-env
@@ -8,19 +13,33 @@ up: check-env
 	$(COMPOSE) run --rm --no-deps php composer install --no-interaction
 	$(COMPOSE) run --rm --no-deps node npm ci
 	$(COMPOSE) up -d --wait
+	$(COMPOSE) exec -T mariadb sh < docker/mariadb/create-test-db.sh
 
 ## Stop and remove containers (data in volumes is kept)
 down:
 	$(COMPOSE) down
 
-## Backend tests (Nette Tester) against the running database
+## Run pending database migrations
+migrate:
+	$(COMPOSE) exec php php bin/migrate.php
+
+## Backend tests (Nette Tester, test database) and the repository hygiene test
 test:
 	$(COMPOSE) exec php vendor/bin/tester -C tests
+	$(COMPOSE) run --rm --no-deps -v "$(CURDIR)":/repo:ro -e REPO_ROOT=/repo php vendor/bin/tester -C tests/Hygiene
 
-## Static analysis (PHPStan level 8) and frontend lint (ESLint)
+## Static analysis (PHPStan level 8) and frontend lint (oxlint)
 lint:
 	$(COMPOSE) exec php vendor/bin/phpstan analyse --no-progress --memory-limit=512M
 	$(COMPOSE) exec node npm run lint
 
+## Import one day: make import-day DATE=10-28
+import-day:
+	$(COMPOSE) exec php php bin/console.php import:day --date=$(DATE)
+
+## Import all 366 days: make import-year [RESUME=1]
+import-year:
+	$(COMPOSE) exec php php bin/console.php import:year $(if $(RESUME),--resume)
+
 check-env:
-	@./scripts/check-env.sh .env
+	@./bin/check-env.sh .env

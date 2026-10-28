@@ -6,9 +6,9 @@ application:
 		Api: App\Api\*\**Presenter
 
 database:
-	dsn: 'mysql:host=%env.DB_HOST%;port=%env.DB_PORT%;dbname=%env.DB_NAME%;charset=utf8mb4'
-	user: %env.DB_USER%
-	password: %env.DB_PASSWORD%
+	dsn: %database.dsn%
+	user: %database.user%
+	password: %database.password%
 	options:
 		# connect on the first query, not on container creation
 		lazy: true
@@ -24,3 +24,9 @@ di:
 	export:
 		parameters: false
 		tags: false
+
+parameters:
+	migrationsDir: %appDir%/../migrations/structures
+	wikimedia:
+		requestsPerMinute: 200
+		timeoutSeconds: 10

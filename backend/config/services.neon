@@ -1,6 +1,28 @@
 services:
+	# validated in Bootstrap and added at runtime
+	appConfig:
+		type: App\Core\Config\AppConfig
+		imported: true
+
 	- App\Core\RouterFactory
 	router: @App\Core\RouterFactory::create
+
+	# infrastructure
+	clock:
+		type: App\Core\Clock\Clock
+		create: App\Core\Clock\SystemClock
+	- App\Core\Database\Transaction
+	- App\Core\Database\Migrations(directory: %migrationsDir%)
+	- App\Core\Database\PendingMigrationsCheck
+	curlHttpClient:
+		create: App\Core\Http\CurlHttpClient(
+			userAgent: App\Model\Wikipedia\UserAgent::create(@appConfig)
+			timeoutSeconds: %wikimedia.timeoutSeconds%
+		)
+		autowired: false
+	httpClient:
+		type: App\Core\Http\HttpClient
+		create: App\Core\Http\PoliteHttpClient(inner: @curlHttpClient, requestsPerMinute: %wikimedia.requestsPerMinute%)
 
 	# controllers
 	- App\Api\Health\HealthPresenter
@@ -9,3 +31,31 @@ services:
 	# health
 	- App\Model\Health\HealthService
 	- App\Model\Health\HealthRepository
+
+	# events
+	- App\Model\Events\LinkFilter
+	- App\Model\Events\DayPageParser
+	- App\Model\Events\EventMatcher
+	- App\Model\Events\PrimaryArticleSelector(genericTitles: %genericArticles%)
+	- App\Model\Events\EventRepository
+	- App\Model\Events\ArticleRepository
+
+	# import
+	- App\Model\Wikipedia\ActionApiClient
+	dayPageSource:
+		type: App\Model\Import\DayPageSource
+		create: App\Model\Wikipedia\WikipediaDayPageSource
+	articleInfoSource:
+		type: App\Model\Import\ArticleInfoSource
+		create: App\Model\Wikipedia\ActionApiArticleInfoSource
+	- App\Model\Import\DayImportService
+	- App\Model\Import\YearImportService
+	- App\Model\Import\ImportStatusRepository
+	- App\Model\Import\ImportLockRepository
+
+	# console
+	- App\Core\Console\ConsoleApplication(typed(App\Core\Console\Command))
+	- App\Console\ImportDayCommand
+	- App\Console\ImportYearCommand
+	- App\Console\GenericCandidatesCommand
+	- App\Console\EventsReviewCommand

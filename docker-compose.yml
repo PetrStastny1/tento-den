@@ -21,6 +21,8 @@ services:
       DB_NAME: ${DB_NAME:?DB_NAME musí být v .env vyplněné}
       DB_USER: ${DB_USER:?DB_USER musí být v .env vyplněné}
       DB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD musí být v .env vyplněné}
+      DB_TEST_NAME: ${DB_NAME}_test
+      WIKIMEDIA_CONTACT: ${WIKIMEDIA_CONTACT:?WIKIMEDIA_CONTACT musí být v .env vyplněný}
     volumes:
       - ./backend:/var/www/backend
     depends_on:
