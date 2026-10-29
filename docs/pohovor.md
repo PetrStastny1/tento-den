@@ -49,7 +49,8 @@ User-Agent s kontaktem z `.env`, sériově nejvýš 200 požadavků/min, při 42
 
 ### 8. Jak vybíráte pětici dne?
 Signál = počet jazykových verzí článku z Wikidat, logaritmicky normalizovaný zvlášť pro Česko a
-Svět. Pak deterministický výběr: aspoň 2 české, každá z jiného století, nudné až nakonec. Známé
+Svět. Pak deterministický výběr: aspoň 2 české, nudné až nakonec, jinak podle skóre; století
+rozhoduje jen při shodném skóre. Známé
 omezení: hlavní článek bývá kulisa, proto zlatá sada vychází slabě – měřím to reportem.
 → [EventScorer](../backend/app/Model/Selection/EventScorer.php), [DaySelector](../backend/app/Model/Selection/DaySelector.php),
 [kvalita.md](kvalita.md)

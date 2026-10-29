@@ -80,15 +80,16 @@ foreach ($golden as [$dayString, $year, $sectionValue, $label]) {
 		usort($sameSection, fn(Candidate $a, Candidate $b) => [$b->score, $a->id] <=> [$a->score, $b->id]);
 		$rank = array_search($best, $sameSection, true) + 1;
 		$event = $analysis->events[$best->id];
+		$chosenScores = array_map(fn(Candidate $c) => $c->score, array_filter($analysis->candidates, fn(Candidate $c) => in_array($c->id, $chosenIds, true)));
 		$reason = sprintf(
-			'nejlepší událost roku má skóre %.2f (%d jazyků, hlavní článek: %s), %d. z %d v sekci%s%s',
+			'nejlepší událost roku má skóre %.2f (%d jazyků, hlavní článek: %s), %d. z %d v sekci; nejslabší karta v pětici má %.2f%s',
 			$best->score,
 			$analysis->rawSignals[$best->id],
 			$event->primaryTitle ?? 'žádný',
 			$rank,
 			count($sameSection),
+			$chosenScores === [] ? 0 : min($chosenScores),
 			$best->boringReason === null ? '' : "; filtr nudy: {$best->boringReason}",
-			in_array($best->century(), array_map(fn(int $id) => $analysis->events[$id]->year > 0 ? intdiv($analysis->events[$id]->year - 1, 100) + 1 : 0, $chosenIds), true) ? '; století už v pětici je' : '',
 		);
 	}
 	printf("| %s %d | %s | %s | %s |\n", $day->dayPageTitle(), $year, $label, $inFive !== [] ? 'ano' : 'ne', $reason);

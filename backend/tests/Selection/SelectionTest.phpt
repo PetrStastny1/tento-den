@@ -133,19 +133,35 @@ test('fewer than two Czech events: all of them, the rest from the world', functi
 });
 
 
-test('no two cards from one century where it can be avoided, otherwise allowed', function () {
+test('a higher score wins over century variety', function () {
 	$chosen = (new DaySelector)->select([
 		candidate(1, Section::Czech, 1918, 1.0),
-		candidate(2, Section::Czech, 1945, 0.9),  // 20th century again
+		candidate(2, Section::Czech, 1945, 0.9),  // 20th century again, but the better Czech event
 		candidate(3, Section::Czech, 1424, 0.5),
-		candidate(4, Section::World, 1941, 1.0),  // 20th again
+		candidate(4, Section::World, 1941, 1.0),  // 20th again, best world event
 		candidate(5, Section::World, 1886, 0.8),
 		candidate(6, Section::World, 1636, 0.7),
 		candidate(7, Section::World, 312, 0.6),
 	]);
-	Assert::same([7, 3, 6, 5, 1], ids($chosen));
+	Assert::same([6, 5, 1, 4, 2], ids($chosen));
+});
 
-	$crowded = (new DaySelector)->select(array_map(fn(int $i) => candidate($i, $i <= 2 ? Section::Czech : Section::World, 1900 + $i, 1 - $i / 10), range(1, 6)));
+
+test('at an equal score a century not yet chosen wins', function () {
+	$chosen = (new DaySelector)->select([
+		candidate(1, Section::Czech, 1918, 0.5),
+		candidate(2, Section::Czech, 1945, 0.5),  // same score, but the 20th century is already chosen
+		candidate(3, Section::Czech, 1424, 0.5),
+		candidate(4, Section::World, 1969, 0.4),
+		candidate(5, Section::World, 1961, 0.4),
+		candidate(6, Section::World, 1492, 0.4),
+		candidate(7, Section::World, 1805, 0.4),
+	]);
+	// Czech: 1918 (lowest id), then 1424 over 1945 (new century); the remaining Czech 1945 still
+	// outscores the world (0.5 > 0.4); among equal world events 1805 is the only new century
+	Assert::same([3, 7, 1, 2, 4], ids($chosen));
+
+	$crowded = (new DaySelector)->select(array_map(fn(int $i) => candidate($i, $i <= 2 ? Section::Czech : Section::World, 1900 + $i, 0.5), range(1, 6)));
 	Assert::count(5, $crowded); // all from one century: allowed when unavoidable
 });
 
@@ -159,7 +175,7 @@ test('dull events only fill places nobody else can take', function () {
 		candidate(5, Section::World, 1492, 0.3),
 		candidate(6, Section::World, 1636, 0.2),
 	]);
-	Assert::same([3, 5, 6, 2, 1], ids($chosen));
+	Assert::same([3, 5, 6, 2, 4], ids($chosen)); // the two dull ones tie on score; 2007 adds a new century
 });
 
 

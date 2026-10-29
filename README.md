@@ -17,8 +17,8 @@ Každý den pět zajímavých výročí z Wikipedie – ze světa i z Česka. Mo
 ## Co aplikace dělá
 
 - Pro každý den roku vybere **5 výročí** z české Wikipedie: aspoň 2 z Česka (pokud existují),
-  každé pokud možno z jiného století, nudné události (sportovní výsledky, otevření obchodu,
-  vydání softwaru…) až nakonec.
+  podle skóre; nudné události (sportovní výsledky, otevření obchodu, vydání softwaru…) až
+  nakonec, rozmanitost století rozhoduje jen při shodném skóre.
 - Listování dny (šipky, přejetí prstem, výběr data), **sdílení karty** (Web Share API,
   jinak zkopírování odkazu), **oblíbené** v prohlížeči.
 - U každé karty **zdroj na konkrétní revizi** stránky dne, odkaz na autory a licenci
@@ -126,8 +126,9 @@ se signálem z Wikidat, REST API, PWA frontend, statické demo.
 **Známá omezení:**
 - *Hlavní článek* události je zatím „první neobecný odkaz“ – často kulisa (stát, město) místo
   předmětu události. Signál proto měří oblibu článku, ne vždy význam události; ze „zlaté sady“
-  8 známých výročí je v pětici svého dne zatím 1 ([docs/kvalita.md](docs/kvalita.md)).
-- Pravidlo „každá karta z jiného století“ často vytlačí důležité události 20. století.
+  8 známých výročí jsou v pětici svého dne zatím 2 ([docs/kvalita.md](docs/kvalita.md)).
+- Skóre se normalizuje zvlášť pro Česko a Svět, takže nejlepší české události mají vždy kolem
+  1,0 a konkurují nejlepším světovým i nad rámec dvou českých míst.
 - 8. 12. a 26. 12. mají jen jednu českou událost.
 
 **Přijde:** výběr hlavního článku ověřený na hodnoticí sadě, zobrazení článků, AI podání

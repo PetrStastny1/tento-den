@@ -325,7 +325,7 @@ softwaru, nehoda bez obětí). Nudná událost se jen řadí za ostatní, nikdy 
 ### Pětice se počítá při každém dotazu, neukládá se
 Je deterministická (pořadí: nenudná, skóre, ID), takže stejný den = stejná pětice bez tabulky
 výběrů a bez invalidace po importu nebo změně signálů. Pravidla: aspoň 2 české (pokud jsou),
-v prvním průchodu každá z jiného století, nudné až nakonec. `sensitive` je jen vlastnost karty
+nudné až nakonec. (Původní „každá z jiného století“ – viz níže – bylo nahrazeno.) `sensitive` je jen vlastnost karty
 (regulární výrazy v `config/selection.neon`), výběr neovlivňuje.
 
 ### API: request DTO → `DayService` → repository → response DTO
@@ -407,3 +407,11 @@ CSS překrylo, proto barvu papíru nese jen `html`.
 Skutečná emulace iPhonu (390 × 844, 3×) a `prefers-color-scheme`, čekání na vykreslené karty.
 `--screenshot` v headless Chromu měl minimální šířku 500 px a s nekonečnou animací pozadí
 fotil prázdnou stránku.
+
+## Rozmanitost století jen při shodném skóre (2026-10-29)
+Původně měla každá karta v prvním průchodu pocházet z jiného století. To předbíhalo skóre:
+ze zlaté sady 8 výročí bylo v pětici jen 1, u ostatních 7 rozhodlo „20. století už v pětici je“.
+Nově je pořadí kandidátů: nenudná před nudnou → vyšší skóre → **při shodném skóre** dosud
+nezastoupené století → nižší ID; dvě česká místa se plní stejným pořadím jako první. Zlatá sada:
+2 z 8; zbylé chybí kvůli signálu (hlavní článek je kulisa nebo méně známý článek), ne kvůli
+pravidlu – vyřeší se v plné verzi výběrem hlavního článku.
