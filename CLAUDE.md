@@ -5,7 +5,7 @@ Ukázkový projekt do portfolia (pozice Full Stack Developer – React.js + PHP/
 
 ## Cílová podoba aplikace
 
-Každý den 5 karet se zajímavými událostmi (výsledný mix po všech verzích):
+Původní cílový mix 5 karet (plán; aktuální stav je v sekci „Verze 1“ – 10 výročí denně):
 
 | Počet | Typ karty |
 |---|---|
@@ -22,7 +22,9 @@ Každý den 5 karet se zajímavými událostmi (výsledný mix po všech verzíc
 
 ## Verze 1 (aktuální)
 
-- **Jen historické karty:** 5 výročí na den (svět + Česko, **aspoň 2 z Česka, pokud existují**).
+- **Jen historické karty:** 10 výročí na den (svět + Česko, **aspoň 3 z Česka, pokud existují**),
+  od nejnovějšího; události státních svátků a významných dnů (zákon č. 245/2000 Sb.) vždy první.
+- Jmeniny CZ (cs.wikipedia) a SK (sk.wikipedia), kulaté výročí velké události.
 - Automatický import a výběr z Wikipedie, REST API, React frontend.
 - Prohlížení výročí podle **dne + měsíce** (ne archiv konkrétních dat).
 - Oblíbené v `localStorage`, bez přihlášení.
@@ -42,7 +44,7 @@ Každý den 5 karet se zajímavými událostmi (výsledný mix po všech verzíc
   je jen bonus.
 - **Hlavní článek** události = první odkazovaný článek, který není rok, datum ani **obecný článek**
   (Praha, USA, Druhá světová válka… – konfigurovaný seznam).
-- K tomu filtry nudy (sport, otevření obchodu apod.) a rozmanitost pětice.
+- K tomu filtry nudy (sport, otevření obchodu apod.) a rozmanitost století (jen při shodném skóre).
 - **AI výběr nedělá.**
 
 ## Později (po verzi 1)

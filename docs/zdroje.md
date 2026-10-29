@@ -1,5 +1,8 @@
 # Zdroje dat – průzkum (krok 2)
 
+> Poznámka (2026-10-29): dokument je průzkum zdrojů z doby pětice karet; aplikace dnes ukazuje
+> 10 výročí denně, jmeniny a státní svátky – aktuální stav viz README a docs/rozhodnuti.md.
+
 Průzkum proběhl 28. 10. 2026 skutečnými voláními API. Ukázkové odpovědi jsou
 v [backend/tests/fixtures/wikimedia/](../backend/tests/fixtures/wikimedia/) (CC BY-SA 4.0,
 viz README tamtéž). U každého tvrzení je uvedeno volání nebo dokumentace, ze které vychází.
