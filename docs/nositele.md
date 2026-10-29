@@ -9,7 +9,7 @@ Pořadí: tato pole, pak jméno na začátku popisku, pak počet jazykových ver
 
 Nevhodné škrtněte – zapíšou se do `backend/config/name-bearer-exclusions.neon` (země, jméno, položka Wikidat) a vybere se další v pořadí, nebo nikdo.
 
-## Česko (718 jmen, nositel u 387, bez dohledání 0)
+## Česko (718 jmen, nositel u 392, bez dohledání 0)
 
 | Jméno | Nositel | Povolání | Wikidata | Článek |
 |---|---|---|---|---|
@@ -349,50 +349,50 @@ Nevhodné škrtněte – zapíšou se do `backend/config/name-bearer-exclusions.
 | Laurentýn | – | | | |
 | Lea | Lea Johanidesová | biatlonista | Q1490480 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Lea_Johanidesov%C3%A1) |
 | Lena | – | | | |
-| Lenka | Lenka Kotková | objevitel planetek, astronom | Q258263 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Lenka_Kotkov%C3%A1) |
-| Leo | Leo Eitinger | spisovatel, lékař, psychiatr, historik novověku, vysokoškolský učitel | Q215340 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Leo_Eitinger) |
+| Lenka | Lenka Kotková | astronom, objevitel planetek | Q258263 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Lenka_Kotkov%C3%A1) |
+| Leo | Leo Perutz | spisovatel, matematik, dramatik, překladatel, kritik, romanopisec | Q93450 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Leo_Perutz) |
 | Leokádie | – | | | |
-| Leon | Leon Derlich | etnolog, novinář, etnograf, jazykovědec | Q62509390 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Leon_Derlich) |
-| Leona | Leona Machálková | herec, zpěvák | Q12032962 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Leona_Mach%C3%A1lkov%C3%A1) |
+| Leon | Leon Wolf | politik, advokát | Q11754439 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Leon_Wolf) |
+| Leona | Leona Machálková | zpěvák, herec | Q12032962 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Leona_Mach%C3%A1lkov%C3%A1) |
 | Leonard | – | | | |
 | Leonid | – | | | |
 | Leonora | – | | | |
 | Leontina | – | | | |
 | Leontýn | – | | | |
-| Leopold | Leopold König | sportovní cyklista | Q722223 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Leopold_K%C3%B6nig) |
-| Leopolda | Leopolda Dostalová | herec, spisovatel, překladatel, autor memoárů | Q12033009 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Leopolda_Dostalov%C3%A1) |
+| Leopold | Leopold Koželuh | hudební skladatel, učitel, dirigent, hudební vydavatel, klavírista, hudební pedagog | Q693843 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Leopold_Ko%C5%BEeluh) |
+| Leopolda | Leopolda Dostalová | spisovatel, herec, překladatel, autor memoárů | Q12033009 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Leopolda_Dostalov%C3%A1) |
 | Leopoldýna | – | | | |
-| Leoš | Leoš Janáček | hudební skladatel, učitel, dirigent, varhaník, redaktor, sbormistr | Q184933 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Leo%C5%A1_Jan%C3%A1%C4%8Dek) |
+| Leoš | Leoš Janáček | hudební skladatel, dirigent, učitel, redaktor, sbormistr, varhaník | Q184933 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Leo%C5%A1_Jan%C3%A1%C4%8Dek) |
 | Libor | Libor Sionko | fotbalista | Q297595 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Libor_Sionko) |
 | Libora | – | | | |
 | Liboslava | – | | | |
-| Libuše | Libuše Šafránková | herec, divadelní herec, televizní herec, filmový herec | Q254289 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Libu%C5%A1e_%C5%A0afr%C3%A1nkov%C3%A1) |
-| Liběna | Liběna Rochová | učitel, textilní výtvarník, módní návrhář | Q95170406 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Lib%C4%9Bna_Rochov%C3%A1) |
-| Lidmila | Lidmila Vášová | knihovník, pedagog, vysokoškolský učitel, bibliograf | Q12033485 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Lidmila_V%C3%A1%C5%A1ov%C3%A1) |
+| Libuše | Libuše Šafránková | herec, divadelní herec, filmový herec, televizní herec | Q254289 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Libu%C5%A1e_%C5%A0afr%C3%A1nkov%C3%A1) |
+| Liběna | Liběna Séquardtová | hobojista | Q12033458 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Lib%C4%9Bna_S%C3%A9quardtov%C3%A1) |
+| Lidmila | Lidmila Vášová | knihovník, vysokoškolský učitel, pedagog, bibliograf | Q12033485 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Lidmila_V%C3%A1%C5%A1ov%C3%A1) |
 | Liliana | – | | | |
 | Lina | – | | | |
 | Linda | Linda Fruhvirtová | tenista | Q95568176 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Linda_Fruhvirtov%C3%A1) |
 | Lionel | – | | | |
-| Ljuba | Ljuba Krbová | herec, fotograf | Q12033752 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Ljuba_Krbov%C3%A1) |
+| Ljuba | Ljuba Krbová | fotograf, herec | Q12033752 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Ljuba_Krbov%C3%A1) |
 | Lorenc | – | | | |
 | Lubomír | Lubomír Štrougal | úředník, politik | Q683269 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Lubom%C3%ADr_%C5%A0trougal) |
-| Lubomíra | – | | | |
+| Lubomíra | Lubomíra Kropáčková | pedagog, kronikář | Q112406099 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Lubom%C3%ADra_Krop%C3%A1%C4%8Dkov%C3%A1) |
 | Luboslava | – | | | |
-| Luboš | Luboš Kohoutek | objevitel planetek, vědec, astronom | Q27122 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Lubo%C5%A1_Kohoutek) |
+| Luboš | Luboš Kohoutek | objevitel planetek, astronom, vědec | Q27122 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Lubo%C5%A1_Kohoutek) |
 | Lucie | Lucie Šafářová | tenista | Q228989 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Lucie_%C5%A0af%C3%A1%C5%99ov%C3%A1) |
 | Ludivoj | – | | | |
 | Ludiše | – | | | |
 | Ludmila | Ludmila Formanová | běžec na středně dlouhé tratě | Q260940 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Ludmila_Formanov%C3%A1) |
-| Ludvík | Ludvík Svoboda | spisovatel, politik, voják, státník, československý legionář, důstojník | Q310000 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Ludv%C3%ADk_Svoboda) |
+| Ludvík | Ludvík Svoboda | spisovatel, voják, politik, důstojník, československý legionář, státník | Q310000 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Ludv%C3%ADk_Svoboda) |
 | Luděk | Luděk Mikloško | fotbalový trenér, sportovní funkcionář, fotbalista | Q1341070 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Lud%C4%9Bk_Miklo%C5%A1ko) |
 | Lukáš | Lukáš Krpálek | judista, zápasník | Q2261105 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Luk%C3%A1%C5%A1_Krp%C3%A1lek) |
-| Lumír | Lumír Ondřej Hanuš | spisovatel literatury faktu, vědecký pracovník, publicista, pedagog, analytik, chemik | Q280735 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Lum%C3%ADr_Ond%C5%99ej_Hanu%C5%A1) |
+| Lumír | Lumír Ondřej Hanuš | vědecký pracovník, publicista, pedagog, spisovatel literatury faktu, analytik, chemik | Q280735 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Lum%C3%ADr_Ond%C5%99ej_Hanu%C5%A1) |
 | Lumíra | – | | | |
 | Luďka | – | | | |
 | Lýdie | – | | | |
 | Magda | – | | | |
-| Magdaléna | Magdaléna Platzová | spisovatel, básník, dramatik, překladatel, redaktor, novinář | Q15358895 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Magdal%C3%A9na_Platzov%C3%A1) |
-| Mahulena | Mahulena Bočanová | herec, filmový herec, dětský herec | Q433722 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Mahulena_Bo%C4%8Danov%C3%A1) |
+| Magdaléna | Magdaléna Platzová | spisovatel, básník, dramatik, redaktor, novinář, překladatel | Q15358895 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Magdal%C3%A9na_Platzov%C3%A1) |
+| Mahulena | Mahulena Bočanová | herec, dětský herec, filmový herec | Q433722 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Mahulena_Bo%C4%8Danov%C3%A1) |
 | Majoš | – | | | |
 | Manuel | – | | | |
 | Manuela | – | | | |
@@ -402,8 +402,8 @@ Nevhodné škrtněte – zapíšou se do `backend/config/name-bearer-exclusions.
 | Marek | Marek Jankulovski | fotbalista | Q200868 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Marek_Jankulovski) |
 | Margita | – | | | |
 | Marian | Marian Jurečka | politik, zemědělec | Q13434626 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Marian_Jure%C4%8Dka) |
-| Mariana | Mariana Čengel Solčanská | scenárista, herec, spisovatel, režisér | Q105393733 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Mariana_%C4%8Cengel_Sol%C4%8Dansk%C3%A1) |
-| Marie | Marie Bouzková | tenista | Q18003204 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Marie_Bouzkov%C3%A1) |
+| Mariana | Mariana Prachařová | zpěvák, herec | Q23891734 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Mariana_Pracha%C5%99ov%C3%A1) |
+| Marie | Marie von Ebner-Eschenbach | dramatik, prozaik, romanopisec, spisovatel, povídkář | Q93525 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Marie_von_Ebner-Eschenbach) |
 | Marieta | – | | | |
 | Marika | Marika Šoposká | herec, filmový herec | Q12035518 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Marika_%C5%A0oposk%C3%A1) |
 | Marina | – | | | |
@@ -411,47 +411,47 @@ Nevhodné škrtněte – zapíšou se do `backend/config/name-bearer-exclusions.
 | Marion | – | | | |
 | Marisa | – | | | |
 | Marita | – | | | |
-| Marius | – | | | |
+| Marius | Marius Kotrba | učitel, malíř, sochař, kurátor | Q30328361 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Marius_Kotrba) |
 | Markéta | Markéta Vondroušová | tenista | Q18918709 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Mark%C3%A9ta_Vondrou%C5%A1ov%C3%A1) |
 | Marlena | – | | | |
 | Marta | Marta Jandová | herec, zpěvák, hudebník | Q470233 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Marta_Jandov%C3%A1) |
 | Martin | Martin Jiránek | fotbalista | Q249209 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Martin_Jir%C3%A1nek) |
-| Martina | Martina Navrátilová | spisovatel, sportovec, romanopisec, tenista, autor autobiografie | Q54545 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Martina_Navr%C3%A1tilov%C3%A1) |
+| Martina | Martina Navrátilová | spisovatel, sportovec, tenista, autor autobiografie, romanopisec | Q54545 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Martina_Navr%C3%A1tilov%C3%A1) |
 | Matouš | – | | | |
-| Matyáš | Matyáš Jachnicki | volejbalista, sportovec | Q67150343 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Maty%C3%A1%C5%A1_Jachnicki) |
+| Matyáš | Matyáš Lerch | matematik, pedagog, učitel, vysokoškolský učitel | Q78826 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Maty%C3%A1%C5%A1_Lerch) |
 | Matěj | Matěj Kovář | fotbalista | Q59914031 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Mat%C4%9Bj_Kov%C3%A1%C5%99) |
 | Max | – | | | |
-| Maxim | Maxim Biller | spisovatel, hudební skladatel, dramatik, hudebník, sloupkař, novinář | Q86514 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Maxim_Biller) |
+| Maxim | Maxim Biller | spisovatel, hudebník, hudební skladatel, dramatik, novinář, sloupkař | Q86514 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Maxim_Biller) |
 | Maxima | – | | | |
-| Maxmilián | Maxmilián Fatka | politik | Q12036180 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Maxmili%C3%A1n_Fatka) |
+| Maxmilián | Maxmilián z Valdštejna | důstojník, diplomat, dvorský úředník | Q27974524 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Maxmili%C3%A1n_z_Vald%C5%A1tejna) |
 | Medard | – | | | |
-| Melichar | Melichar Formánek | politik | Q12036355 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Melichar_Form%C3%A1nek) |
+| Melichar | – | | | |
 | Mečislav | – | | | |
 | Mečislava | – | | | |
 | Michael | – | | | |
-| Michaela | Michaela Pavlátová | animátor, herec, scenárista, ilustrátor, grafik, filmový režisér | Q2377467 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Michaela_Pavl%C3%A1tov%C3%A1) |
+| Michaela | Michaela Pavlátová | scenárista, herec, grafik, animátor, ilustrátor, filmový režisér | Q2377467 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Michaela_Pavl%C3%A1tov%C3%A1) |
 | Michal | Michal Kadlec | fotbalista | Q294990 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Michal_Kadlec) |
-| Mikuláš | Mikuláš Athanasov | zápasník | Q1934112 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Mikul%C3%A1%C5%A1_Athanasov) |
+| Mikuláš | Mikuláš Dačický z Heslova | spisovatel, autor memoárů, básník, vydavatel, kronikář | Q327472 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Mikul%C3%A1%C5%A1_Da%C4%8Dick%C3%BD_z_Heslova) |
 | Mila | – | | | |
 | Milada | Milada Horáková | politik, právník | Q274152 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Milada_Hor%C3%A1kov%C3%A1) |
-| Milan | Milan Kundera | scenárista, spisovatel, překladatel, básník, dramaturg, vysokoškolský učitel | Q93166 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Milan_Kundera) |
+| Milan | Milan Kundera | scenárista, spisovatel, básník, dramaturg, vysokoškolský učitel, překladatel | Q93166 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Milan_Kundera) |
 | Milana | – | | | |
 | Milena | Milena Jesenská | spisovatel, překladatel, redaktor, novinář, publicista | Q234893 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Milena_Jesensk%C3%A1) |
-| Miloslav | Miloslav Vlk | spisovatel, arcibiskup, historik, katolický kněz, katolický biskup, archivář | Q454584 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Miloslav_Vlk) |
+| Miloslav | Miloslav Vlk | arcibiskup, spisovatel, historik, katolický kněz, archivář, esperantista | Q454584 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Miloslav_Vlk) |
 | Miloslava | Miloslava Rezková | atlet | Q272178 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Miloslava_Rezkov%C3%A1) |
 | Milota | – | | | |
 | Milouš | – | | | |
 | Miloň | – | | | |
-| Miloš | Miloš Zeman | ekonom, politik | Q29032 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Milo%C5%A1_Zeman) |
+| Miloš | Miloš Zeman | politik, ekonom | Q29032 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Milo%C5%A1_Zeman) |
 | Milutín | – | | | |
 | Miluše | Miluše Bittnerová | herec | Q12037644 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Milu%C5%A1e_Bittnerov%C3%A1) |
 | Milík | – | | | |
 | Mirek | Mirek Topolánek | politik, inženýr, pedagog | Q155880 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Mirek_Topol%C3%A1nek) |
-| Miriam | Miriam Škoch | sportovec, tenista | Q18918708 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Miriam_%C5%A0koch) |
+| Miriam | Miriam Škoch | tenista, sportovec | Q18918708 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Miriam_%C5%A0koch) |
 | Mirko | Mirko Svrček | redaktor, botanik, mykolog, spisovatel literatury faktu | Q21388341 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Mirko_Svr%C4%8Dek) |
 | Miromil | – | | | |
 | Miromila | – | | | |
-| Miroslav | Miroslav Vitouš | hudební skladatel, hudebník, kontrabasista, vysokoškolský učitel, jazzový hudebník | Q558162 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Miroslav_Vitou%C5%A1) |
+| Miroslav | Miroslav Vitouš | hudební skladatel, kontrabasista, hudebník, vysokoškolský učitel, jazzový hudebník | Q558162 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Miroslav_Vitou%C5%A1) |
 | Miroslava | Miroslava Topinková Knapková | veslař | Q435707 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Miroslava_Topinkov%C3%A1_Knapkov%C3%A1) |
 | Mnislava | – | | | |
 | Mojmír | Mojmír Chytil | fotbalista | Q104488728 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Mojm%C3%ADr_Chytil) |
@@ -460,45 +460,45 @@ Nevhodné škrtněte – zapíšou se do `backend/config/name-bearer-exclusions.
 | Myrna | – | | | |
 | Máje | – | | | |
 | Mína | – | | | |
-| Naděžda | Naděžda Kavalírová | politik, lékař, lidskoprávní aktivista | Q12040314 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Nad%C4%9B%C5%BEda_Kaval%C3%ADrov%C3%A1) |
+| Naděžda | Naděžda Kavalírová | lékař, politik, lidskoprávní aktivista | Q12040314 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Nad%C4%9B%C5%BEda_Kaval%C3%ADrov%C3%A1) |
 | Nastasja | – | | | |
 | Nasťa | – | | | |
 | Natanael | – | | | |
-| Nataša | Nataša Gollová | herec, divadelní herec, filmový herec | Q436848 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Nata%C5%A1a_Gollov%C3%A1) |
+| Nataša | Nataša Gollová | herec, filmový herec, divadelní herec | Q436848 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Nata%C5%A1a_Gollov%C3%A1) |
 | Natálie | Natálie Taschlerová | tanečník na ledě | Q56507980 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Nat%C3%A1lie_Taschlerov%C3%A1) |
-| Naďa | Naďa Konvalinková | filmový herec, divadelní herec, herec | Q159693 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Na%C4%8Fa_Konvalinkov%C3%A1) |
+| Naďa | Naďa Konvalinková | herec, filmový herec, divadelní herec | Q159693 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Na%C4%8Fa_Konvalinkov%C3%A1) |
 | Nela | Nela Boudová | herec, spisovatel | Q1687122 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Nela_Boudov%C3%A1) |
 | Nikol | – | | | |
 | Nikola | Nikola Ogrodníková | oštěpař | Q32825912 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Nikola_Ogrodn%C3%ADkov%C3%A1) |
-| Nina | Nina Divíšková | herec, učitel, pedagog, filmový herec, divadelní herec | Q1992770 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Nina_Div%C3%AD%C5%A1kov%C3%A1) |
-| Nora | Nora Fridrichová | novinář, spisovatel | Q12041033 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Nora_Fridrichov%C3%A1) |
-| Norbert | Norbert Frýd | spisovatel, dramaturg, diplomat, novinář | Q277403 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Norbert_Fr%C3%BDd) |
+| Nina | Nina Divíšková | učitel, herec, pedagog, divadelní herec, filmový herec | Q1992770 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Nina_Div%C3%AD%C5%A1kov%C3%A1) |
+| Nora | Nora Fridrichová | spisovatel, novinář | Q12041033 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Nora_Fridrichov%C3%A1) |
+| Norbert | Norbert Jokl | knihovník, indoevropeista, romanista, slavista, vysokoškolský učitel, jazykovědec | Q112533 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Norbert_Jokl) |
 | Norberta | – | | | |
 | Norman | – | | | |
 | Oldřich | Oldřich Nejedlý | fotbalista | Q266489 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Old%C5%99ich_Nejedl%C3%BD) |
 | Oldřiška | Oldřiška Marešová | skokan do výšky | Q7085779 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Old%C5%99i%C5%A1ka_Mare%C5%A1ov%C3%A1) |
 | Oleg | Oleg Svátek | politik, důstojník, československý legionář | Q11797746 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Oleg_Sv%C3%A1tek) |
-| Olga | Olga Fikotová | osobní trenér, sportovec, basketbalista, atlet | Q47085 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Olga_Fikotov%C3%A1) |
-| Oliver | Oliver Dohnányi | dirigent, hudebník | Q2892726 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Oliver_Dohn%C3%A1nyi) |
+| Olga | Olga Taussky-Toddová | vysokoškolský učitel, matematik | Q113741 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Olga_Taussky-Toddov%C3%A1) |
+| Oliver | Oliver Velich | fotbalista | Q127417271 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Oliver_Velich) |
 | Olívie | – | | | |
 | Ondřej | Ondřej Moravec | sportovní televizní expert, biatlonista | Q719477 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Ond%C5%99ej_Moravec) |
-| Oskar | Oskar Kokoschka | spisovatel, dramatik, básník, vysokoškolský učitel, kreslíř, umělec | Q154260 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Oskar_Kokoschka) |
+| Oskar | Oskar Schindler | byznysmen, prodavač, odbojář, podnikatel, průmyslník, továrník | Q60029 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Oskar_Schindler) |
 | Ota | Ota Zaremba | olympionik, sportovec, vzpěrač | Q1855546 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Ota_Zaremba) |
-| Otakar | Otakar Vávra | scenárista, spisovatel, pedagog, režisér, filmový kritik, filmový režisér | Q471434 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Otakar_V%C3%A1vra) |
+| Otakar | Otakar Vávra | scenárista, spisovatel, filmový režisér, pedagog, režisér, filmový kritik | Q471434 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Otakar_V%C3%A1vra) |
 | Otakara | – | | | |
-| Otmar | Otmar Mácha | hudební skladatel, režisér, dramaturg, šéfdirigent | Q428647 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Otmar_M%C3%A1cha) |
-| Oto | Oto Mádr | spisovatel, katolický kněz, učitel náboženství, pedagog, teolog, vysokoškolský učitel | Q11800996 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Oto_M%C3%A1dr) |
-| Otokar | – | | | |
-| Otýlie | – | | | |
+| Otmar | Otmar Mácha | hudební skladatel, dramaturg, šéfdirigent, režisér | Q428647 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Otmar_M%C3%A1cha) |
+| Oto | Oto Mádr | spisovatel, katolický kněz, učitel náboženství, pedagog, vysokoškolský učitel, novinář | Q11800996 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Oto_M%C3%A1dr) |
+| Otokar | Otokar Mokrý | spisovatel, básník, politik, překladatel, novinář | Q11801012 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Otokar_Mokr%C3%BD) |
+| Otýlie | Otýlie Bondyová | spisovatel, feminista | Q1459126 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Ot%C3%BDlie_Bondyov%C3%A1) |
 | Pamela | – | | | |
 | Pankrác | – | | | |
 | Patricie | Patricie Solaříková | herec | Q12043938 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Patricie_Sola%C5%99%C3%ADkov%C3%A1) |
 | Patrik | Patrik Schick | fotbalista | Q16910257 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Patrik_Schick) |
 | Pavla | Pavla Rybová | skokan o tyči | Q434934 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Pavla_Rybov%C3%A1) |
-| Pavlína | Pavlína Pořízková | herec, filmový režisér, filmový herec, autor dětské literatury, televizní herec, model | Q236154 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Pavl%C3%ADna_Po%C5%99%C3%ADzkov%C3%A1) |
-| Petr | Petr Čech | sportovec, fotbalista, lední hokejista | Q483137 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Petr_%C4%8Cech) |
+| Pavlína | Pavlína Pořízková | herec, filmový režisér, autor dětské literatury, filmový herec, televizní herec, model | Q236154 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Pavl%C3%ADna_Po%C5%99%C3%ADzkov%C3%A1) |
+| Petr | Petr Čech | fotbalista, sportovec, lední hokejista | Q483137 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Petr_%C4%8Cech) |
 | Petra | Petra Kvitová | tenista | Q30812 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Petra_Kvitov%C3%A1) |
-| Petronela | Petronela Višňovcová | politik | Q12045178 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Petronela_Vi%C5%A1%C5%88ovcov%C3%A1) |
+| Petronela | – | | | |
 | Petronila | – | | | |
 | Petronius | – | | | |
 | Petruše | – | | | |
@@ -506,11 +506,11 @@ Nevhodné škrtněte – zapíšou se do `backend/config/name-bearer-exclusions.
 | Pravdomila | – | | | |
 | Pravomil | – | | | |
 | Pravomila | – | | | |
-| Pravoslav | Pravoslav Rada | učitel, designér keramiky, sochař, keramik | Q11089747 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Pravoslav_Rada) |
+| Pravoslav | Pravoslav Rada | učitel, sochař, keramik, designér keramiky | Q11089747 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Pravoslav_Rada) |
 | Pravoslava | – | | | |
-| Prokop | Prokop Brož | katolický biskup, pedagog, výzkumník, katolický kněz | Q12047134 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Prokop_Bro%C5%BE) |
+| Prokop | Prokop Lucemburský | básník | Q474347 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Prokop_Lucembursk%C3%BD) |
 | Prokopa | – | | | |
-| Přemysl | Přemysl Bičovský | fotbalový trenér, fotbalista | Q769601 | [cs.wikipedia](https://cs.wikipedia.org/wiki/P%C5%99emysl_Bi%C4%8Dovsk%C3%BD) |
+| Přemysl | Přemysl Otakar II. | panovník | Q150320 | [cs.wikipedia](https://cs.wikipedia.org/wiki/P%C5%99emysl_Otakar_II.) |
 | Radan | – | | | |
 | Radana | Radana Labajová | zpěvák | Q12048481 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Radana_Labajov%C3%A1) |
 | Radegast | – | | | |
@@ -521,70 +521,70 @@ Nevhodné škrtněte – zapíšou se do `backend/config/name-bearer-exclusions.
 | Radimíra | – | | | |
 | Radislav | – | | | |
 | Radislava | – | | | |
-| Radka | Radka Denemarková | scenárista, spisovatel, básník, dramaturg, překladatel, novinář | Q523952 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Radka_Denemarkov%C3%A1) |
+| Radka | Radka Denemarková | scenárista, spisovatel, překladatel, básník, germanista, dramaturg | Q523952 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Radka_Denemarkov%C3%A1) |
 | Radko | – | | | |
 | Radmila | Radmila Chroboková | krasobruslař, tanečník na ledě | Q15640063 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Radmila_Chrobokov%C3%A1) |
 | Radomila | – | | | |
 | Radomír | Radomír Šimůnek | sportovec, cyklokrosař, sportovní cyklista | Q2095301 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Radom%C3%ADr_%C5%A0im%C5%AFnek) |
-| Radomíra | Radomíra Sedláková | učitel, architekt, překladatel, kurátor, historik architektury | Q94508490 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Radom%C3%ADra_Sedl%C3%A1kov%C3%A1) |
+| Radomíra | Radomíra Sedláková | učitel, historik architektury, architekt, kurátor, překladatel | Q94508490 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Radom%C3%ADra_Sedl%C3%A1kov%C3%A1) |
 | Radoslav | Radoslav Kováč | fotbalový trenér, fotbalista | Q299604 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Radoslav_Kov%C3%A1%C4%8D) |
 | Radoslava | – | | | |
 | Radovan | Radovan Richta | filozof | Q3069574 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Radovan_Richta) |
 | Radoš | – | | | |
 | Radslava | – | | | |
 | Radvan | – | | | |
-| Radúz | Radúz Činčera | scenárista, učitel, dramaturg, filmový režisér, scénograf, režisér | Q12048716 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Rad%C3%BAz_%C4%8Cin%C4%8Dera) |
+| Radúz | Radúz Činčera | scenárista, filmový režisér, dramaturg, učitel, režisér, filmový dramaturg | Q12048716 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Rad%C3%BAz_%C4%8Cin%C4%8Dera) |
 | Rajko | – | | | |
 | Rastislav | – | | | |
 | Rastislava | – | | | |
-| Regina | Regina Pokorná | šachista | Q440813 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Regina_Pokorn%C3%A1) |
-| Renata | Renata Hiráková | basketbalista | Q3933093 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Renata_Hir%C3%A1kov%C3%A1) |
+| Regina | Regina Maršíková | tenista | Q459614 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Regina_Mar%C5%A1%C3%ADkov%C3%A1) |
+| Renata | – | | | |
 | Renáta | Renáta Tomanová | tenista | Q254047 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Ren%C3%A1ta_Tomanov%C3%A1) |
 | René | René Bolf | fotbalista | Q706050 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Ren%C3%A9_Bolf) |
-| Richard | Richard Mikuláš Coudenhove-Kalergi | spisovatel, politik, filozof | Q78525 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Richard_Mikul%C3%A1%C5%A1_Coudenhove-Kalergi) |
+| Richard | Richard Belcredi | soudce, politik, právník, velkostatkář | Q78617 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Richard_Belcredi) |
 | Richarda | – | | | |
-| Robert | Robert Wiene | herec, dramaturg, scenárista, filmový režisér, filmový producent, režisér | Q76552 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Robert_Wiene) |
+| Robert | Robert Lang | lední hokejista, sportovec | Q914398 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Robert_Lang) |
 | Roberta | – | | | |
 | Robin | Robin Hranáč | fotbalista | Q107647351 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Robin_Hran%C3%A1%C4%8D) |
-| Roland | Roland Vími | stolní tenista | Q52332537 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Roland_V%C3%ADmi) |
+| Roland | Roland Ducke | fotbalista, sportovec, fotbalový trenér | Q516859 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Roland_Ducke) |
 | Roman | Roman Šebrle | televizní moderátor, skokan do výšky, desetibojař | Q310015 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Roman_%C5%A0ebrle) |
 | Romana | Romana Maláčová | atlet | Q11835328 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Romana_Mal%C3%A1%C4%8Dov%C3%A1) |
 | Romeo | – | | | |
 | Romul | – | | | |
 | Romulus | – | | | |
 | Rosa | – | | | |
-| Rostislav | Rostislav Václavíček | fotbalový trenér, fotbalista | Q1373550 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Rostislav_V%C3%A1clav%C3%AD%C4%8Dek) |
+| Rostislav | Rostislav Václavíček | fotbalista, fotbalový trenér | Q1373550 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Rostislav_V%C3%A1clav%C3%AD%C4%8Dek) |
 | Rostislava | – | | | |
 | Rozana | – | | | |
 | Rozina | Rozina Jadrná-Pokorná | redaktor, novinář, rozhlasový moderátor, tvůrce rozhlasových pořadů, rozhlasový pracovník | Q22341536 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Rozina_Jadrn%C3%A1-Pokorn%C3%A1) |
 | Rozita | – | | | |
-| Rozálie | – | | | |
-| Rudolf | Rudolf Vrba | spisovatel, lékař, vysokoškolský učitel, farmakolog, biochemik | Q469726 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Rudolf_Vrba) |
+| Rozálie | Rozálie | herec, zpěvák, model, tanečník | Q11862954 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Roz%C3%A1lie_%28zp%C4%9Bva%C4%8Dka%29) |
+| Rudolf | Rudolf Slánský | politik | Q455948 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Rudolf_Sl%C3%A1nsk%C3%BD) |
 | Rudolfa | – | | | |
 | Rudolfína | – | | | |
 | Rút | – | | | |
 | Růžena | Růžena Svobodová | spisovatel, básník, dramatik, prozaik | Q12050608 | [cs.wikipedia](https://cs.wikipedia.org/wiki/R%C5%AF%C5%BEena_Svobodov%C3%A1) |
-| Sabina | Sabina Remundová | scenárista, herec, filmový režisér, režisér | Q12050797 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Sabina_Remundov%C3%A1) |
+| Sabina | Sabina Remundová | scenárista, herec, režisér, filmový režisér | Q12050797 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Sabina_Remundov%C3%A1) |
 | Sandra | Sandra Záhlavová | tenista | Q264474 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Sandra_Z%C3%A1hlavov%C3%A1) |
 | Saskia | – | | | |
 | Saskie | – | | | |
 | Servác | – | | | |
-| Silvestr | Silvestr Bláha | důstojník | Q12054264 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Silvestr_Bl%C3%A1ha) |
-| Silvie | Silvie Maryško | filmový herec, herec | Q12057805 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Silvie_Mary%C5%A1ko) |
+| Silvestr | Silvestr Prát | botanik, biochemik | Q21523197 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Silvestr_Pr%C3%A1t) |
+| Silvie | Silvie Hejlíková | gymnasta | Q12054271 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Silvie_Hejl%C3%ADkov%C3%A1) |
 | Silvána | – | | | |
 | Simona | Simona Stašová | herec | Q12054282 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Simona_Sta%C5%A1ov%C3%A1) |
 | Slavomil | – | | | |
 | Slavomila | – | | | |
-| Slavomír | Slavomír Bartoň | hokejový trenér, fotbalista, lední hokejista | Q429076 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Slavom%C3%ADr_Barto%C5%88) |
+| Slavomír | Slavomír Bartoň | hokejový trenér, lední hokejista, fotbalista | Q429076 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Slavom%C3%ADr_Barto%C5%88) |
 | Slavomíra | – | | | |
 | Slavěna | – | | | |
-| Slávek | Slávek Horák | režisér, scenárista, filmový režisér | Q21267576 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Sl%C3%A1vek_Hor%C3%A1k) |
+| Slávek | Slávek Horák | scenárista, filmový režisér, režisér | Q21267576 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Sl%C3%A1vek_Hor%C3%A1k) |
 | Slávka | – | | | |
 | Soběbor | – | | | |
 | Soběslav | – | | | |
 | Soběslava | – | | | |
-| Sofie | – | | | |
-| Soňa | Soňa Červená | herec, spisovatel, divadelní herec, filmový herec, operní pěvec | Q195520 | [cs.wikipedia](https://cs.wikipedia.org/wiki/So%C5%88a_%C4%8Cerven%C3%A1) |
+| Sofie | Sofie Podlipská | spisovatel, překladatel, dramatik | Q3509860 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Sofie_Podlipsk%C3%A1) |
+| Soňa | Soňa Červená | spisovatel, divadelní herec, operní pěvec, filmový herec, herec | Q195520 | [cs.wikipedia](https://cs.wikipedia.org/wiki/So%C5%88a_%C4%8Cerven%C3%A1) |
 | Stanimír | – | | | |
 | Stanislav | Stanislav Gross | advokát, politik, právník | Q348896 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Stanislav_Gross) |
 | Stanislava | Stanislava Jachnická | herec, hlasový herec | Q7599083 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Stanislava_Jachnick%C3%A1) |
@@ -595,27 +595,27 @@ Nevhodné škrtněte – zapíšou se do `backend/config/name-bearer-exclusions.
 | Svatava | Svatava Kysilková | basketbalista | Q3978428 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Svatava_Kysilkov%C3%A1) |
 | Svatoboj | – | | | |
 | Svatobor | – | | | |
-| Svatopluk | Svatopluk Pluskal | fotbalový trenér, fotbalista | Q279027 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Svatopluk_Pluskal) |
+| Svatopluk | Svatopluk Čech | spisovatel, básník, redaktor, novinář, libretista, romanopisec | Q745363 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Svatopluk_%C4%8Cech) |
 | Svatoslav | Svatoslav Ton | skokan do výšky | Q1333665 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Svatoslav_Ton) |
 | Svatoslava | – | | | |
-| Světla | Světla Mathauserová | vysokoškolský učitel, spisovatel, překladatel | Q12057731 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Sv%C4%9Btla_Mathauserov%C3%A1) |
+| Světla | Světla Amortová | herec, pedagog | Q9284720 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Sv%C4%9Btla_Amortov%C3%A1) |
 | Světlana | – | | | |
 | Sylva | – | | | |
 | Sába | – | | | |
-| Sáva | Sáva Prošek | fotbalista | Q22939123 | [cs.wikipedia](https://cs.wikipedia.org/wiki/S%C3%A1va_Pro%C5%A1ek) |
-| Tadeáš | Tadeáš Vachoušek | fotbalista | Q124253420 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Tade%C3%A1%C5%A1_Vachou%C5%A1ek) |
+| Sáva | Sáva Chilandarec | knihovník, pedagog, literární vědec, literát, slavista | Q18640142 | [cs.wikipedia](https://cs.wikipedia.org/wiki/S%C3%A1va_Chilandarec) |
+| Tadeáš | Tadeáš Hájek z Hájku | astronom, matematik, lékař, přírodovědec | Q1355663 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Tade%C3%A1%C5%A1_H%C3%A1jek_z_H%C3%A1jku) |
 | Tamara | Tamara Černá | fotograf, baletní tanečník, taneční mistr, choreograf, tanečník | Q12058286 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Tamara_%C4%8Cern%C3%A1) |
-| Taťána | Taťána Kuchařová | herec, fotomodel, model, tanečník, účastník soutěže krásy | Q153431 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Ta%C5%A5%C3%A1na_Kucha%C5%99ov%C3%A1) |
-| Teodor | Teodor Rotrekl | ilustrátor, malíř, učitel, vysokoškolský učitel, průmyslový designér, grafik | Q7701055 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Teodor_Rotrekl) |
+| Taťána | Taťána Kocembová | atlet | Q264507 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Ta%C5%A5%C3%A1na_Kocembov%C3%A1) |
+| Teodor | Teodor Rotrekl | učitel, ilustrátor, malíř, vysokoškolský učitel, grafik, průmyslový designér | Q7701055 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Teodor_Rotrekl) |
 | Teodorik | – | | | |
 | Tereza | Tereza Kerndlová | zpěvák | Q203446 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Tereza_Kerndlov%C3%A1) |
 | Terezie | – | | | |
 | Thea | – | | | |
-| Theodor | Theodor Reimann | trenér, fotbalový trenér, fotbalista | Q2634996 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Theodor_Reimann) |
-| Tibor | Tibor Jančula | fotbalista, fotbalový trenér, politik | Q874272 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Tibor_Jan%C4%8Dula) |
+| Theodor | Theodor Černý | sportovní cyklista | Q3390991 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Theodor_%C4%8Cern%C3%BD) |
+| Tibor | Tibor Batthyány | politik | Q18759489 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Tibor_Batthy%C3%A1ny) |
 | Tiburcius | – | | | |
-| Tomislav | Tomislav Volek | hudební skladatel, muzikolog, historik, hudební historik | Q2440792 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Tomislav_Volek) |
-| Tomáš | Tomáš Garrigue Masaryk | učitel, spisovatel, politik, poslanec, historik, redaktor | Q78492 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Tom%C3%A1%C5%A1_Garrigue_Masaryk) |
+| Tomislav | Tomislav Volek | hudební skladatel, historik, muzikolog, hudební historik | Q2440792 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Tomislav_Volek) |
+| Tomáš | Tomáš Garrigue Masaryk | učitel, spisovatel, politik, pedagog, redaktor, vysokoškolský učitel | Q78492 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Tom%C3%A1%C5%A1_Garrigue_Masaryk) |
 | Tomáška | – | | | |
 | Táňa | – | | | |
 | Ulrich | – | | | |
@@ -624,64 +624,64 @@ Nevhodné škrtněte – zapíšou se do `backend/config/name-bearer-exclusions.
 | Valentin | – | | | |
 | Valentina | – | | | |
 | Valentýn | – | | | |
-| Valentýna | Valentýna Kočířová | kanoista | Q140737585 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Valent%C3%BDna_Ko%C4%8D%C3%AD%C5%99ov%C3%A1) |
+| Valentýna | Valentýna Bečková | dětský herec | Q111133203 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Valent%C3%BDna_Be%C4%8Dkov%C3%A1) |
 | Valerián | – | | | |
-| Valérie | Valérie Zawadská | filmový herec, herec | Q11873890 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Val%C3%A9rie_Zawadsk%C3%A1) |
+| Valérie | Valérie Zawadská | herec, filmový herec | Q11873890 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Val%C3%A9rie_Zawadsk%C3%A1) |
 | Vanda | Vanda Hybnerová | scenárista, fotograf, herec, filmový režisér | Q9368204 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vanda_Hybnerov%C3%A1) |
 | Vavřinec | Vavřinec Hradilek | herec, kanoista, kajakář | Q2701111 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vav%C5%99inec_Hradilek) |
-| Vendelín | Vendelín Opatrný | voják | Q4144895 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vendel%C3%ADn_Opatrn%C3%BD) |
+| Vendelín | Vendelín Kopecký | hudební skladatel, kapelník, dirigent | Q15707940 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vendel%C3%ADn_Kopeck%C3%BD) |
 | Vendelína | – | | | |
-| Vendula | Vendula Frintová | triatlonista, sportovec | Q523232 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vendula_Frintov%C3%A1) |
+| Vendula | Vendula Frintová | sportovec, triatlonista | Q523232 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vendula_Frintov%C3%A1) |
 | Vendulka | – | | | |
 | Venuše | – | | | |
 | Verona | – | | | |
 | Veronika | Veronika Vítková | běžec na lyžích, biatlonista | Q271744 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Veronika_V%C3%ADtkov%C3%A1) |
-| Viktor | Viktor Dyk | spisovatel, advokát, básník, politik, literární kritik, libretista | Q109067 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Viktor_Dyk) |
+| Viktor | Viktor Dyk | spisovatel, advokát, básník, politik, dramatik, politický vězeň | Q109067 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Viktor_Dyk) |
 | Viktorie | – | | | |
 | Viktorín | – | | | |
 | Vilemína | – | | | |
 | Vilibald | Vilibald Šťovík | lední hokejista | Q3365991 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vilibald_%C5%A0%C5%A5ov%C3%ADk) |
-| Vilma | Vilma Cibulková | herec, filmový herec | Q11899095 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vilma_Cibulkov%C3%A1) |
+| Vilma | Vilma Cibulková | filmový herec, herec | Q11899095 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vilma_Cibulkov%C3%A1) |
 | Vilmar | – | | | |
-| Vilém | Vilém Mathesius | spisovatel, učitel, překladatel, historik, bohemista, vysokoškolský učitel | Q550722 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vil%C3%A9m_Mathesius) |
+| Vilém | Vilém Flusser | fotograf, spisovatel, historik umění, vysokoškolský učitel, docent, filozof | Q215623 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vil%C3%A9m_Flusser) |
 | Viléma | – | | | |
-| Vincenc | Vincenc Lesný | učitel, vysokoškolský učitel, pedagog, orientalista, spisovatel, překladatel | Q472887 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vincenc_Lesn%C3%BD) |
+| Vincenc | Vincenc Strouhal | fyzik, vysokoškolský učitel | Q2000744 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vincenc_Strouhal) |
 | Vincencie | – | | | |
 | Vincent | – | | | |
-| Viola | Viola Fischerová | spisovatel, básník, překladatel, redaktor | Q3488688 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Viola_Fischerov%C3%A1) |
+| Viola | Viola Fischerová | básník, spisovatel, překladatel, redaktor | Q3488688 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Viola_Fischerov%C3%A1) |
 | Violeta | – | | | |
 | Vladan | – | | | |
 | Vladana | – | | | |
-| Vladimír | Vladimír Mečiar | hlava vlády, advokát, politik | Q316526 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vladim%C3%ADr_Me%C4%8Diar) |
+| Vladimír | Vladimír Darida | fotbalista, sportovec | Q278239 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vladim%C3%ADr_Darida) |
 | Vladimíra | Vladimíra Uhlířová | tenista | Q240827 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vladim%C3%ADra_Uhl%C3%AD%C5%99ov%C3%A1) |
-| Vladislav | Vladislav Vančura | scenárista, spisovatel, dramaturg, lékař, dramatik, filmový režisér | Q699619 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vladislav_Van%C4%8Dura) |
+| Vladislav | Vladislav Vančura | scenárista, spisovatel, lékař, básník, dramatik, dramaturg | Q699619 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vladislav_Van%C4%8Dura) |
 | Vladislava | Vladislava Hujová | politik, ekonom | Q14324199 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vladislava_Hujov%C3%A1) |
-| Vladivoj | Vladivoj Kotyza | učitel, malíř, vysokoškolský učitel, restaurátor, výtvarník, grafik | Q47464109 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vladivoj_Kotyza) |
+| Vladivoj | Vladivoj Kotyza | učitel, restaurátor, výtvarník, vysokoškolský učitel, malíř, grafik | Q47464109 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vladivoj_Kotyza) |
 | Vladěna | – | | | |
-| Vlasta | Vlasta Chramostová | herec, divadelní herec, televizní herec, filmový herec | Q3509625 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vlasta_Chramostov%C3%A1) |
+| Vlasta | Vlasta Chramostová | televizní herec, herec, divadelní herec, filmový herec | Q3509625 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vlasta_Chramostov%C3%A1) |
 | Vlastimil | Vlastimil Hort | šachista | Q61880 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vlastimil_Hort) |
 | Vlastimila | Vlastimila Vrabcová | politik | Q11915879 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vlastimila_Vrabcov%C3%A1) |
 | Vlastimír | – | | | |
 | Vlastimíra | – | | | |
-| Vlastislav | Vlastislav Mareček | fotbalový trenér, fotbalista | Q353644 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vlastislav_Mare%C4%8Dek) |
+| Vlastislav | Vlastislav Mareček | fotbalista, fotbalový trenér | Q353644 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vlastislav_Mare%C4%8Dek) |
 | Vlastislava | – | | | |
-| Vojtěch | Vojtěch Jasný | scenárista, fotograf, vysokoškolský učitel, filmový režisér, divadelní režisér, režisér | Q1374327 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vojt%C4%9Bch_Jasn%C3%BD) |
-| Vojtěška | Vojtěška Baldessari Plumlovská | spisovatel, učitel, malíř, básník, kreslíř, divadelní ochotník | Q93331098 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vojt%C4%9B%C5%A1ka_Baldessari_Plumlovsk%C3%A1) |
+| Vojtěch | Vojtěch Jasný | scenárista, fotograf, vysokoškolský učitel, filmový režisér, režisér, divadelní režisér | Q1374327 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vojt%C4%9Bch_Jasn%C3%BD) |
+| Vojtěška | Vojtěška Baldessari Plumlovská | spisovatel, dramatik, básník, učitel, malíř, prozaik | Q93331098 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vojt%C4%9B%C5%A1ka_Baldessari_Plumlovsk%C3%A1) |
 | Vratislav | Vratislav Lokvenc | fotbalový trenér, fotbalista | Q315791 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Vratislav_Lokvenc) |
 | Vratislava | – | | | |
-| Václav | Václav Havel | spisovatel, básník, politik, disident, politický vězeň, dramatik | Q36233 | [cs.wikipedia](https://cs.wikipedia.org/wiki/V%C3%A1clav_Havel) |
-| Václava | Václava Jandečková | vědec, spisovatel, inženýr, překladatel, tlumočník, novinář | Q54180779 | [cs.wikipedia](https://cs.wikipedia.org/wiki/V%C3%A1clava_Jande%C4%8Dkov%C3%A1) |
-| Vít | Vít Jedlička | ekonom, politik, publicista, politický aktivista | Q19810371 | [cs.wikipedia](https://cs.wikipedia.org/wiki/V%C3%ADt_Jedli%C4%8Dka) |
+| Václav | Václav Havel | spisovatel, básník, politik, disident, dramatik, dramaturg | Q36233 | [cs.wikipedia](https://cs.wikipedia.org/wiki/V%C3%A1clav_Havel) |
+| Václava | Václava Jandečková | spisovatel, překladatel, inženýr, vědec, novinář, tlumočník | Q54180779 | [cs.wikipedia](https://cs.wikipedia.org/wiki/V%C3%A1clava_Jande%C4%8Dkov%C3%A1) |
+| Vít | Vít Jedlička | politik, publicista, politický aktivista, ekonom | Q19810371 | [cs.wikipedia](https://cs.wikipedia.org/wiki/V%C3%ADt_Jedli%C4%8Dka) |
 | Víta | – | | | |
 | Vítoslav | – | | | |
-| Vítězslav | Vítězslav Nezval | scenárista, spisovatel, básník, překladatel, dramatik, dramaturg | Q471184 | [cs.wikipedia](https://cs.wikipedia.org/wiki/V%C3%ADt%C4%9Bzslav_Nezval) |
+| Vítězslav | Vítězslav Nezval | scenárista, spisovatel, básník, dramatik, dramaturg, překladatel | Q471184 | [cs.wikipedia](https://cs.wikipedia.org/wiki/V%C3%ADt%C4%9Bzslav_Nezval) |
 | Vítězslava | Vítězslava Kaprálová | hudební skladatel, dirigent | Q263208 | [cs.wikipedia](https://cs.wikipedia.org/wiki/V%C3%ADt%C4%9Bzslava_Kapr%C3%A1lov%C3%A1) |
 | Věnceslav | Věnceslav Černý | spisovatel, ilustrátor, malíř, loutkář, výtvarník | Q650946 | [cs.wikipedia](https://cs.wikipedia.org/wiki/V%C4%9Bnceslav_%C4%8Cern%C3%BD) |
 | Věnceslava | Věnceslava Kratochvílová-Lorenzová | spisovatel, novinář | Q93972023 | [cs.wikipedia](https://cs.wikipedia.org/wiki/V%C4%9Bnceslava_Kratochv%C3%ADlov%C3%A1-Lorenzov%C3%A1) |
 | Věnek | – | | | |
 | Věnka | – | | | |
-| Věra | Věra Čáslavská | politik, sportovní gymnasta, sportovec | Q229503 | [cs.wikipedia](https://cs.wikipedia.org/wiki/V%C4%9Bra_%C4%8C%C3%A1slavsk%C3%A1) |
-| Věroslav | Věroslav Neumann | hudební skladatel, dirigent, sbormistr, hudební pedagog | Q10557291 | [cs.wikipedia](https://cs.wikipedia.org/wiki/V%C4%9Broslav_Neumann) |
+| Věra | Věra Čáslavská | sportovec, politik, sportovní gymnasta | Q229503 | [cs.wikipedia](https://cs.wikipedia.org/wiki/V%C4%9Bra_%C4%8C%C3%A1slavsk%C3%A1) |
+| Věroslav | Věroslav Mertl | překladatel, básník, spisovatel | Q12002760 | [cs.wikipedia](https://cs.wikipedia.org/wiki/V%C4%9Broslav_Mertl) |
 | Věroslava | – | | | |
 | Xenie | – | | | |
 | Zbislav | – | | | |
@@ -691,36 +691,36 @@ Nevhodné škrtněte – zapíšou se do `backend/config/name-bearer-exclusions.
 | Zbyslav | – | | | |
 | Zbyslava | – | | | |
 | Zbyňka | – | | | |
-| Zbyšek | Zbyšek Pantůček | herec, učitel, zpěvák, dabingový herec, hudebník | Q10857431 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zby%C5%A1ek_Pant%C5%AF%C4%8Dek_%281967%29) |
+| Zbyšek | Zbyšek Pantůček | herec, učitel, dabingový herec, zpěvák, hudebník | Q10857431 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zby%C5%A1ek_Pant%C5%AF%C4%8Dek_%281967%29) |
 | Zbyška | – | | | |
-| Zdena | – | | | |
+| Zdena | Zdena Mašínová mladší | laborant, aktivista | Q10857449 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zdena_Ma%C5%A1%C3%ADnov%C3%A1_mlad%C5%A1%C3%AD) |
 | Zdeněk | Zdeněk Grygera | fotbalista | Q168997 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zden%C4%9Bk_Grygera) |
 | Zdeslav | – | | | |
 | Zdeslava | – | | | |
-| Zdeňka | Zdeňka Vávrová | astronom | Q169131 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zde%C5%88ka_V%C3%A1vrov%C3%A1) |
+| Zdeňka | Zdeňka Veřmiřovská | učitel, trenér, sportovní gymnasta | Q3368207 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zde%C5%88ka_Ve%C5%99mi%C5%99ovsk%C3%A1) |
 | Zdislav | – | | | |
-| Zdislava | Zdislava Odstrčilová | politik | Q104124255 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zdislava_Odstr%C4%8Dilov%C3%A1) |
+| Zdislava | Zdislava z Lemberka | řeholnice | Q158971 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zdislava_z_Lemberka) |
 | Zdík | – | | | |
-| Zikmund | Zikmund Rakowski | geolog | Q20852637 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zikmund_Rakowski) |
-| Zina | Zina Freundová | lektor, překladatel | Q50377149 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zina_Freundov%C3%A1) |
-| Zita | Zita Kabátová | herec, divadelní herec, operní pěvec, filmový herec | Q206146 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zita_Kab%C3%A1tov%C3%A1) |
+| Zikmund | Zikmund Winter | spisovatel, pedagog, archivář, středoškolský učitel, kulturní historik, historik | Q3564902 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zikmund_Winter) |
+| Zina | Zina Šťovíčková | model | Q14094628 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zina_%C5%A0%C5%A5ov%C3%AD%C4%8Dkov%C3%A1) |
+| Zita | Zita Kabátová | divadelní herec, operní pěvec, herec, filmový herec | Q206146 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zita_Kab%C3%A1tov%C3%A1) |
 | Zlata | Zlata Adamovská | herec, filmový herec | Q8072970 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zlata_Adamovsk%C3%A1) |
 | Zlatan | – | | | |
 | Zlatko | – | | | |
 | Zlatomíra | – | | | |
 | Zlatuše | – | | | |
-| Zoe | Zoe Hauptová | překladatel, pedagog, filolog, lexikograf, slavista | Q10861268 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zoe_Hauptov%C3%A1) |
-| Zora | Zora Jandová | herec, spisovatel, zpěvák, vysokoškolský učitel, ilustrátor, rozhlasový moderátor | Q10861347 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zora_Jandov%C3%A1) |
+| Zoe | Zoe Hauptová | pedagog, překladatel, filolog, lexikograf, slavista | Q10861268 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zoe_Hauptov%C3%A1) |
+| Zora | Zora Jandová | herec, spisovatel, zpěvák, vysokoškolský učitel, rozhlasový moderátor, ilustrátor | Q10861347 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zora_Jandov%C3%A1) |
 | Zoran | – | | | |
 | Zoroslav | – | | | |
 | Zoroslava | – | | | |
-| Zuzana | Zuzana Čaputová | advokát, právník, politik, ochránce životního prostředí, aktivista | Q26273268 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zuzana_%C4%8Caputov%C3%A1) |
-| Čeněk | Čeněk Šlégl | herec, filmový režisér, režisér | Q8079719 | [cs.wikipedia](https://cs.wikipedia.org/wiki/%C4%8Cen%C4%9Bk_%C5%A0l%C3%A9gl) |
+| Zuzana | Zuzana Hejnová | běžec, sprinter, atlet | Q231201 | [cs.wikipedia](https://cs.wikipedia.org/wiki/Zuzana_Hejnov%C3%A1) |
+| Čeněk | Čeněk Chvojka | pedagog, muzeolog, archeolog | Q1973287 | [cs.wikipedia](https://cs.wikipedia.org/wiki/%C4%8Cen%C4%9Bk_Chvojka) |
 | Česlav | – | | | |
-| Čestmír | Čestmír Patzel | fotbalový rozhodčí, fotbalista | Q68419 | [cs.wikipedia](https://cs.wikipedia.org/wiki/%C4%8Cestm%C3%ADr_Patzel) |
+| Čestmír | Čestmír Patzel | fotbalista, fotbalový rozhodčí | Q68419 | [cs.wikipedia](https://cs.wikipedia.org/wiki/%C4%8Cestm%C3%ADr_Patzel) |
 | Čestmíra | – | | | |
 | Čeňka | – | | | |
-| Řehoř | – | | | |
+| Řehoř | Řehoř Zeithammer | filozof, středoškolský učitel, školní inspektor, pedagog, spisovatel, filolog | Q85842360 | [cs.wikipedia](https://cs.wikipedia.org/wiki/%C5%98eho%C5%99_Zeithammer) |
 | Řehořka | – | | | |
 | Šarlota | – | | | |
 | Šimon | Šimon Hrubec | lední hokejista | Q4686350 | [cs.wikipedia](https://cs.wikipedia.org/wiki/%C5%A0imon_Hrubec) |
@@ -728,7 +728,7 @@ Nevhodné škrtněte – zapíšou se do `backend/config/name-bearer-exclusions.
 | Štěpán | – | | | |
 | Štěpána | – | | | |
 | Štěpánka | Štěpánka Hilgertová | kajakář | Q81502 | [cs.wikipedia](https://cs.wikipedia.org/wiki/%C5%A0t%C4%9Bp%C3%A1nka_Hilgertov%C3%A1) |
-| Šárka | Šárka Kašpárková | basketbalista, atlet | Q255690 | [cs.wikipedia](https://cs.wikipedia.org/wiki/%C5%A0%C3%A1rka_Ka%C5%A1p%C3%A1rkov%C3%A1) |
+| Šárka | Šárka Kašpárková | atlet, basketbalista | Q255690 | [cs.wikipedia](https://cs.wikipedia.org/wiki/%C5%A0%C3%A1rka_Ka%C5%A1p%C3%A1rkov%C3%A1) |
 | Žaneta | Žaneta Fuchsová | herec, sekretář, dětský herec | Q393385 | [cs.wikipedia](https://cs.wikipedia.org/wiki/%C5%BDaneta_Fuchsov%C3%A1) |
 | Žofie | Žofie Kabelková | zpěvák | Q10296400 | [cs.wikipedia](https://cs.wikipedia.org/wiki/%C5%BDofie_Kabelkov%C3%A1) |
 

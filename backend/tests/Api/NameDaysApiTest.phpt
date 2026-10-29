@@ -15,6 +15,7 @@ use App\Model\Import\DayImportService;
 use App\Model\Import\DayPageSource;
 use App\Model\NameDays\Country;
 use App\Model\NameDays\NameBearerExclusions;
+use App\Model\NameDays\NameInfo;
 use App\Model\NameDays\NameDayRepository;
 use App\Model\NameDays\NameInfoRepository;
 use App\Model\NameDays\NameInfoService;
@@ -97,4 +98,12 @@ test('SK: from sk.wikipedia, in Slovak, links and attribution to sk.wikipedia', 
 test('a refresh without --all looks up only names not checked yet', function () use ($names) {
 	Assert::same(['names' => 0, 'meaning' => 0, 'bearer' => 0], $names->refresh(Country::Czech, false));
 	Assert::same(['names' => 2, 'meaning' => 2, 'bearer' => 1], $names->refresh(Country::Czech, true));
+});
+
+
+test('a name with many related items (P460/P1560) is stored whole – „Data too long for column related_items“', function () use ($container) {
+	$related = array_map(fn(int $i): string => 'Q' . (100000000 + $i), range(1, 80)); // > 500 characters as JSON
+	$repository = $container->getByType(NameInfoRepository::class);
+	$repository->save(new NameInfo('Jan', Country::Czech, 'Q12173670', null, null, new DateTimeImmutable('2026-10-29 15:00:00'), $related));
+	Assert::same($related, $repository->findByNames(Country::Czech, ['Jan'])['Jan']->relatedItems);
 });
