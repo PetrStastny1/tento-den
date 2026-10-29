@@ -129,11 +129,13 @@ Skóre = počet jazykových verzí hlavního článku (jinak nejlepšího neobec
 
 | Datum | Událost | V pětici | Proč ne |
 |---|---|---|---|
-| 28. říjen 1918 | vznik Československa | ne | nejlepší událost roku má skóre 0.57 (11 jazyků, hlavní článek: Česká tisková kancelář), 8. z 15 v sekci; nejslabší karta v pětici má 0.94 |
-| 17. listopad 1989 | začátek sametové revoluce | ne | nejlepší událost roku má skóre 0.92 (104 jazyků, hlavní článek: Polární záře), 3. z 16 v sekci; nejslabší karta v pětici má 0.93 |
+| 28. říjen 1918 | vznik Československa | ne | skóre 0.50 (8 jazyků, hlavní článek: Vznik Československa), 9. z 15 v sekci; nejslabší karta v pětici má 0.94 |
+| 17. listopad 1989 | začátek sametové revoluce | ne | skóre 0.45 (9 jazyků, hlavní článek: Veřejná bezpečnost), 10. z 16 v sekci; nejslabší karta v pětici má 0.93 |
 | 1. leden 1993 | vznik samostatné České republiky | ano |  |
 | 21. srpen 1968 | invaze vojsk Varšavské smlouvy | ano |  |
-| 20. červenec 1969 | přistání Apolla 11 na Měsíci | ne | nejlepší událost roku má skóre 0.79 (97 jazyků, hlavní článek: Program Apollo), 10. z 24 v sekci; nejslabší karta v pětici má 0.86 |
-| 9. listopad 1989 | pád Berlínské zdi | ne | nejlepší událost roku má skóre 0.85 (124 jazyků, hlavní článek: Berlínská zeď), 7. z 20 v sekci; nejslabší karta v pětici má 0.65 |
-| 12. duben 1961 | let Jurije Gagarina | ne | nejlepší událost roku má skóre 0.90 (177 jazyků, hlavní článek: Jurij Gagarin), 5. z 24 v sekci; nejslabší karta v pětici má 0.94 |
-| 6. červen 1944 | vylodění v Normandii | ne | nejlepší událost roku má skóre 0.71 (60 jazyků, hlavní článek: Operace Overlord), 16. z 21 v sekci; nejslabší karta v pětici má 0.94 |
+| 20. červenec 1969 | přistání Apolla 11 na Měsíci | ne | skóre 0.79 (97 jazyků, hlavní článek: Program Apollo), 10. z 24 v sekci; nejslabší karta v pětici má 0.86 |
+| 9. listopad 1989 | pád Berlínské zdi | ne | skóre 0.85 (124 jazyků, hlavní článek: Berlínská zeď), 7. z 20 v sekci; nejslabší karta v pětici má 0.65 |
+| 12. duben 1961 | let Jurije Gagarina | ne | skóre 0.90 (177 jazyků, hlavní článek: Jurij Gagarin), 5. z 24 v sekci; nejslabší karta v pětici má 0.94 |
+| 6. červen 1944 | vylodění v Normandii | ne | skóre 0.71 (60 jazyků, hlavní článek: Operace Overlord), 16. z 21 v sekci; nejslabší karta v pětici má 0.94 |
+
+V pětici svého dne: **2 z 8**.

@@ -24,15 +24,16 @@ $container = (new App\Bootstrap(getenv()))->bootConsoleApplication();
 $dayService = $container->getByType(DayService::class);
 $selector = $container->getByType(DaySelector::class);
 
+// day, year, a fragment identifying exactly one event text, label
 $golden = [
-	['10-28', 1918, 'cz', 'vznik Československa'],
-	['11-17', 1989, 'cz', 'začátek sametové revoluce'],
-	['01-01', 1993, 'cz', 'vznik samostatné České republiky'],
-	['08-21', 1968, 'cz', 'invaze vojsk Varšavské smlouvy'],
-	['07-20', 1969, 'world', 'přistání Apolla 11 na Měsíci'],
-	['11-09', 1989, 'world', 'pád Berlínské zdi'],
-	['04-12', 1961, 'world', 'let Jurije Gagarina'],
-	['06-06', 1944, 'world', 'vylodění v Normandii'],
+	['10-28', 1918, 'vyhlášen samostatný československý stát', 'vznik Československa'],
+	['11-17', 1989, 'zásah Veřejné bezpečnosti proti studentské demonstraci', 'začátek sametové revoluce'],
+	['01-01', 1993, 'Vznikly Česká republika a Slovenská republika', 'vznik samostatné České republiky'],
+	['08-21', 1968, 'Vojenský zásah armád pěti států Varšavské smlouvy', 'invaze vojsk Varšavské smlouvy'],
+	['07-20', 1969, 'dosedl přistávací modul Apolla 11', 'přistání Apolla 11 na Měsíci'],
+	['11-09', 1989, 'Pád Berlínské zdi', 'pád Berlínské zdi'],
+	['04-12', 1961, 'Gagarin jako první pobýval ve vesmíru', 'let Jurije Gagarina'],
+	['06-06', 1944, 'Začalo vylodění v Normandii', 'vylodění v Normandii'],
 ];
 
 $short = fn(string $text): string => mb_strlen($text) > 140 ? mb_substr($text, 0, 139) . '…' : $text;
@@ -62,19 +63,23 @@ foreach ((array) array_rand($days, $dayCount) as $index) {
 
 echo "## Zlatá sada\n\n";
 echo "| Datum | Událost | V pětici | Proč ne |\n|---|---|---|---|\n";
-foreach ($golden as [$dayString, $year, $sectionValue, $label]) {
+$goldenHits = 0;
+foreach ($golden as [$dayString, $year, $fragment, $label]) {
 	$day = MonthDay::fromString($dayString);
 	$analysis = $dayService->analyze($day);
 	$chosenIds = array_map(fn(Candidate $c) => $c->id, $selector->select($analysis->candidates));
-	$matching = array_values(array_filter($analysis->candidates, fn(Candidate $c) => $c->year === $year && $c->section->value === $sectionValue));
-	$inFive = array_values(array_filter($matching, fn(Candidate $c) => in_array($c->id, $chosenIds, true)));
+	$matching = array_values(array_filter(
+		$analysis->candidates,
+		fn(Candidate $c) => $c->year === $year && str_contains($analysis->events[$c->id]->text, $fragment),
+	));
+	$inFive = count($matching) === 1 && in_array($matching[0]->id, $chosenIds, true);
+	$goldenHits += (int) $inFive;
 
-	if ($matching === []) {
-		$reason = "v sekci {$section($sectionValue)} není žádná aktivní událost roku $year";
-	} elseif ($inFive !== []) {
+	if (count($matching) !== 1) {
+		$reason = sprintf('definice nesedí: %d aktivních událostí roku %d obsahuje „%s“', count($matching), $year, $fragment);
+	} elseif ($inFive) {
 		$reason = '';
 	} else {
-		usort($matching, fn(Candidate $a, Candidate $b) => $b->score <=> $a->score);
 		$best = $matching[0];
 		$sameSection = array_values(array_filter($analysis->candidates, fn(Candidate $c) => $c->section === $best->section));
 		usort($sameSection, fn(Candidate $a, Candidate $b) => [$b->score, $a->id] <=> [$a->score, $b->id]);
@@ -82,7 +87,7 @@ foreach ($golden as [$dayString, $year, $sectionValue, $label]) {
 		$event = $analysis->events[$best->id];
 		$chosenScores = array_map(fn(Candidate $c) => $c->score, array_filter($analysis->candidates, fn(Candidate $c) => in_array($c->id, $chosenIds, true)));
 		$reason = sprintf(
-			'nejlepší událost roku má skóre %.2f (%d jazyků, hlavní článek: %s), %d. z %d v sekci; nejslabší karta v pětici má %.2f%s',
+			'skóre %.2f (%d jazyků, hlavní článek: %s), %d. z %d v sekci; nejslabší karta v pětici má %.2f%s',
 			$best->score,
 			$analysis->rawSignals[$best->id],
 			$event->primaryTitle ?? 'žádný',
@@ -92,5 +97,6 @@ foreach ($golden as [$dayString, $year, $sectionValue, $label]) {
 			$best->boringReason === null ? '' : "; filtr nudy: {$best->boringReason}",
 		);
 	}
-	printf("| %s %d | %s | %s | %s |\n", $day->dayPageTitle(), $year, $label, $inFive !== [] ? 'ano' : 'ne', $reason);
+	printf("| %s %d | %s | %s | %s |\n", $day->dayPageTitle(), $year, $label, $inFive ? 'ano' : 'ne', $reason);
 }
+printf("\nV pětici svého dne: **%d z %d**.\n", $goldenHits, count($golden));
