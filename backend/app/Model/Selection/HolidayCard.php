@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Selection;
 
-use App\Model\StateDays\ArticleSummary;
+use App\Model\Import\ArticleSummary;
 use App\Model\StateDays\StateDay;
 
 

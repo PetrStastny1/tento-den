@@ -6,22 +6,35 @@ namespace App\Model\Wikipedia;
 
 
 /**
- * Links to an exact revision (traceability) and to the history (authors, CC BY-SA attribution).
+ * Links to an exact revision (traceability) and to the history (authors, CC BY-SA attribution),
+ * on cs.wikipedia or sk.wikipedia.
  */
 final class WikipediaUrl
 {
-	private const Base = 'https://cs.wikipedia.org/w/index.php?title=';
-
-
-	public static function revision(string $title, int $revisionId): string
+	public static function revision(string $title, int $revisionId, string $language = 'cs'): string
 	{
-		return self::Base . self::encodeTitle($title) . '&oldid=' . $revisionId;
+		return self::base($language) . self::encodeTitle($title) . '&oldid=' . $revisionId;
 	}
 
 
-	public static function history(string $title): string
+	public static function history(string $title, string $language = 'cs'): string
 	{
-		return self::Base . self::encodeTitle($title) . '&action=history';
+		return self::base($language) . self::encodeTitle($title) . '&action=history';
+	}
+
+
+	public static function article(string $title, string $language = 'cs'): string
+	{
+		return "https://{$language}.wikipedia.org/wiki/" . self::encodeTitle($title);
+	}
+
+
+	private static function base(string $language): string
+	{
+		if (!in_array($language, ['cs', 'sk'], true)) {
+			throw new \InvalidArgumentException("Unsupported Wikipedia language '$language'");
+		}
+		return "https://{$language}.wikipedia.org/w/index.php?title=";
 	}
 
 

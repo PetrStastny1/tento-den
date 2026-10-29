@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\Model\StateDays;
+namespace App\Model\Import;
 
-use App\Model\Import\SourceException;
 
 
 interface ArticleSummarySource

@@ -1,0 +1,13 @@
+# Explicit exceptions for the "Svátky" sections of cs.wikipedia day pages – narrow on purpose.
+# Anything that looks like a list of names but cannot be read still fails the import of the day.
+parameters:
+	nameDayRules:
+		# headings of the Czech list (h3, dt or a paragraph; a trailing colon is ignored)
+		czechLabels:
+			- 'Česko'
+			- 'Svátky (Česko)'
+			- 'České země'
+			- 'Česká republika'
+
+		# items of the Czech or Slovak list that read like names but are not name days
+		ignoredItems: []

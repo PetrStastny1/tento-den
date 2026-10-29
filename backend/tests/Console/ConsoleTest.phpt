@@ -41,7 +41,8 @@ function runConsole(Container $container, array $argv): array
 function pageWithOneEvent(MonthDay $day): string
 {
 	return '<html><body><section><h2>Události</h2><section><h3>Česko</h3><ul><li>2000 – Událost dne '
-		. $day->format() . '.</li></ul></section></section></body></html>';
+		. $day->format() . '.</li></ul></section></section>'
+		. '<section><h2>Svátky</h2><section><h3>Česko</h3><ul><li>Jan</li></ul></section></section></body></html>';
 }
 
 
@@ -80,7 +81,7 @@ test('import:day reports the result, or the failure with exit code 1', function 
 
 	[$code, $stdout] = runConsole($container, ['import:day', '--date=10-28']);
 	Assert::same(0, $code);
-	Assert::same("10-28 ok (revize 26193496): Česko 15, Svět 16 | nové 31, upravené 0, beze změny 0, zmizelé 0, k revizi 0, obnovené 0, přeskočeno pravidlem 0\n", $stdout);
+	Assert::same("10-28 ok (revize 26193496): Česko 15, Svět 16 | nové 31, upravené 0, beze změny 0, zmizelé 0, k revizi 0, obnovené 0, přeskočeno pravidlem 0 | jmeniny 3\n", $stdout);
 
 	$pages->fail('10-28');
 	[$code, , $stderr] = runConsole($container, ['import:day', '--date=10-28']);

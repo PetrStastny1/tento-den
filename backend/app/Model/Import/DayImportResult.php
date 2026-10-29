@@ -21,6 +21,7 @@ final readonly class DayImportResult
 		public int $review,
 		public int $restored,
 		public int $skipped,
+		public int $nameDays = 0,
 	) {
 	}
 }

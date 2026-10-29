@@ -329,7 +329,8 @@ test('items skipped by an explicit rule are logged with day and revision', funct
 	$fixture = new ImportFixture;
 	$fixture->pages->serveHtml('01-06', '<html><body><section><h2>Události</h2>'
 		. '<section><h3>Pravidelné události</h3><ul><li>Tříkrálová sbírka (každoročně od roku 2001)</li></ul></section>'
-		. '<section><h3>Česko</h3><ul><li>1950 – Událost.</li></ul></section></section></body></html>', 555);
+		. '<section><h3>Česko</h3><ul><li>1950 – Událost.</li></ul></section></section>'
+		. '<section><h2>Svátky</h2><section><h3>Česko</h3><ul><li>Kašpar, Melichar, Baltazar</li></ul></section></section></body></html>', 555);
 
 	$result = $fixture->import('01-06');
 

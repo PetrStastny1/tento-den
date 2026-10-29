@@ -461,3 +461,86 @@ ne rokem a sekcí.
 - **Odkaz na zákon jen jako text** na kartě („podle zákona č. 245/2000 Sb.“): odkazy v aplikaci
   vedou jen na Wikipedii; odkaz na zákon je v README a v konfiguraci.
 - Golden set: 6 z 8 v desítce (28. 10. 1918 a 17. 11. 1989 díky státním svátkům).
+
+## Jmeniny CZ a SK (2026-10-29)
+
+- **Každá země svůj kalendář.** CZ ze sekce „Svátky“ stránek dnů cs.wikipedia, ze stejné revize
+  jako události (parsuje se při importu dne, ve stejné transakci). SK ze stránek dnů
+  sk.wikipedia, vlastní revize, příkaz `name-days:import-sk`. Slovenský řádek na cs.wikipedia se
+  ukládá jen pro porovnání; rozdíly vypisuje `docs/jmeniny.md`, nic se neslučuje odhadem.
+- **Striktní parser jako u událostí.** Formát ověřený na všech 366 stránkách obou Wikipedií.
+  cs: seznam „Česko“ (h3, dt nebo odstavec; varianty názvu v `config/name-day-rules.neon`) míchá
+  jména se svátky a poznámkami – položka je jmeninami, jen když je to seznam jmen (velká písmena,
+  oddělovače „,“ „/“ „a“ „též“, varianta v závorce, poznámka v závorce nebo za pomlčkou). Položka,
+  která jako jména začíná, ale nedá se přečíst, shodí celý den; dva seznamy pro Česko nebo žádný
+  při neprázdné sekci také. sk: právě jedna věta „Meniny má …“ v úvodu; jiná zmínka o meninách =
+  chyba dne. Hlavní položka CZ je první řádek seznamu (občanský kalendář), další jména se ukazují
+  zvlášť jako „Další jména“.
+- **Kolace `utf8mb4_bin`** pro jména: s porovnáním bez diakritiky by se „Ján“ (SK) a „Jan“ (CZ)
+  slily do jednoho záznamu.
+- **Význam jen z článku o jménu.** Kandidáti „Jméno (jméno)“ → „Jméno“ (cs), „Meno (prvé meno)“
+  → „Meno (meno)“ → „Meno“ (sk), přesměrování se sledují; článek se bere, jen když jeho položka
+  Wikidat je instancí křestního jména (P31 = given name / male / female / unisex). „Sibyla“
+  (prorokyně) tak nevyhraje nad „Sibyla (jméno)“. Úvod z REST `page/summary` s revizí.
+- **Známý nositel z Wikidat** (WDQS): P735 = položka jména, P31 = člověk, P27 = Česko nebo
+  Československo (CZ), Slovensko nebo Československo (SK), článek na Wikipedii režimu. Z 50 s
+  nejvíc sitelinks vyhrává ten, jehož popisek jménem začíná (jinak by „Jan“ byl Miloš Forman –
+  vlastním jménem Jan Tomáš), pak počet sitelinks. Dotaz ve dvou krocích kvůli době (25 s → 3 s
+  u nejčastějšího jména). Nic se nenajde = nic se neukáže.
+- **Přepínač mění jen jmeniny**, ne výběr událostí; volba v `localStorage` (bez něj CZ). Vlajky
+  jako vlastní SVG – emoji vlajky se ve Windows nezobrazují.
+- **Zámky importu** (`GET_LOCK`) jsou v MariaDB celoserverové; jméno zámku nově obsahuje název
+  databáze, aby se import do vývojové a testovací databáze navzájem neblokoval.
+
+## Jednotný vzhled karet (2026-10-29)
+
+Všechny karty vypadají stejně (barevný přechod nahoře, rok v barvě dne); liší se jen textovým
+štítkem „Česko“ / „Svět“. Dřívější střídmější vzhled citlivých karet (šedý rok, bez přechodu)
+působil jako rozdíl mezi českými a světovými kartami, protože citlivé byly častěji světové.
+Příznak `sensitive` v API zůstává – použije ho AI podání (u tragédií žádné vtipy).
+
+## Kulatá výročí jen u velkých událostí (2026-10-29)
+
+- **Výpočet:** aktuální rok (Europe/Prague) − rok události; u let před n. l. o jeden méně, protože
+  rok 0 neexistuje (45 př. n. l. → 2026 = 2070 let). Kulaté: 25, 50, 75, 100, 150, 200, 250, 300,
+  pak násobky 100.
+- **Velká událost** bez ručního výběru: (a) událost státního svátku / významného dne podle zákona,
+  nebo (b) hlavní článek je na Wikidatech sám událostí velkého typu (P31/P279*). Typy jsou
+  vybrané z dat – z tříd hlavních článků všech 8 987 aktivních událostí (5 379 položek; většina
+  jsou osoby, státy a města, tedy kulisa) a z ověření na známých událostech: válka, revoluce,
+  bitva, povstání, intervence, vojenská operace, zánik státu nebo územního celku, vyhlášení
+  nezávislosti, mírová smlouva, let člověka do vesmíru, katastrofa, historická událost.
+  „Vznik Československa“ je na Wikidatech jen obecná „událost“ – vznik státu proto pokrývá zákon.
+- **Datum článku = rok události.** Bez toho by hlavní článek „Třicetiletá válka“ udělal z bitvy
+  u Dessau (1626) „400 let“ a „Korejská válka“ z jednání o příměří (1951) „75 let“. Článek tak
+  musí být o této události, ne o její kulise (P585, P580 nebo P571 v roce události; datum XSD
+  s rokem 0 se převádí).
+- **Hranice 60 jazykových verzí** = horní kvartil 587 událostních článků, jejichž datum sedí
+  (medián 37, dolní kvartil 22). „Opravdu velké“ tedy znamená čtvrtinu nejrozšířenějších. Na
+  hranici 40 by v roce 2027 prošly i únos v divadle na Dubrovce (46), Velký smog (45) a
+  etiopsko-somálská válka (44); na 60 v roce 2026 projdou bitva u Moháče (65) a útoky 11. září
+  (151), v roce 2027 nic. Výročí je proto vzácné – záměrně.
+- **Nejvýš jedno denně:** vyšší výročí, pak vyšší skóre. Je vždy v desítce a nahoře (pod kartou
+  svátku) se štítkem „500 let“.
+- **Kontrola člověkem:** `docs/vyroci.md` vypisuje všechna výročí let 2026 a 2027 s důvodem;
+  škrtnutá jdou do `config/anniversary-exclusions.neon` (den, rok, úryvek – jen vyřazení).
+- **Rok:** API má parametr `year` (výchozí letošní). Statický export počítá s rokem exportu,
+  ukládá ho (`meta.json`, `anniversaryYear` v každém dni) a musí se pouštět každý leden.
+  Pohyblivé svátky dál jen s explicitním rokem nebo „dnes“ – prohlížení dne a měsíce je vynechá.
+
+## Filtr známých nositelů jmen (2026-10-29)
+
+- **Vyřazeno vždy:** povolání (P106, i podtřídy) z oblasti erotiky a pornografie – pornoherec,
+  režisér pornografie, model erotické fotografie, sexuální pracovník, prostitutka, webcam model.
+  Aplikace je pro každého; „známý nositel“ nemá být známý tímhle.
+- **Vyřazeno, jen když jde hlavně o trestnou činnost:** odsouzení (P1399) bez povolání z
+  významných oblastí. Samotné odsouzení nestačí – odsouzení byli i političtí vězni (Václav Havel,
+  Milada Horáková) a ti mají zůstat.
+- **Jen ten, jehož popisek jménem začíná:** „Jan“ není Miloš Forman (vlastním jménem Jan Tomáš)
+  a „Sylva“ není Silvie Maryško – článek „Sylva“ přesměrovává na „Silvie“, takže sdílí položku
+  Wikidat. Význam z přesměrovaného článku zůstává (pokrývá i variantu), nositel ne.
+- **Přednost** mají osoby z politiky, vědy, umění, literatury, sportu, filmu a hudby a historické
+  role (panovník, voják, odbojář) – podle P106/P279* k těmto oblastem. Pak počet jazykových verzí.
+- **Kontrola člověkem:** pravidla jsou hrubá (Wikidata nezná „vhodnost“), proto `docs/nositele.md`
+  vypisuje všechna jména s nositelem a povoláním; nevhodné se zapíšou do
+  `config/name-bearer-exclusions.neon` (jen vyřazení) a vybere se další v pořadí, nebo nikdo.

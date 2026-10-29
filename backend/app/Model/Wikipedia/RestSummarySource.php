@@ -7,9 +7,9 @@ namespace App\Model\Wikipedia;
 use App\Core\Clock\Clock;
 use App\Core\Http\HttpClient;
 use App\Core\Http\HttpException;
+use App\Model\Import\ArticleSummary;
+use App\Model\Import\ArticleSummarySource;
 use App\Model\Import\SourceException;
-use App\Model\StateDays\ArticleSummary;
-use App\Model\StateDays\ArticleSummarySource;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
 
@@ -20,12 +20,10 @@ use Nette\Utils\JsonException;
  */
 final class RestSummarySource implements ArticleSummarySource
 {
-	private const Endpoint = 'https://cs.wikipedia.org/api/rest_v1/page/summary/';
-
-
 	public function __construct(
 		private readonly HttpClient $http,
 		private readonly Clock $clock,
+		private readonly string $language = 'cs',
 	) {
 	}
 
@@ -33,7 +31,7 @@ final class RestSummarySource implements ArticleSummarySource
 	public function fetch(string $title): ?ArticleSummary
 	{
 		try {
-			$response = $this->http->get(self::Endpoint . rawurlencode(str_replace(' ', '_', $title)), ['Accept' => 'application/json']);
+			$response = $this->http->get("https://{$this->language}.wikipedia.org/api/rest_v1/page/summary/" . rawurlencode(str_replace(' ', '_', $title)), ['Accept' => 'application/json']);
 		} catch (HttpException $e) {
 			throw new SourceException($e->getMessage(), 0, $e);
 		}

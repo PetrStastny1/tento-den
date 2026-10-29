@@ -92,6 +92,10 @@ final class Bootstrap
 		$configurator->addConfig($this->rootDir . '/config/day-page-rules.neon');
 		$configurator->addConfig($this->rootDir . '/config/selection.neon');
 		$configurator->addConfig($this->rootDir . '/config/state-days.neon');
+		$configurator->addConfig($this->rootDir . '/config/name-day-rules.neon');
+		$configurator->addConfig($this->rootDir . '/config/name-bearer-exclusions.neon');
+		$configurator->addConfig($this->rootDir . '/config/anniversaries.neon');
+		$configurator->addConfig($this->rootDir . '/config/anniversary-exclusions.neon');
 		$configurator->addServices(['appConfig' => $this->config]);
 		return $configurator;
 	}

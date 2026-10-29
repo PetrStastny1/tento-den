@@ -76,7 +76,7 @@ test('GET /api/day?date=10-28: ten cards, at least three Czech, newest first, wi
 	rsort($sorted);
 	Assert::same($sorted, $years);
 	foreach ($day['cards'] as $card) {
-		Assert::same(['id', 'date', 'year', 'yearLabel', 'section', 'text', 'sensitive', 'stateDay', 'source', 'article'], array_keys($card));
+		Assert::same(['id', 'date', 'year', 'yearLabel', 'section', 'text', 'sensitive', 'stateDay', 'anniversary', 'source', 'article'], array_keys($card));
 		Assert::same('CC BY-SA 4.0', $card['source']['license']);
 		Assert::same('https://cs.wikipedia.org/w/index.php?title=28._%C5%99%C3%ADjen&oldid=26193496', $card['source']['revisionUrl']);
 		Assert::same('https://cs.wikipedia.org/w/index.php?title=28._%C5%99%C3%ADjen&action=history', $card['source']['historyUrl']);
@@ -97,7 +97,7 @@ test('without a date, today in Europe/Prague is used', function () use ($contain
 
 
 test('a day without events has no cards', function () use ($container) {
-	Assert::same(['date' => '02-29', 'holidays' => [], 'cards' => []], call($container, 'Api:Day', ['date' => '02-29']));
+	Assert::same(['date' => '02-29', 'anniversaryYear' => 2026, 'nameDays' => ['cz' => null, 'sk' => null], 'holidays' => [], 'cards' => []], call($container, 'Api:Day', ['date' => '02-29']));
 });
 
 

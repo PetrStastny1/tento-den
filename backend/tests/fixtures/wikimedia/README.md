@@ -8,8 +8,9 @@ aby testy nevolaly síť.
 
 Texty v těchto souborech pocházejí z **české Wikipedie** (autoři: přispěvatelé Wikipedie)
 a jsou šířené pod licencí **[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.cs)**.
-Soubory jsou **upravené**: zkrácené na menší počet položek, z HTML stránek dnů zůstala jen
-sekce „Události“ bez obrázků a z JSON odpovědí byla odstraněna pole s obrázky
+Soubory jsou **upravené**: zkrácené na menší počet položek, z HTML stránek dnů zůstaly jen
+sekce „Události“ a „Svátky“ (obě z téže revize; sekce Svátky bez obrázků a bez tabulky
+Klementina) bez obrázků a z JSON odpovědí byla odstraněna pole s obrázky
 (`thumbnail`, `originalimage`) a souřadnice. Licence zdrojového kódu projektu se na tyto
 soubory nevztahuje.
 
@@ -32,6 +33,11 @@ Historie autorů je dostupná u každého zdroje (odkaz „historie“).
 | `history/day-page-01-01-rev23905020.html`, `…-rev23959580.html` | [1. leden](https://cs.wikipedia.org/w/index.php?title=1._leden&action=history) – revize [23905020](https://cs.wikipedia.org/w/index.php?title=1._leden&oldid=23905020) a [23959580](https://cs.wikipedia.org/w/index.php?title=1._leden&oldid=23959580) (přeformulování, opravy faktů) | dtto |
 | `history/day-page-01-01-rev24784971.html`, `…-rev24807572.html`, `…-rev24807575.html` | revize [24784971](https://cs.wikipedia.org/w/index.php?title=1._leden&oldid=24784971) (původní), [24807572](https://cs.wikipedia.org/w/index.php?title=1._leden&oldid=24807572) (**vandalismus**) a [24807575](https://cs.wikipedia.org/w/index.php?title=1._leden&oldid=24807575) (vrácení; sekce Události shodná s původní) | dtto |
 | `history/day-page-10-28-rev23260912.html`, `…-rev23272755.html` | [28. říjen](https://cs.wikipedia.org/w/index.php?title=28._%C5%99%C3%ADjen&action=history) – revize [23260912](https://cs.wikipedia.org/w/index.php?title=28._%C5%99%C3%ADjen&oldid=23260912) a [23272755](https://cs.wikipedia.org/w/index.php?title=28._%C5%99%C3%ADjen&oldid=23272755) (oprava faktu u roku 1923) | dtto |
+| `name-days/svatky-MM-DD.html` | sekce „Svátky“ stránek dnů cs.wikipedia (revize v souboru) – formáty jmenin: Slovensko pod „Svět“ (19. 3., 3. 1.), vlastní nadpis Slovensko (3. 8.), „Svátky (Česko)“ (3. 9.), prázdná sekce (13. 9.), lomítko (20. 9.), Silvie (29. 10.), varianta v závorce (30. 10.), odstavec „Česko:“ a „též“ (4. 11.), poznámka za pomlčkou (14. 11.), „Česká republika“ (28. 11.) | jen sekce Svátky, bez obrázků |
+| `name-days/sk-MM-DD.html` | úvod stránek dnů **sk.wikipedia** (revize v souboru): jedno, dvě a tři jména, Vianoce bez menin | jen úvod před prvním h2, bez obrázků |
+| `name-days/action-query-name-articles.json` | `GET cs.wikipedia.org/w/api.php?action=query&prop=pageprops&redirects=1&titles=Sibyla (jméno)\|Sibyla\|Josef (jméno)\|…` | beze změny |
+| `name-days/action-query-albrecht.json` | totéž pro „Albrecht (jméno)\|Albrecht“ – rozcestník s položkou jména | beze změny |
+| `name-days/wbgetentities-name-items.json` | `GET wikidata.org/w/api.php?action=wbgetentities&props=claims&ids=…` (CC0) | jen tvrzení P31 |
 | `onthisday-cs-events-10-28.json` | `GET cs.wikipedia.org/api/rest_v1/feed/onthisday/events/10/28` | 9 z 31 událostí, max. 2 stránky na událost |
 | `onthisday-cs-selected-10-28.json` | `GET …/feed/onthisday/selected/10/28` (zdroj: [Wikipedie:Vybraná výročí dne/28. říjen](https://cs.wikipedia.org/wiki/Wikipedie:Vybran%C3%A1_v%C3%BDro%C4%8D%C3%AD_dne/28._%C5%99%C3%ADjen)) | max. 2 stránky na položku |
 | `onthisday-cs-events-02-29.json` | `events` z `GET …/feed/onthisday/all/02/29` | jen klíč `events` |

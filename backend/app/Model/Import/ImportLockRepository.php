@@ -23,18 +23,22 @@ final class ImportLockRepository
 
 	public function acquire(MonthDay $day): bool
 	{
-		return (int) $this->database->fetchField('SELECT GET_LOCK(?, 0)', $this->name($day)) === 1;
+		return (int) $this->database->fetchField('SELECT GET_LOCK(CONCAT(DATABASE(), ?), 0)', $this->name($day)) === 1;
 	}
 
 
 	public function release(MonthDay $day): void
 	{
-		$this->database->query('DO RELEASE_LOCK(?)', $this->name($day));
+		$this->database->query('DO RELEASE_LOCK(CONCAT(DATABASE(), ?))', $this->name($day));
 	}
 
 
+	/**
+	 * Locks are server-wide; the database name (prepended in SQL) keeps the test and the development
+	 * database from blocking each other.
+	 */
 	private function name(MonthDay $day): string
 	{
-		return 'tento_den.import.' . $day->format();
+		return '.import.' . $day->format();
 	}
 }

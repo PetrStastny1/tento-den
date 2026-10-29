@@ -19,11 +19,14 @@ use App\Model\Events\ParsedEvent;
 use App\Model\Events\PrimaryArticleSelector;
 use App\Model\Events\ReviewRole;
 use App\Model\Events\Section;
+use App\Model\NameDays\NameDayParser;
+use App\Model\NameDays\NameDayRepository;
 use Tracy\ILogger;
 
 
 /**
- * Imports the events of one day: fetch → parse → resolve articles → match → store.
+ * Imports the events and name days of one day: fetch → parse → resolve articles → match → store.
+ * Name days come from the same page revision and are replaced as a whole.
  *
  * Failure never looks like success: everything that can fail (network, parsing,
  * suspicious result) happens before the transaction, the day is written in one
@@ -50,6 +53,8 @@ final class DayImportService
 		private readonly Transaction $transaction,
 		private readonly Clock $clock,
 		private readonly ILogger $logger,
+		private readonly NameDayParser $nameDayParser,
+		private readonly NameDayRepository $nameDayRepository,
 	) {
 	}
 
@@ -82,6 +87,7 @@ final class DayImportService
 		foreach ($parseResult->skipped as $skipped) {
 			$this->logger->log("Import {$day->format()} (revize {$page->revisionId}): přeskočeno podle pravidla – $skipped", ILogger::INFO);
 		}
+		$nameDays = $this->nameDayParser->parse($page->html, $day); // items that are not names: see bin/report/name-days.php
 		$incoming = $this->resolveArticles($parseResult->events);
 
 		$activeBefore = $this->eventRepository->countActive($day);
@@ -96,9 +102,10 @@ final class DayImportService
 		$plan = $this->matcher->match($this->eventRepository->findForMatching($day), $incoming);
 		$now = $this->clock->now();
 
-		$this->transaction->run(function () use ($day, $page, $incoming, $plan, $runId, $now): void {
+		$this->transaction->run(function () use ($day, $page, $incoming, $plan, $nameDays, $runId, $now): void {
 			$this->articleRepository->upsert($this->uniqueArticles($incoming), $now);
 			$this->applyPlan($day, $page, $plan, $now);
+			$this->nameDayRepository->replaceForDay($day, 'cs', $nameDays->nameDays, $page->title, $page->revisionId, $now);
 			$this->statusRepository->markOk($day, $page->revisionId, count($incoming), $runId, $now);
 		});
 
@@ -116,6 +123,7 @@ final class DayImportService
 			review: array_sum(array_map(fn($r): int => count($r->incoming), $plan->reviews)),
 			restored: count($plan->restoredIds),
 			skipped: count($parseResult->skipped),
+			nameDays: count($nameDays->nameDays),
 		);
 	}
 

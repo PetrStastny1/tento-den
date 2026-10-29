@@ -19,22 +19,20 @@ use App\Model\Import\SourceException;
  */
 final class WikipediaDayPageSource implements DayPageSource
 {
-	private const RestEndpoint = 'https://cs.wikipedia.org/api/rest_v1/page/html/';
-
-
 	public function __construct(
 		private readonly ActionApiClient $actionApi,
 		private readonly HttpClient $http,
+		private readonly string $language = 'cs', // the client must call the same Wikipedia
 	) {
 	}
 
 
 	public function fetch(MonthDay $day): DayPage
 	{
-		$title = $day->dayPageTitle();
+		$title = $day->dayPageTitle($this->language);
 		$revisionId = $this->currentRevision($title);
 
-		$url = self::RestEndpoint . rawurlencode(str_replace(' ', '_', $title)) . '/' . $revisionId;
+		$url = "https://{$this->language}.wikipedia.org/api/rest_v1/page/html/" . rawurlencode(str_replace(' ', '_', $title)) . '/' . $revisionId;
 		try {
 			$response = $this->http->get($url, ['Accept' => 'text/html']);
 		} catch (HttpException $e) {

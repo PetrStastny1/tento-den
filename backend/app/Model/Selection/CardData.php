@@ -16,6 +16,7 @@ final readonly class CardData
 {
 	/**
 	 * @param list<array{title: string, sitelinks: int|null}> $links linked articles in text order
+	 * @param list<int> $primaryEventYears years of the primary article's date when it is itself an event
 	 */
 	public function __construct(
 		public int $id,
@@ -31,6 +32,8 @@ final readonly class CardData
 		public ?int $primaryRevisionId,
 		public ?int $primarySitelinks,
 		public array $links,
+		public ?string $primaryEventClass = null,
+		public array $primaryEventYears = [],
 	) {
 	}
 }

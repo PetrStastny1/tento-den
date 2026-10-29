@@ -62,7 +62,7 @@ final class TestContainer
 	 */
 	public static function replace(Container $container, string $type, object $service): void
 	{
-		$names = $container->findByType($type);
+		$names = $container->findAutowired($type); // e.g. the sk.wikipedia DayPageSource is not autowired
 		if (count($names) !== 1) {
 			throw new \LogicException("Expected exactly one service of type $type");
 		}

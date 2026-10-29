@@ -95,6 +95,7 @@ final class ImportReportRepository
 			FROM event_articles ea JOIN articles a ON a.page_id = ea.page_id
 			ORDER BY ea.event_id, ea.position');
 		foreach ($rows as $row) {
+			$events[(int) $row->event_id] ??= ['hasPrimary' => false, 'articles' => []]; // the foreign key makes this unreachable
 			$events[(int) $row->event_id]['articles'][] = [
 				'article' => new ArticleInfo((int) $row->page_id, (string) $row->title, (int) $row->revision_id, $row->wikibase_item),
 				'position' => (int) $row->position,

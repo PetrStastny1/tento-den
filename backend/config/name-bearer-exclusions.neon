@@ -1,0 +1,6 @@
+# Known bearers a person decided not to show (after reviewing docs/nositele.md). Only exclusions –
+# the next person in order is chosen instead, or nobody. Rerun: make refresh-names ALL=1.
+#
+# - {country: cz, name: 'Jan', bearer: 'Q1234', reason: 'proč se nemá ukazovat'}
+parameters:
+	nameBearerExclusions: []

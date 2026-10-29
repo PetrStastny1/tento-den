@@ -1,0 +1,21 @@
+# Round anniversaries (25, 50, 75, 100, 150, 200, 250, 300, then every 100 years) of big events only.
+# An event is big when a state holiday or significant day commemorates it (state-days.neon), or when
+# its primary article is itself an event of one of these types (Wikidata P31/P279*), its date in
+# Wikidata (P585, P580 or P571) falls in the year of the event, and the article has at least
+# minSitelinks language editions. Reasons for the classes and the threshold: docs/rozhodnuti.md.
+parameters:
+	anniversaries:
+		minSitelinks: 60   # upper quartile of the 587 event articles whose date matches their event (median 37)
+		eventClasses:
+			Q198: válka
+			Q10931: revoluce
+			Q178561: bitva
+			Q124734: povstání
+			Q1168287: intervence
+			Q645883: vojenská operace
+			Q18603729: zánik státu nebo územního celku
+			Q1464916: vyhlášení nezávislosti
+			Q625298: mírová smlouva
+			Q752783: let člověka do vesmíru
+			Q3839081: katastrofa
+			Q13418847: historická událost

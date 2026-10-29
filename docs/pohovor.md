@@ -90,3 +90,11 @@ to, ale přidávalo závislosti (d3-geo, mapová data), zpomalilo první vykresl
 by byly další vrstva, kterou je třeba hlídat. Pro portfolio má přednost čitelný, ověřitelný
 obsah: deset stejných karet s celým textem ze zdroje.
 → [EventCard](../frontend/src/components/EventCard.jsx), [rozhodnuti.md](rozhodnuti.md)
+
+### 15. Jak jste řešili jmeniny, když se český a slovenský kalendář liší?
+Každá země má svůj zdroj: CZ ze sekce „Svátky“ cs.wikipedia (stejná revize jako události), SK
+z úvodu stránek dnů sk.wikipedia. Slovenský řádek z cs.wikipedia se jen porovnává a rozdíly jdou
+do reportu – nic se neslučuje. Význam jména se bere jen z článku, jehož položka Wikidat je
+křestní jméno; známý nositel z Wikidat podle státní příslušnosti a počtu jazykových verzí.
+→ [NameDayParser](../backend/app/Model/NameDays/NameDayParser.php), [SlovakNameDayParser](../backend/app/Model/NameDays/SlovakNameDayParser.php),
+[ActionApiNameArticleSource](../backend/app/Model/Wikipedia/ActionApiNameArticleSource.php), [jmeniny.md](jmeniny.md)

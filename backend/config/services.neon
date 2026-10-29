@@ -72,13 +72,49 @@ services:
 	- App\Model\Selection\BoringFilter(App\Model\Selection\TextRules(%selection.boringRules%))
 	- App\Model\Selection\SensitivityClassifier(App\Model\Selection\TextRules(%selection.sensitiveRules%))
 
+	# round anniversaries of big events
+	- App\Model\Anniversaries\AnniversaryConfig(%anniversaries.eventClasses%, %anniversaries.minSitelinks%)
+	- App\Model\Anniversaries\AnniversaryExclusions(%anniversaryExclusions%)
+	- App\Model\Anniversaries\AnniversarySelector
+	- App\Model\Anniversaries\ArticleEventRepository
+	- App\Model\Anniversaries\ArticleEventService
+	articleEventSource:
+		type: App\Model\Anniversaries\ArticleEventSource
+		create: App\Model\Wikipedia\WikidataQueryArticleEventSource
+
+	# name days (Svátky section of the day page)
+	- App\Model\NameDays\NameDayParser
+	- App\Model\NameDays\NameDayRules(%nameDayRules.czechLabels%, %nameDayRules.ignoredItems%)
+	- App\Model\NameDays\NameDayRepository
+	- App\Model\NameDays\SlovakNameDayParser
+	skActionApi:
+		create: App\Model\Wikipedia\ActionApiClient(endpoint: App\Model\Wikipedia\ActionApiClient::SkWikipedia)
+		autowired: false
+	skDayPageSource:
+		create: App\Model\Wikipedia\WikipediaDayPageSource(@skActionApi, language: sk)
+		autowired: false
+	- App\Model\NameDays\SlovakNameDayImportService(@skDayPageSource)
+	- App\Model\NameDays\NameInfoRepository
+	- App\Model\NameDays\NameBearerExclusions(%nameBearerExclusions%)
+	- App\Model\NameDays\NameDayService
+	nameArticleSource:
+		type: App\Model\NameDays\NameArticleSource
+		create: App\Model\Wikipedia\ActionApiNameArticleSource(skApi: @skActionApi, wikidataApi: @wikidataApi)
+	bearerSource:
+		type: App\Model\NameDays\BearerSource
+		create: App\Model\Wikipedia\WikidataQueryBearerSource
+	skSummarySource:
+		create: App\Model\Wikipedia\RestSummarySource(language: sk)
+		autowired: false
+	- App\Model\NameDays\NameInfoService(csSummaries: @articleSummarySource, skSummaries: @skSummarySource)
+
 	# state holidays and significant days (Act No. 245/2000 Coll.)
 	- App\Model\StateDays\StateDayCalendar(%stateDays%)
 	- App\Model\StateDays\StateDayArticleRepository
 	- App\Model\StateDays\StateDayArticleService
 	- App\Model\StateDays\StateDayCheck
 	articleSummarySource:
-		type: App\Model\StateDays\ArticleSummarySource
+		type: App\Model\Import\ArticleSummarySource
 		create: App\Model\Wikipedia\RestSummarySource
 
 	# console
@@ -90,3 +126,6 @@ services:
 	- App\Console\RefreshSignalsCommand
 	- App\Console\ExportStaticCommand
 	- App\Console\RefreshStateDaysCommand
+	- App\Console\ImportSlovakNameDaysCommand
+	- App\Console\RefreshNameInfoCommand
+	- App\Console\ClassifyArticleEventsCommand

@@ -12,7 +12,7 @@ use App\Model\Events\MonthDay;
 use App\Model\Import\ArticleInfoSource;
 use App\Model\Import\DayImportService;
 use App\Model\Import\DayPageSource;
-use App\Model\StateDays\ArticleSummarySource;
+use App\Model\Import\ArticleSummarySource;
 use App\Model\StateDays\StateDayArticleService;
 use App\Model\StateDays\StateDayCalendar;
 use App\Model\StateDays\StateDayCheck;
@@ -117,4 +117,13 @@ test('movable holidays: only on the date of the given year; a day and month with
 	Assert::same([], day($container, ['date' => '04-03', 'year' => '2027'])['holidays']);
 	Assert::same([], day($container, ['date' => '04-03'])['holidays']);
 	Assert::same(['Velký pátek'], array_column(day($container, ['date' => '03-26', 'year' => '2027'])['holidays'], 'name'));
+});
+
+
+test('the round anniversary of a commemorated event is first with its label, only in a round year', function () use ($container) {
+	$cards = day($container, ['date' => '10-28', 'year' => '2018'])['cards'];
+	Assert::same([1918, ['years' => 100, 'label' => '100 let']], [$cards[0]['year'], $cards[0]['anniversary']]);
+	Assert::count(1, array_filter($cards, fn($c) => $c['anniversary'] !== null));
+	Assert::same([], array_filter(day($container, ['date' => '10-28', 'year' => '2026'])['cards'], fn($c) => $c['anniversary'] !== null));
+	Assert::same(2018, day($container, ['date' => '10-28', 'year' => '2018'])['anniversaryYear']);
 });

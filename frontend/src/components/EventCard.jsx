@@ -9,7 +9,6 @@ const SHARE_MESSAGES = { copied: 'Odkaz zkopírován', failed: 'Sdílení se nep
 
 export function EventCard({ card, saved, onToggleFavorite, index = 0, showDate = false }) {
   const [shareMessage, setShareMessage] = useState(null)
-  const { sensitive } = card
   const sectionLabel = card.section === 'cz' ? 'Česko' : 'Svět'
 
   async function handleShare() {
@@ -24,16 +23,17 @@ export function EventCard({ card, saved, onToggleFavorite, index = 0, showDate =
       style={{ animationDelay: `${Math.min(index, 6) * 70}ms` }}
       className="relative scroll-mt-24 overflow-hidden rounded-[28px] bg-card p-5 ring-1 ring-hairline shadow-[0_1px_2px_oklch(0.2_0.02_60/0.06),0_12px_32px_-16px_oklch(0.2_0.02_60/0.25)] motion-safe:animate-rise sm:p-6"
     >
-      {!sensitive && (
-        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-accent-wash to-transparent" />
-      )}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-accent-wash to-transparent" />
 
       <header className="relative flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className={`font-serif text-[56px] font-semibold leading-[0.95] tracking-tight tabular-nums ${sensitive ? 'text-ink-soft' : 'text-accent-ink'}`}>
+          <p className="font-serif text-[56px] font-semibold leading-[0.95] tracking-tight tabular-nums text-accent-ink">
             {card.yearLabel}
           </p>
           <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 font-rounded text-[13px] font-semibold text-ink-faint">
+            {card.anniversary && (
+              <span className="rounded-full bg-accent px-2.5 py-1 text-paper">{card.anniversary.label}</span>
+            )}
             {card.stateDay && (
               <span className="rounded-full bg-accent-ink px-2.5 py-1 text-paper">{card.stateDay.typeLabel}</span>
             )}

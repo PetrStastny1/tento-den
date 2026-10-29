@@ -40,6 +40,7 @@ final readonly class CardResponse implements \JsonSerializable
 			'text' => $event->text,
 			'sensitive' => $this->card->sensitive,
 			'stateDay' => $this->card->stateDay === null ? null : new StateDayResponse($this->card->stateDay),
+			'anniversary' => $this->card->anniversary === null ? null : ['years' => $this->card->anniversary->years, 'label' => $this->card->anniversary->label()],
 			'source' => [
 				'title' => $event->sourceTitle,
 				'revisionUrl' => WikipediaUrl::revision($event->sourceTitle, $event->sourceRevisionId),

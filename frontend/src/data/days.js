@@ -23,7 +23,7 @@ export async function fetchDay(monthDay, { signal, year } = {}) {
   if (DATA_MODE === 'static' && year) {
     holidays.push(...await movableHolidays(`${year}-${monthDay}`, signal))
   }
-  return { ...data, holidays }
+  return { ...data, holidays, nameDays: data.nameDays ?? { cz: null, sk: null } }
 }
 
 async function movableHolidays(date, signal) {

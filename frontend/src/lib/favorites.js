@@ -49,5 +49,5 @@ export function useFavorites() {
 // a copy of the card, so the list works offline and in the static demo
 function snapshot(card) {
   const { id, date, year, yearLabel, section, text, sensitive, stateDay, source, article } = card
-  return { id, date, year, yearLabel, section, text, sensitive, stateDay, source, article }
+  return { id, date, year, yearLabel, section, text, sensitive, stateDay, source, article } // the anniversary belongs to one year only
 }

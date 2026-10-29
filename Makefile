@@ -1,7 +1,7 @@
 COMPOSE := docker compose
 PHP_IMAGE := php:8.3-fpm-alpine
 
-.PHONY: up down test lint check-env init-env migrate import-day import-year refresh-signals refresh-state-days export-static
+.PHONY: up down test lint check-env init-env migrate import-day import-year refresh-signals refresh-state-days import-name-days-sk refresh-names classify-events export-static
 
 ## Create .env with random passwords (never overwrites an existing one)
 init-env:
@@ -49,6 +49,19 @@ refresh-signals:
 ## Download the introductions of articles about state holidays and significant days without an event
 refresh-state-days:
 	$(COMPOSE) exec php php bin/console.php state-days:refresh
+
+## Slovak name days from the sk.wikipedia day pages (Czech ones come with import-year)
+import-name-days-sk:
+	$(COMPOSE) exec php php bin/console.php name-days:import-sk
+
+## Meaning and known bearer of the names of both modes: make refresh-names [ALL=1]
+refresh-names:
+	$(COMPOSE) exec php php bin/console.php names:refresh --country=cz $(if $(ALL),--all)
+	$(COMPOSE) exec php php bin/console.php names:refresh --country=sk $(if $(ALL),--all)
+
+## Which primary articles are themselves big events, and their dates (round anniversaries): make classify-events [ALL=1]
+classify-events:
+	$(COMPOSE) exec php php bin/console.php articles:classify-events $(if $(ALL),--all)
 
 ## Export the ten cards of all 366 days as static JSON into frontend/public/data/
 export-static:

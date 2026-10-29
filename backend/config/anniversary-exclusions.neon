@@ -1,0 +1,7 @@
+# Round anniversaries a person decided not to show (after reviewing docs/vyroci.md).
+# Only exclusions – nothing can be added here. An event is identified like in state-days.neon:
+# day, year and a text fragment that must match exactly one active event (otherwise the report fails).
+#
+# - {day: '07-14', year: 1789, text: 'dobytí Bastily', reason: 'proč se nemá ukazovat'}
+parameters:
+	anniversaryExclusions: []

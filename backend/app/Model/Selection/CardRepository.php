@@ -9,13 +9,15 @@ use App\Model\Events\MonthDay;
 use App\Model\Events\Section;
 use Nette\Database\Explorer;
 use Nette\Database\Row;
+use Nette\Utils\Json;
 
 
 final class CardRepository
 {
 	private const Query = '
 		SELECT e.id, e.month, e.day, e.year, e.section, e.text, e.status, e.source_title, e.source_revision_id, e.fetched_at,
-			p.title AS primary_title, p.revision_id AS primary_revision_id, p.sitelinks AS primary_sitelinks
+			p.title AS primary_title, p.revision_id AS primary_revision_id, p.sitelinks AS primary_sitelinks,
+			p.event_class AS primary_event_class, p.event_years AS primary_event_years
 		FROM events e
 		LEFT JOIN event_articles pe ON pe.event_id = e.id AND pe.is_primary = 1
 		LEFT JOIN articles p ON p.page_id = pe.page_id';
@@ -81,6 +83,8 @@ final class CardRepository
 			primaryRevisionId: $row->primary_revision_id,
 			primarySitelinks: $row->primary_sitelinks,
 			links: $links[$row->id] ?? [],
+			primaryEventClass: $row->primary_event_class,
+			primaryEventYears: $row->primary_event_years === null ? [] : array_values(array_map('intval', (array) Json::decode($row->primary_event_years))),
 		), $rows);
 	}
 }

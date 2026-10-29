@@ -15,6 +15,11 @@ final readonly class MonthDay
 		7 => 'červenec', 8 => 'srpen', 9 => 'září', 10 => 'říjen', 11 => 'listopad', 12 => 'prosinec',
 	];
 
+	private const SlovakMonthNames = [
+		1 => 'január', 2 => 'február', 3 => 'marec', 4 => 'apríl', 5 => 'máj', 6 => 'jún',
+		7 => 'júl', 8 => 'august', 9 => 'september', 10 => 'október', 11 => 'november', 12 => 'december',
+	];
+
 	private const DaysInMonth = [1 => 31, 2 => 29, 3 => 31, 4 => 30, 5 => 31, 6 => 30, 7 => 31, 8 => 31, 9 => 30, 10 => 31, 11 => 30, 12 => 31];
 
 
@@ -57,11 +62,11 @@ final readonly class MonthDay
 
 
 	/**
-	 * Title of the day page on cs.wikipedia, e.g. "28. říjen".
+	 * Title of the day page on cs.wikipedia ("28. říjen") or sk.wikipedia ("28. október").
 	 */
-	public function dayPageTitle(): string
+	public function dayPageTitle(string $language = 'cs'): string
 	{
-		return $this->day . '. ' . self::MonthNames[$this->month];
+		return $this->day . '. ' . ($language === 'sk' ? self::SlovakMonthNames : self::MonthNames)[$this->month];
 	}
 
 

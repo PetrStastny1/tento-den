@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\StateDays;
 
+use App\Model\Import\ArticleSummarySource;
 use App\Model\Import\SourceException;
 
 

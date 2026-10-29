@@ -11,7 +11,12 @@ Každý den deset zajímavých výročí z Wikipedie – ze světa i z Česka. M
   <img src="docs/screenshots/iphone-oblibene-light.png" alt="Oblíbené na iPhonu" width="250">
 </p>
 <p>
-  <img src="docs/screenshots/desktop-den-light.png" alt="Den na desktopu, světlý režim" width="760">
+  <img src="docs/screenshots/iphone-jmeniny-cz-light.png" alt="Jmeniny CZ: panel jména na iPhonu" width="250">
+  <img src="docs/screenshots/iphone-jmeniny-sk-dark.png" alt="Meniny SK na iPhonu, tmavý režim" width="250">
+  <img src="docs/screenshots/iphone-svatek-light.png" alt="Karta svátku bez události (Nový rok)" width="250">
+</p>
+<p>
+  <img src="docs/screenshots/desktop-den-light.png" alt="Den na desktopu, světlý režim, panel jména" width="760">
 </p>
 
 ## Co aplikace dělá
@@ -27,13 +32,27 @@ Každý den deset zajímavých výročí z Wikipedie – ze světa i z Česka. M
   takové události (Nový rok, Vánoce, Den rodin…) má nahoře vlastní kartu s úvodem článku
   z Wikipedie; do desítky se nepočítá. Velký pátek a Velikonoční pondělí jen „dnes“, kdy je
   známý rok – při prohlížení dne a měsíce se vynechají.
+- **Kulaté výročí** (25, 50, 75, 100, 150, 200, 250, 300 a dál po 100 letech; př. n. l. správně,
+  rok 0 neexistuje) – nejvýš jedno denně a jen u velké události: událost státního svátku nebo
+  významného dne, nebo událost, jejíž hlavní článek je sám velkou událostí (Wikidata: válka,
+  revoluce, bitva, povstání, zánik státu, vyhlášení nezávislosti, mírová smlouva, let do vesmíru,
+  katastrofa…), datovaný v roce události a s aspoň 60 jazykovými verzemi. Je vždy v desítce
+  nahoře se štítkem „100 let“; seznam ke kontrole člověkem v [docs/vyroci.md](docs/vyroci.md),
+  vyřazená v `backend/config/anniversary-exclusions.neon`.
+- **Jmeniny** pod datem ve dvou režimech – **CZ** (výchozí) a **SK**, přepínač vlaječkou (volba
+  se pamatuje v prohlížeči, mění jen jmeniny). CZ ze sekce „Svátky“ stránky dne na cs.wikipedia
+  (stejná revize jako události), SK z věty „Meniny má …“ na stránce dne na sk.wikipedia.
+  Klepnutím na jméno: význam a původ (úvod článku o jménu na Wikipedii režimu, s atribucí)
+  a známý nositel (Wikidata: křestní jméno P735, státní příslušnost Česko/Slovensko/Československo,
+  nejvíc jazykových verzí; odkaz na článek). Co se nenajde, se neukazuje; nic nedoplňuje AI.
 - Všechny karty jsou stejně velké: rok, „před X lety“, štítek Česko / Svět, celý text
   z Wikipedie, odkaz na článek, atribuce, oblíbené a sdílení.
 - Listování dny (šipky, přejetí prstem, výběr data), **sdílení karty** (Web Share API,
   jinak zkopírování odkazu), **oblíbené** v prohlížeči.
 - U každé karty **zdroj na konkrétní revizi** stránky dne, odkaz na autory a licenci
   CC BY-SA 4.0. Fakta se nevymýšlí ani neupravují – text je převzatý ze zdroje.
-- Karty o obětech, válkách a katastrofách jsou označené jako citlivé a mají střídmější vzhled.
+- Všechny karty mají stejný vzhled; liší se jen textovým štítkem Česko / Svět. Příznak `sensitive`
+  (oběti, války, katastrofy) zůstává v API pro budoucí AI podání, kde u tragédií nesmí být vtipy.
 
 ## Architektura
 
@@ -83,10 +102,15 @@ make migrate
 make import-year         # ~10 minut: 366 stránek dnů z cs.wikipedia
 make refresh-signals     # ~2 minuty: jazykové verze článků z Wikidat
 make refresh-state-days  # úvody článků o svátcích bez historické události
+make import-name-days-sk # ~2 minuty: slovenské jmeniny ze sk.wikipedia
+make refresh-names       # ~30 minut: význam jmen a známí nositelé (Wikidata Query Service)
+make classify-events     # ~1 minuta: které hlavní články jsou samy velkou událostí (kulatá výročí)
 ```
 
 - aplikace: <http://localhost:8080>, API: <http://localhost:8080/api/day?date=10-28>
-- statická data pro demo: `make export-static` (zapíše `frontend/public/data/`, 366 souborů,
+- statická data pro demo: `make export-static` – **export pouštět znovu na začátku každého roku**:
+  kulatá výročí se počítají k roku exportu (uložený v `data/meta.json` a v každém dni jako
+  `anniversaryYear`); zapíše `frontend/public/data/`, 366 souborů,
   celkem 2,5 MB, na den medián 7 kB, komprimovaně nejvýš 2 kB)
 - další příkazy: `docker compose exec php php bin/console.php` (např. `events:review` – události
   čekající na ruční rozhodnutí), ověřovací reporty v `backend/bin/report/`
@@ -95,7 +119,7 @@ make refresh-state-days  # úvody článků o svátcích bez historické událos
 
 | Metoda | Cesta | Odpověď |
 |---|---|---|
-| GET | `/api/day?date=MM-DD[&year=YYYY]` | `holidays` (svátky bez události) a `cards` (10 karet: připomínané události svátků první, pak od nejnovější); `year` určuje pohyblivé svátky; bez `date` dnešek v Europe/Prague včetně roku |
+| GET | `/api/day?date=MM-DD[&year=YYYY]` | `nameDays` (`cz` a `sk`: jména, význam, nositel, zdroj), `holidays` (svátky bez události) a `cards` (10 karet: připomínané události svátků první, pak od nejnovější); `year` (výchozí letošní) určuje kulatá výročí a pohyblivé svátky (ty jen s explicitním rokem nebo „dnes“); bez `date` dnešek v Europe/Prague včetně roku |
 | GET | `/api/events/{id}` | jedna karta včetně stavu (`active`, `missing`, `needs_review`) |
 | GET | `/api/health` | `200 {"status":"ok"}`, nebo `503` bez dostupné DB |
 
@@ -136,6 +160,12 @@ skutečných editací z historie stránek (přeformulování, oprava faktu, vand
 - Seznam svátků a významných dnů: [zákon č. 245/2000 Sb.](https://www.zakonyprolidi.cz/cs/2000-245)
   v aktuálním znění (k 13. 5. 2026); úvody karet svátků z REST `page/summary` české Wikipedie,
   s revizí a atribucí jako u událostí (CC BY-SA 4.0).
+- Jmeniny: [česká Wikipedie](https://cs.wikipedia.org) (sekce „Svátky“ stránek dnů) a
+  [slovenská Wikipedie](https://sk.wikipedia.org) (úvod stránek dnů), obě CC BY-SA 4.0; každý
+  blok odkazuje na revizi stránky dne. Význam jmen: úvody článků z REST `page/summary` české,
+  resp. slovenské Wikipedie (CC BY-SA 4.0, s revizí a autory). Známí nositelé: Wikidata (CC0)
+  přes Wikidata Query Service, odkaz vede na článek na cs.wikipedia, resp. sk.wikipedia.
+  Vlajky jsou vlastní zjednodušené SVG (slovenský znak zjednodušený).
 - Data ve `frontend/public/data/` a fixtures v testech jsou CC BY-SA 4.0, ne licence kódu.
 
 ## Stav a plán

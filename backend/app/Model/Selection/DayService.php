@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Model\Selection;
 
 use App\Core\Clock\Clock;
+use App\Model\Anniversaries\Anniversary;
+use App\Model\Anniversaries\AnniversarySelector;
 use App\Model\Events\MonthDay;
 use App\Model\Events\PrimaryArticleSelector;
 use App\Model\Events\Section;
@@ -32,6 +34,7 @@ final class DayService
 		private readonly Clock $clock,
 		private readonly StateDayCalendar $stateDays,
 		private readonly StateDayArticleRepository $stateDayArticles,
+		private readonly AnniversarySelector $anniversaries,
 	) {
 	}
 
@@ -53,10 +56,11 @@ final class DayService
 
 
 	/**
-	 * Holidays without an event on top, then the ten cards: events commemorated by a state day first,
-	 * the rest newest first. Movable holidays (Easter) need the year; without it they are left out.
+	 * Holidays without an event on top, then the ten cards: the round anniversary of a big event first,
+	 * then events commemorated by a state day, the rest newest first. Movable holidays (Easter) need the
+	 * year; without it they are left out. Round anniversaries are counted for $anniversaryYear (none without).
 	 */
-	public function day(MonthDay $day, ?int $year = null): DayContent
+	public function day(MonthDay $day, ?int $year = null, ?int $anniversaryYear = null): DayContent
 	{
 		$analysis = $this->analyze($day);
 		$forced = $commemorated = $standalone = [];
@@ -73,13 +77,23 @@ final class DayService
 			}
 		}
 
+		$anniversary = $anniversaryYear === null ? null : $this->anniversaries->choose($analysis, $forced, $anniversaryYear);
+		if ($anniversary !== null) {
+			$forced = array_values(array_unique([$anniversary->eventId, ...$forced]));
+		}
+
 		$summaries = $this->stateDayArticles->findByTitles(array_map(fn(StateDay $s): string => (string) $s->article, $standalone));
 		return new DayContent(
 			array_map(fn(StateDay $s): HolidayCard => new HolidayCard($s, $summaries[(string) $s->article] ?? null), $standalone),
 			array_map(
-				fn(Candidate $candidate): Card => $this->toCard($analysis->events[$candidate->id], $commemorated[$candidate->id] ?? null),
+				fn(Candidate $candidate): Card => $this->toCard(
+					$analysis->events[$candidate->id],
+					$commemorated[$candidate->id] ?? null,
+					$anniversary?->eventId === $candidate->id ? $anniversary : null,
+				),
 				$this->selector->select($analysis->candidates, $forced),
 			),
+			$anniversaryYear,
 		);
 	}
 
@@ -141,9 +155,9 @@ final class DayService
 	}
 
 
-	private function toCard(CardData $event, ?StateDay $stateDay = null): Card
+	private function toCard(CardData $event, ?StateDay $stateDay = null, ?Anniversary $anniversary = null): Card
 	{
-		return new Card($event, $this->sensitivity->isSensitive($event->text), $stateDay);
+		return new Card($event, $this->sensitivity->isSensitive($event->text), $stateDay, $anniversary);
 	}
 
 

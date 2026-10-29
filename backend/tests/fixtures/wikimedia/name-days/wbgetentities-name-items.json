@@ -1,0 +1,165 @@
+{
+    "entities": {
+        "Q15730712": {
+            "type": "item",
+            "id": "Q15730712",
+            "claims": {
+                "P31": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P31",
+                            "hash": "477ef35019874affa392a3f6d7c7062f10a6d132",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 12308941,
+                                    "id": "Q12308941"
+                                },
+                                "type": "wikibase-entityid"
+                            },
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "id": "Q15730712$00babb09-43c6-dc1b-45d3-c52bc7671e91",
+                        "rank": "normal",
+                        "references": [
+                            {
+                                "hash": "8f6d2b4a0e3da23aca841c5dfe6b7ed894bd315a",
+                                "snaks": {
+                                    "P143": [
+                                        {
+                                            "snaktype": "value",
+                                            "property": "P143",
+                                            "hash": "c4cc8cf0417b27e19c135f9b4312453d668ab641",
+                                            "datavalue": {
+                                                "value": {
+                                                    "entity-type": "item",
+                                                    "numeric-id": 191769,
+                                                    "id": "Q191769"
+                                                },
+                                                "type": "wikibase-entityid"
+                                            },
+                                            "datatype": "wikibase-item"
+                                        }
+                                    ]
+                                },
+                                "snaks-order": [
+                                    "P143"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "Q12020336": {
+            "type": "item",
+            "id": "Q12020336",
+            "claims": {
+                "P31": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P31",
+                            "hash": "477ef35019874affa392a3f6d7c7062f10a6d132",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 12308941,
+                                    "id": "Q12308941"
+                                },
+                                "type": "wikibase-entityid"
+                            },
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "id": "Q12020336$A01C0B81-62B4-4C65-9D1A-0462C2FF7812",
+                        "rank": "normal",
+                        "references": [
+                            {
+                                "hash": "3bf39867b037e8e494a8389ae8a03bad6825a7fc",
+                                "snaks": {
+                                    "P143": [
+                                        {
+                                            "snaktype": "value",
+                                            "property": "P143",
+                                            "hash": "5946b91c53409c48f5f1fb0319ed41fc67a764da",
+                                            "datavalue": {
+                                                "value": {
+                                                    "entity-type": "item",
+                                                    "numeric-id": 191168,
+                                                    "id": "Q191168"
+                                                },
+                                                "type": "wikibase-entityid"
+                                            },
+                                            "datatype": "wikibase-item"
+                                        }
+                                    ]
+                                },
+                                "snaks-order": [
+                                    "P143"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "Q273320": {
+            "type": "item",
+            "id": "Q273320",
+            "claims": {
+                "P31": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P31",
+                            "hash": "53241971c9837a798bb6c42eef425c4b31ec19ed",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 21070568,
+                                    "id": "Q21070568"
+                                },
+                                "type": "wikibase-entityid"
+                            },
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "id": "Q273320$0ffce465-4cf7-c779-8737-fdd004ac4d60",
+                        "rank": "normal"
+                    }
+                ]
+            }
+        },
+        "Q118351913": {
+            "type": "item",
+            "id": "Q118351913",
+            "claims": {
+                "P31": [
+                    {
+                        "mainsnak": {
+                            "snaktype": "value",
+                            "property": "P31",
+                            "hash": "4e5e70c8edf99377228ff12d0ce25a07ecc907c8",
+                            "datavalue": {
+                                "value": {
+                                    "entity-type": "item",
+                                    "numeric-id": 11879590,
+                                    "id": "Q11879590"
+                                },
+                                "type": "wikibase-entityid"
+                            },
+                            "datatype": "wikibase-item"
+                        },
+                        "type": "statement",
+                        "id": "Q118351913$c8ea062f-44ed-f8d9-da34-809cd662f50e",
+                        "rank": "normal"
+                    }
+                ]
+            }
+        }
+    },
+    "success": 1
+}

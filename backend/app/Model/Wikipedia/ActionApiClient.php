@@ -20,6 +20,7 @@ use Nette\Utils\JsonException;
 final class ActionApiClient
 {
 	public const CsWikipedia = 'https://cs.wikipedia.org/w/api.php';
+	public const SkWikipedia = 'https://sk.wikipedia.org/w/api.php';
 	public const Wikidata = 'https://www.wikidata.org/w/api.php';
 	private const MaxLagSeconds = 5;
 	private const MinWaitSeconds = 5;

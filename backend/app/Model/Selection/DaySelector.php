@@ -9,7 +9,8 @@ use App\Model\Events\Section;
 
 /**
  * Picks the ten cards of a day (pure and deterministic – the same input gives the same ten).
- * Events a state holiday or significant day commemorates are always chosen and come first.
+ * Forced events (the round anniversary, events a state holiday or significant day commemorates) are
+ * always chosen and come first, in the given order.
  * Each next card is the best remaining candidate by, in this order:
  * 1. not dull before dull,
  * 2. higher score,
@@ -26,7 +27,7 @@ final class DaySelector
 
 	/**
 	 * @param list<Candidate> $candidates
-	 * @param list<int> $forcedIds events commemorated by a state day, in the order of the act
+	 * @param list<int> $forcedIds the round anniversary, then events commemorated by a state day
 	 * @return list<Candidate> in display order: forced first, then newest first
 	 */
 	public function select(array $candidates, array $forcedIds = []): array
