@@ -8,23 +8,24 @@ use App\Model\Events\Section;
 
 
 /**
- * Picks the five cards of a day (pure and deterministic – the same input gives the same five).
+ * Picks the ten cards of a day (pure and deterministic – the same input gives the same ten).
  * Each next card is the best remaining candidate by, in this order:
  * 1. not dull before dull,
  * 2. higher score,
  * 3. only at an equal score: a century not yet among the chosen cards,
  * 4. lower event id.
- * The two Czech cards (when the day has them) are chosen first by the same order.
+ * The three Czech cards (when the day has them) are chosen first by the same order.
+ * No limit by age: anything from antiquity to the present can be chosen.
  */
 final class DaySelector
 {
-	public const Cards = 5;
-	public const MinCzech = 2;
+	public const Cards = 10;
+	public const MinCzech = 3;
 
 
 	/**
 	 * @param list<Candidate> $candidates
-	 * @return list<Candidate> in display order: chronological
+	 * @return list<Candidate> in display order: newest first
 	 */
 	public function select(array $candidates): array
 	{
@@ -33,7 +34,7 @@ final class DaySelector
 		$this->fill($chosen, $czech, self::MinCzech);
 		$this->fill($chosen, $candidates, self::Cards);
 
-		usort($chosen, fn(Candidate $a, Candidate $b): int => [$a->year, $a->id] <=> [$b->year, $b->id]);
+		usort($chosen, fn(Candidate $a, Candidate $b): int => [$b->year, $a->id] <=> [$a->year, $b->id]);
 		return $chosen;
 	}
 

@@ -423,3 +423,17 @@ zlepšila zlatou sadu (3 z 8 místo 2), ale na 12 dnech byla horší (68 vs. 73 
 hodnocení); kvóty byly horší na dnech a stejné na sadě. Ponecháno jen to, co je lepší na obou –
 tedy nic; kód variant odstraněn. Zlatá sada se nově identifikuje konkrétním textem události,
 ne rokem a sekcí.
+
+## Deset stejných karet od nejnovější (2026-10-29)
+
+- **10 karet, aspoň 3 české:** stejná pravidla výběru jako u pětice (nenudné → skóre → století
+  jen při shodě → ID), bez omezení stáří. Zlatá sada: 4 z 8 v desítce (v pětici 2 z 8).
+- **Pořadí od nejnovější po nejstarší** v API, statickém exportu i na stránce – současnost
+  čtenáři bývá bližší; výběr se pořadím nemění.
+- **Všechny karty stejné** (rok, „před X lety“, štítek, celý text, článek, atribuce) a štítek
+  sekce jen jako text – žádná „hlavní“ karta, žádné symboly ani přepínač.
+- **Bez časové osy, bubliny, glóbu a AI titulků.** Vyzkoušené varianty (časová osa dne, bubliny
+  nad vektorovým glóbem s obrysem Česka, AI titulky s automatickou kontrolou jmen a čísel) jsou
+  uložené ve větvi `experiment/bubliny`. Důvod: další závislosti a mapová data, pomalejší první
+  vykreslení (Lighthouse mobile výkon 82, tato verze 93) a AI vrstva, kterou by bylo třeba trvale hlídat.
+  Na `main` z nich nezůstala žádná závislost, tabulka ani migrace.

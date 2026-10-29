@@ -105,82 +105,117 @@ test('invalid rule patterns are refused at start', function () {
 });
 
 
-test('five cards, at least two Czech, chronological', function () {
-	$chosen = (new DaySelector)->select([
-		candidate(1, Section::World, 1886, 1.0),
-		candidate(2, Section::World, 1492, 0.9),
-		candidate(3, Section::World, 1636, 0.8),
-		candidate(4, Section::World, 1922, 0.7),
-		candidate(5, Section::World, 1969, 0.6),
-		candidate(6, Section::Czech, 1918, 0.3),
-		candidate(7, Section::Czech, 1453, 0.2),
-	]);
-	Assert::same([7, 2, 3, 1, 6], ids($chosen));
+/**
+ * @param list<Candidate> $chosen
+ * @return list<int>
+ */
+function sortedIds(array $chosen): array
+{
+	$ids = ids($chosen);
+	sort($ids);
+	return $ids;
+}
+
+
+test('ten cards, at least three Czech, the rest by score, newest first', function () {
+	$candidates = [];
+	foreach (range(1, 10) as $i) {
+		$candidates[] = candidate($i, Section::World, 1500 + 30 * $i, 1 - $i / 20);    // world 0.95 … 0.50
+	}
+	foreach ([[11, 0.3], [12, 0.2], [13, 0.1], [14, 0.05]] as [$id, $score]) {
+		$candidates[] = candidate($id, Section::Czech, 1400 + $id, $score);           // Czech scores lower
+	}
+	$chosen = (new DaySelector)->select($candidates);
+
+	Assert::count(10, $chosen);
+	Assert::same([1, 2, 3, 4, 5, 6, 7, 11, 12, 13], sortedIds($chosen)); // 3 best Czech + 7 best world
+	$years = array_map(fn(Candidate $c) => $c->year, $chosen);
+	$sorted = $years;
+	rsort($sorted);
+	Assert::same($sorted, $years);
 });
 
 
-test('fewer than two Czech events: all of them, the rest from the world', function () {
-	$chosen = (new DaySelector)->select([
-		candidate(1, Section::Czech, 1995, 0.1),
-		candidate(2, Section::World, 1792, 1.0),
-		candidate(3, Section::World, 1864, 0.9),
-		candidate(4, Section::World, 1941, 0.8),
-		candidate(5, Section::World, 1869, 0.7),
-		candidate(6, Section::World, 1980, 0.6),
-	]);
-	Assert::count(5, $chosen);
+test('fewer than three Czech events: all of them, the rest from the world', function () {
+	$candidates = [candidate(1, Section::Czech, 1995, 0.1)];
+	foreach (range(2, 14) as $i) {
+		$candidates[] = candidate($i, Section::World, 1000 + 50 * $i, 1 - $i / 20);
+	}
+	$chosen = (new DaySelector)->select($candidates);
+	Assert::count(10, $chosen);
 	Assert::contains(1, ids($chosen));
 });
 
 
-test('a higher score wins over century variety', function () {
+test('any age can be chosen: antiquity next to the present', function () {
 	$chosen = (new DaySelector)->select([
-		candidate(1, Section::Czech, 1918, 1.0),
-		candidate(2, Section::Czech, 1945, 0.9),  // 20th century again, but the better Czech event
-		candidate(3, Section::Czech, 1424, 0.5),
-		candidate(4, Section::World, 1941, 1.0),  // 20th again, best world event
-		candidate(5, Section::World, 1886, 0.8),
-		candidate(6, Section::World, 1636, 0.7),
-		candidate(7, Section::World, 312, 0.6),
+		candidate(1, Section::World, -480, 1.0),
+		candidate(2, Section::World, 2020, 0.9),
+		candidate(3, Section::Czech, 863, 1.0),
+		candidate(4, Section::Czech, 2004, 0.9),
 	]);
-	Assert::same([6, 5, 1, 4, 2], ids($chosen));
+	Assert::same([2, 4, 3, 1], ids($chosen)); // newest first: 2020, 2004, 863, -480
+});
+
+
+test('a higher score wins over century variety', function () {
+	$candidates = [
+		candidate(1, Section::Czech, 1918, 0.9),
+		candidate(2, Section::Czech, 1945, 0.8),  // 20th century again, but better
+		candidate(3, Section::Czech, 1968, 0.7),
+		candidate(4, Section::Czech, 1424, 0.1),  // a new century, but a low score
+		candidate(5, Section::World, 1500, 0.05), // a new century, but the lowest score
+	];
+	foreach (range(6, 12) as $i) {
+		$candidates[] = candidate($i, Section::World, 1900 + $i, 1 - $i / 20);
+	}
+	Assert::same([1, 2, 3, 6, 7, 8, 9, 10, 11, 12], sortedIds((new DaySelector)->select($candidates)));
 });
 
 
 test('at an equal score a century not yet chosen wins', function () {
-	$chosen = (new DaySelector)->select([
+	$candidates = [
 		candidate(1, Section::Czech, 1918, 0.5),
-		candidate(2, Section::Czech, 1945, 0.5),  // same score, but the 20th century is already chosen
-		candidate(3, Section::Czech, 1424, 0.5),
-		candidate(4, Section::World, 1969, 0.4),
-		candidate(5, Section::World, 1961, 0.4),
-		candidate(6, Section::World, 1492, 0.4),
-		candidate(7, Section::World, 1805, 0.4),
-	]);
-	// Czech: 1918 (lowest id), then 1424 over 1945 (new century); the remaining Czech 1945 still
-	// outscores the world (0.5 > 0.4); among equal world events 1805 is the only new century
-	Assert::same([3, 7, 1, 2, 4], ids($chosen));
+		candidate(2, Section::Czech, 1945, 0.5),
+		candidate(3, Section::Czech, 1424, 0.5), // beats 1945 for the second Czech place: new century
+		candidate(4, Section::Czech, 1960, 0.5),
+	];
+	foreach ([5 => 1969, 6 => 1961, 7 => 1492, 8 => 1805, 9 => 1610, 10 => 1710, 11 => 1250, 12 => 1999, 13 => 1480, 14 => 1066] as $id => $year) {
+		$candidates[] = candidate($id, Section::World, $year, 0.4);
+	}
+	// Czech 1918, 1424, 1945 (all used centuries then, lowest id); the fourth Czech (0.5) still
+	// outscores the world (0.4); world: first the new centuries 19th, 17th, 18th, 13th, 11th, then by id
+	Assert::same([1, 2, 3, 4, 5, 8, 9, 10, 11, 14], sortedIds((new DaySelector)->select($candidates)));
 
-	$crowded = (new DaySelector)->select(array_map(fn(int $i) => candidate($i, $i <= 2 ? Section::Czech : Section::World, 1900 + $i, 0.5), range(1, 6)));
-	Assert::count(5, $crowded); // all from one century: allowed when unavoidable
+	$crowded = (new DaySelector)->select(array_map(fn(int $i) => candidate($i, $i <= 3 ? Section::Czech : Section::World, 1900 + $i, 0.5), range(1, 12)));
+	Assert::count(10, $crowded); // all from one century: allowed when unavoidable
 });
 
 
 test('dull events only fill places nobody else can take', function () {
-	$chosen = (new DaySelector)->select([
+	$candidates = [
 		candidate(1, Section::Czech, 1935, 1.0, 'otevření stavby'),
 		candidate(2, Section::Czech, 1918, 0.2),
 		candidate(3, Section::Czech, 1453, 0.1),
-		candidate(4, Section::World, 2007, 1.0, 'vydání softwaru'),
-		candidate(5, Section::World, 1492, 0.3),
-		candidate(6, Section::World, 1636, 0.2),
-	]);
-	Assert::same([3, 5, 6, 2, 4], ids($chosen)); // the two dull ones tie on score; 2007 adds a new century
+		candidate(4, Section::Czech, 1620, 0.05),
+		candidate(5, Section::World, 2007, 1.0, 'vydání softwaru'),
+	];
+	foreach (range(6, 10) as $i) {
+		$candidates[] = candidate($i, Section::World, 1500 + 40 * $i, 0.3);
+	}
+	// 8 interesting events: both dull ones fill the last two places
+	Assert::same([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], sortedIds((new DaySelector)->select($candidates)));
+
+	$candidates[] = candidate(11, Section::World, 1111, 0.01);
+	$candidates[] = candidate(12, Section::World, 1212, 0.01);
+	$chosen = (new DaySelector)->select($candidates);
+	Assert::false(in_array(1, ids($chosen), true));
+	Assert::false(in_array(5, ids($chosen), true));
 });
 
 
-test('the same input gives the same five, in any order', function () {
-	$candidates = array_map(fn(int $i) => candidate($i, $i % 3 === 0 ? Section::Czech : Section::World, 1000 + 37 * $i, 0.5), range(1, 20));
+test('the same input gives the same ten, in any order', function () {
+	$candidates = array_map(fn(int $i) => candidate($i, $i % 3 === 0 ? Section::Czech : Section::World, 1000 + 37 * $i, 0.5), range(1, 30));
 	$reversed = array_reverse($candidates);
 	Assert::same(ids((new DaySelector)->select($candidates)), ids((new DaySelector)->select($reversed)));
 });

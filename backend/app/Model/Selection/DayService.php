@@ -11,7 +11,7 @@ use App\Model\Events\Section;
 
 
 /**
- * The five cards of a day and single cards, computed from stored events on request
+ * The ten cards of a day and single cards, computed from stored events on request
  * (deterministic, so no stored selection is needed).
  */
 final class DayService

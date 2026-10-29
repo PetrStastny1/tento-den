@@ -65,7 +65,7 @@ function Day({ date, favorites }) {
             number={number}
             word={word}
             kicker={isToday ? 'Dnes · Tento den' : 'Tento den'}
-            tagline="Pět výročí, která stojí za to znát – z Česka i ze světa."
+            tagline="Deset výročí, která stojí za to znát – z Česka i ze světa."
           >
             <DayNav date={date} />
           </Hero>

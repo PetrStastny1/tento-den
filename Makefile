@@ -46,7 +46,7 @@ import-year:
 refresh-signals:
 	$(COMPOSE) exec php php bin/console.php articles:refresh-signals $(if $(ALL),--all)
 
-## Export the five cards of all 366 days as static JSON into frontend/public/data/
+## Export the ten cards of all 366 days as static JSON into frontend/public/data/
 export-static:
 	$(COMPOSE) exec php php bin/console.php export:static --dir=temp/export
 	rm -rf frontend/public/data && mkdir -p frontend/public/data

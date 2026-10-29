@@ -4,7 +4,7 @@ export function card(id, overrides = {}) {
     date: '10-28',
     year: 1900 + id,
     yearLabel: String(1900 + id),
-    section: id <= 2 ? 'cz' : 'world',
+    section: id <= 3 ? 'cz' : 'world',
     text: `Událost číslo ${id}.`,
     sensitive: false,
     source: {
@@ -20,6 +20,7 @@ export function card(id, overrides = {}) {
   }
 }
 
-export function dayResponse(date = '10-28', cards = [1, 2, 3, 4, 5].map((id) => card(id))) {
+// ten cards, newest first – as the API returns them
+export function dayResponse(date = '10-28', cards = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1].map((id) => card(id))) {
   return { date, cards }
 }

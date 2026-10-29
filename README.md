@@ -1,6 +1,6 @@
 # Tento den
 
-Každý den pět zajímavých výročí z Wikipedie – ze světa i z Česka. Mobilní webová aplikace
+Každý den deset zajímavých výročí z Wikipedie – ze světa i z Česka. Mobilní webová aplikace
 (PWA, hlavně iPhone v Safari) s **REST API v PHP 8.3 / Nette 3.2** a **frontendem v Reactu**.
 
 > **Živé demo:** <https://petrstastny1.github.io/tento-den/> *(statická verze bez backendu, nasazuje GitHub Actions)*
@@ -16,9 +16,12 @@ Každý den pět zajímavých výročí z Wikipedie – ze světa i z Česka. Mo
 
 ## Co aplikace dělá
 
-- Pro každý den roku vybere **5 výročí** z české Wikipedie: aspoň 2 z Česka (pokud existují),
-  podle skóre; nudné události (sportovní výsledky, otevření obchodu, vydání softwaru…) až
-  nakonec, rozmanitost století rozhoduje jen při shodném skóre.
+- Pro každý den roku vybere **10 výročí** z české Wikipedie (od starověku po současnost):
+  aspoň 3 z Česka (pokud existují), jinak podle skóre; nudné události (sportovní výsledky,
+  otevření obchodu, vydání softwaru…) až nakonec, rozmanitost století rozhoduje jen při
+  shodném skóre. Karty jdou **od nejnovější po nejstarší**.
+- Všechny karty jsou stejně velké: rok, „před X lety“, štítek Česko / Svět, celý text
+  z Wikipedie, odkaz na článek, atribuce, oblíbené a sdílení.
 - Listování dny (šipky, přejetí prstem, výběr data), **sdílení karty** (Web Share API,
   jinak zkopírování odkazu), **oblíbené** v prohlížeči.
 - U každé karty **zdroj na konkrétní revizi** stránky dne, odkaz na autory a licenci
@@ -50,7 +53,7 @@ flowchart LR
 - **Import** běží jen na serveru (konzole/cron): Parsoid HTML **konkrétní revize** stránky dne,
   přísný parser (co nepřečte, shodí celý den), párování upravených vět se zachováním ID,
   nejasné změny k ruční revizi, nic se nemaže.
-- **Výběr pětice (experimentální):** počet jazykových verzí článku (Wikidata) normalizovaný
+- **Výběr desítky (experimentální):** počet jazykových verzí článku (Wikidata) normalizovaný
   logaritmicky v rámci dne a sekce, filtr nudy jako čitelný seznam pravidel, deterministický
   výběr. Měří se na zlaté sadě a ručně hodnocených dnech ([docs/kvalita.md](docs/kvalita.md),
   [docs/experiment-vyberu.md](docs/experiment-vyberu.md)).
@@ -75,7 +78,8 @@ make refresh-signals     # ~2 minuty: jazykové verze článků z Wikidat
 ```
 
 - aplikace: <http://localhost:8080>, API: <http://localhost:8080/api/day?date=10-28>
-- statická data pro demo: `make export-static` (zapíše `frontend/public/data/`)
+- statická data pro demo: `make export-static` (zapíše `frontend/public/data/`, 366 souborů,
+  celkem 2,5 MB, na den medián 7 kB, komprimovaně nejvýš 2 kB)
 - další příkazy: `docker compose exec php php bin/console.php` (např. `events:review` – události
   čekající na ruční rozhodnutí), ověřovací reporty v `backend/bin/report/`
 
@@ -83,7 +87,7 @@ make refresh-signals     # ~2 minuty: jazykové verze článků z Wikidat
 
 | Metoda | Cesta | Odpověď |
 |---|---|---|
-| GET | `/api/day?date=MM-DD` | pětice dne; bez `date` dnešek v Europe/Prague |
+| GET | `/api/day?date=MM-DD` | 10 karet dne od nejnovější; bez `date` dnešek v Europe/Prague |
 | GET | `/api/events/{id}` | jedna karta včetně stavu (`active`, `missing`, `needs_review`) |
 | GET | `/api/health` | `200 {"status":"ok"}`, nebo `503` bez dostupné DB |
 
@@ -109,6 +113,9 @@ make test    # backend (Nette Tester, testovací DB), test hygieny repozitáře,
 make lint    # PHPStan level 8, oxlint
 ```
 
+Výkon (Lighthouse 12, mobilní emulace, statický build): výkon 93, přístupnost 100, Best
+Practices 100, LCP 2,7 s, TBT 0 ms, CLS 0; hlavní bundle 89 kB gzip.
+
 Testy běží offline nad uloženými odpověďmi Wikipedie (`backend/tests/fixtures/`), včetně
 skutečných editací z historie stránek (přeformulování, oprava faktu, vandalismus a jeho vrácení).
 
@@ -122,15 +129,15 @@ skutečných editací z historie stránek (přeformulování, oprava faktu, vand
 
 ## Stav a plán
 
-**Hotové:** import všech 366 dní, aktualizace se zachováním identity událostí, výběr pětice
+**Hotové:** import všech 366 dní, aktualizace se zachováním identity událostí, výběr 10 karet
 se signálem z Wikidat, REST API, PWA frontend, statické demo.
 
-**Známá omezení** (výběr pětice je zatím **experimentální**):
+**Známá omezení** (výběr karet je zatím **experimentální**):
 - *Hlavní článek* události je zatím „první neobecný odkaz“ – často kulisa (stát, město) místo
   předmětu události. Signál proto měří oblibu článku, ne vždy význam události; ze „zlaté sady“
-  8 známých výročí jsou v pětici svého dne zatím 2 ([docs/kvalita.md](docs/kvalita.md)).
+  8 známých výročí jsou v desítce svého dne 4 ([docs/kvalita.md](docs/kvalita.md)).
 - Skóre se normalizuje zvlášť pro Česko a Svět, takže nejlepší české události mají vždy kolem
-  1,0 a konkurují nejlepším světovým i nad rámec dvou českých míst.
+  1,0 a konkurují nejlepším světovým i nad rámec tří českých míst.
 - 8. 12. a 26. 12. mají jen jednu českou událost.
 
 **Přijde:** výběr hlavního článku ověřený na hodnoticí sadě, zobrazení článků, AI podání

@@ -15,7 +15,7 @@ use Nette\Http\IResponse;
 
 
 /**
- * GET /api/day?date=MM-DD – the five cards of a day (default: today in Europe/Prague).
+ * GET /api/day?date=MM-DD – the ten cards of a day, newest first (default: today in Europe/Prague).
  */
 final class DayPresenter implements IPresenter
 {

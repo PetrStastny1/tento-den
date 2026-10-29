@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Quality report of the selection as Markdown (docs/kvalita.md): the five cards of random days
- * and the "golden set" of well-known anniversaries – whether they made it into their day's five,
+ * Quality report of the selection as Markdown (docs/kvalita.md): the ten cards of random days
+ * and the "golden set" of well-known anniversaries – whether they made it into their day's ten,
  * and if not, why. Fixes nothing.
  * Usage: php bin/report/selection-quality.php [days, default 12] [seed, default 20261029]
  */
@@ -39,11 +39,11 @@ $golden = [
 $short = fn(string $text): string => mb_strlen($text) > 140 ? mb_substr($text, 0, 139) . '…' : $text;
 $section = fn(string $section): string => $section === 'cz' ? 'Česko' : 'Svět';
 
-echo "# Kvalita výběru pětice\n\n";
+echo "# Kvalita výběru karet dne\n\n";
 echo "Vygenerováno `backend/bin/report/selection-quality.php` (" . (new DateTimeImmutable('now', new DateTimeZone('UTC')))->format('Y-m-d') . ").\n";
 echo "Skóre = počet jazykových verzí hlavního článku (jinak nejlepšího neobecného odkazu), log-normalizované v rámci dne a sekce.\n\n";
 
-echo "## Pětice pro $dayCount náhodných dní\n\n";
+echo "## Desítka karet pro $dayCount náhodných dní\n\n";
 $days = MonthDay::all();
 foreach ((array) array_rand($days, $dayCount) as $index) {
 	$day = $days[$index];
@@ -62,7 +62,7 @@ foreach ((array) array_rand($days, $dayCount) as $index) {
 }
 
 echo "## Zlatá sada\n\n";
-echo "| Datum | Událost | V pětici | Proč ne |\n|---|---|---|---|\n";
+echo "| Datum | Událost | V desítce | Proč ne v desítce |\n|---|---|---|---|\n";
 $goldenHits = 0;
 foreach ($golden as [$dayString, $year, $fragment, $label]) {
 	$day = MonthDay::fromString($dayString);
@@ -72,12 +72,12 @@ foreach ($golden as [$dayString, $year, $fragment, $label]) {
 		$analysis->candidates,
 		fn(Candidate $c) => $c->year === $year && str_contains($analysis->events[$c->id]->text, $fragment),
 	));
-	$inFive = count($matching) === 1 && in_array($matching[0]->id, $chosenIds, true);
-	$goldenHits += (int) $inFive;
+	$inTen = count($matching) === 1 && in_array($matching[0]->id, $chosenIds, true);
+	$goldenHits += (int) $inTen;
 
 	if (count($matching) !== 1) {
 		$reason = sprintf('definice nesedí: %d aktivních událostí roku %d obsahuje „%s“', count($matching), $year, $fragment);
-	} elseif ($inFive) {
+	} elseif ($inTen) {
 		$reason = '';
 	} else {
 		$best = $matching[0];
@@ -87,7 +87,7 @@ foreach ($golden as [$dayString, $year, $fragment, $label]) {
 		$event = $analysis->events[$best->id];
 		$chosenScores = array_map(fn(Candidate $c) => $c->score, array_filter($analysis->candidates, fn(Candidate $c) => in_array($c->id, $chosenIds, true)));
 		$reason = sprintf(
-			'skóre %.2f (%d jazyků, hlavní článek: %s), %d. z %d v sekci; nejslabší karta v pětici má %.2f%s',
+			'skóre %.2f (%d jazyků, hlavní článek: %s), %d. z %d v sekci; nejslabší karta v desítce má %.2f%s',
 			$best->score,
 			$analysis->rawSignals[$best->id],
 			$event->primaryTitle ?? 'žádný',
@@ -97,6 +97,6 @@ foreach ($golden as [$dayString, $year, $fragment, $label]) {
 			$best->boringReason === null ? '' : "; filtr nudy: {$best->boringReason}",
 		);
 	}
-	printf("| %s %d | %s | %s | %s |\n", $day->dayPageTitle(), $year, $label, $inFive ? 'ano' : 'ne', $reason);
+	printf("| %s %d | %s | %s | %s |\n", $day->dayPageTitle(), $year, $label, $inTen ? 'ano' : 'ne', $reason);
 }
-printf("\nV pětici svého dne: **%d z %d**.\n", $goldenHits, count($golden));
+printf("\nV desítce svého dne: **%d z %d**.\n", $goldenHits, count($golden));

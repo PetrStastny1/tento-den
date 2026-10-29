@@ -65,15 +65,15 @@ function call(Container $container, string $presenter, array $params = [], strin
 $container = apiContainer();
 
 
-test('GET /api/day?date=10-28: five cards, at least two Czech, chronological, with attribution', function () use ($container) {
+test('GET /api/day?date=10-28: ten cards, at least three Czech, newest first, with attribution', function () use ($container) {
 	$day = call($container, 'Api:Day', ['date' => '10-28']);
 
 	Assert::same('10-28', $day['date']);
-	Assert::count(5, $day['cards']);
-	Assert::true(count(array_filter($day['cards'], fn($c) => $c['section'] === 'cz')) >= 2);
+	Assert::count(10, $day['cards']);
+	Assert::true(count(array_filter($day['cards'], fn($c) => $c['section'] === 'cz')) >= 3);
 	$years = array_column($day['cards'], 'year');
 	$sorted = $years;
-	sort($sorted);
+	rsort($sorted);
 	Assert::same($sorted, $years);
 	foreach ($day['cards'] as $card) {
 		Assert::same(['id', 'date', 'year', 'yearLabel', 'section', 'text', 'sensitive', 'source', 'article'], array_keys($card));
@@ -86,7 +86,7 @@ test('GET /api/day?date=10-28: five cards, at least two Czech, chronological, wi
 });
 
 
-test('the same day gives the same five', function () use ($container) {
+test('the same day gives the same ten', function () use ($container) {
 	Assert::same(call($container, 'Api:Day', ['date' => '10-28']), call($container, 'Api:Day', ['date' => '10-28']));
 });
 

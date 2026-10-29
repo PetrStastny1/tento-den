@@ -15,7 +15,7 @@ use Nette\Utils\Json;
 
 
 /**
- * Writes the five cards of all 366 days as static JSON files MM-DD.json – the same format
+ * Writes the ten cards of all 366 days as static JSON files MM-DD.json – the same format
  * as GET /api/day – for a demo without a backend.
  */
 final class ExportStaticCommand implements Command
@@ -34,7 +34,7 @@ final class ExportStaticCommand implements Command
 
 	public function getDescription(): string
 	{
-		return 'Exportuje pětice všech 366 dní jako statické JSON (--dir=temp/export)';
+		return 'Exportuje výběr (10 karet) všech 366 dní jako statické JSON (--dir=temp/export)';
 	}
 
 

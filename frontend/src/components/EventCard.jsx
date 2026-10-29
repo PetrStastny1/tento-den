@@ -1,4 +1,4 @@
-import { ArrowUpRight, Globe, Heart, MapPin, Scroll, Share } from 'lucide-react'
+import { ArrowUpRight, Heart, Scroll, Share } from 'lucide-react'
 import { useState } from 'react'
 import { formatDayTitle } from '../lib/dates.js'
 import { cardUrl, shareCard } from '../lib/share.js'
@@ -10,7 +10,6 @@ const SHARE_MESSAGES = { copied: 'Odkaz zkopírován', failed: 'Sdílení se nep
 export function EventCard({ card, saved, onToggleFavorite, index = 0, showDate = false }) {
   const [shareMessage, setShareMessage] = useState(null)
   const { sensitive } = card
-  const SectionIcon = card.section === 'cz' ? MapPin : Globe
   const sectionLabel = card.section === 'cz' ? 'Česko' : 'Svět'
 
   async function handleShare() {
@@ -35,10 +34,7 @@ export function EventCard({ card, saved, onToggleFavorite, index = 0, showDate =
             {card.yearLabel}
           </p>
           <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 font-rounded text-[13px] font-semibold text-ink-faint">
-            <span className="inline-flex items-center gap-1 rounded-full bg-paper/80 px-2.5 py-1 text-ink-soft ring-1 ring-hairline">
-              <SectionIcon className="size-3.5" aria-hidden="true" strokeWidth={2.4} />
-              {sectionLabel}
-            </span>
+            <span className="rounded-full bg-paper/80 px-2.5 py-1 text-ink-soft ring-1 ring-hairline">{sectionLabel}</span>
             <span>{showDate ? `${formatDayTitle(card.date)} · ` : ''}{yearsAgo(card.year)}</span>
           </p>
         </div>

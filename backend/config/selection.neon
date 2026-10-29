@@ -1,4 +1,4 @@
-# Selection of the day's five cards. Readable lists of named rules (PHP regular expressions,
+# Selection of the day's ten cards. Readable lists of named rules (PHP regular expressions,
 # case-insensitive, Unicode). Conservative on purpose: the rules are narrow and a dull event is
 # only moved behind the others, never removed.
 parameters:

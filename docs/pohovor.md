@@ -47,11 +47,11 @@ User-Agent s kontaktem z `.env`, sériově nejvýš 200 požadavků/min, při 42
 `Retry-After`, `maxlag` se kontroluje i v JSON těle odpovědi s HTTP 200. Hromadné dotazy po 50.
 → [PoliteHttpClient](../backend/app/Core/Http/PoliteHttpClient.php), [ActionApiClient](../backend/app/Model/Wikipedia/ActionApiClient.php)
 
-### 8. Jak vybíráte pětici dne?
+### 8. Jak vybíráte karty dne?
 Signál = počet jazykových verzí článku z Wikidat, logaritmicky normalizovaný zvlášť pro Česko a
-Svět. Pak deterministický výběr: aspoň 2 české, nudné až nakonec, jinak podle skóre; století
-rozhoduje jen při shodném skóre. Známé
-omezení: hlavní článek bývá kulisa, proto zlatá sada vychází slabě – měřím to reportem.
+Svět. Pak deterministický výběr 10 karet: aspoň 3 české, nudné až nakonec, jinak podle skóre;
+století rozhoduje jen při shodném skóre. Zobrazují se od nejnovější po nejstarší. Známé omezení:
+hlavní článek bývá kulisa, proto zlatá sada vychází slabě (4 z 8) – měřím to reportem.
 → [EventScorer](../backend/app/Model/Selection/EventScorer.php), [DaySelector](../backend/app/Model/Selection/DaySelector.php),
 [kvalita.md](kvalita.md)
 
@@ -82,3 +82,10 @@ příkazem `export:static`). Texty jen jako text, odkazy jen na Wikipedii, oblí
 `localStorage` s fallbackem do paměti. GitHub Actions postaví statickou verzi a nasadí ji na Pages.
 → [days.js](../frontend/src/data/days.js), [favorites.js](../frontend/src/lib/favorites.js),
 [EventCard](../frontend/src/components/EventCard.jsx), [pages.yml](../.github/workflows/pages.yml)
+
+### 13. Proč je vzhled tak jednoduchý?
+Zkoušel jsem bubliny nad vektorovým glóbem a AI titulky s automatickou kontrolou faktů. Fungovalo
+to, ale přidávalo závislosti (d3-geo, mapová data), zpomalilo první vykreslení a AI titulky
+by byly další vrstva, kterou je třeba hlídat. Pro portfolio má přednost čitelný, ověřitelný
+obsah: deset stejných karet s celým textem ze zdroje.
+→ [EventCard](../frontend/src/components/EventCard.jsx), [rozhodnuti.md](rozhodnuti.md)

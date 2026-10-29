@@ -8,7 +8,7 @@ use App\Model\Events\Section;
 
 
 /**
- * An active event prepared for the selection of the day's five cards.
+ * An active event prepared for the selection of the day's ten cards.
  */
 final readonly class Candidate
 {

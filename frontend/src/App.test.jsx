@@ -37,12 +37,19 @@ afterEach(() => {
 })
 
 describe('Den', () => {
-  it('ukáže pět karet dne', async () => {
+  it('ukáže deset karet dne od nejnovější, každou s celým textem a štítkem sekce', async () => {
     mockFetch(jsonResponse(dayResponse()))
     renderAt('/den/10-28')
 
     const cards = await screen.findAllByRole('article')
-    expect(cards).toHaveLength(5)
+    expect(cards).toHaveLength(10)
+    expect(cards.map((article) => article.getAttribute('aria-label'))).toEqual(
+      [10, 9, 8, 7, 6, 5, 4, 3, 2, 1].map((id) => `${1900 + id}, ${id <= 3 ? 'Česko' : 'Svět'}`),
+    )
+    expect(within(cards[0]).getByText('Událost číslo 10.')).toBeTruthy()
+    expect(within(cards[0]).getByText('Svět')).toBeTruthy()
+    expect(within(cards[9]).getByText('Česko')).toBeTruthy()
+    expect(cards[0].querySelector('svg.lucide-globe, svg.lucide-map-pin')).toBeNull()
     expect(screen.getByRole('heading', { level: 1, name: '28. října' })).toBeTruthy()
     expect(fetch).toHaveBeenCalledWith('/api/day?date=10-28', expect.anything())
   })
@@ -83,7 +90,7 @@ describe('Den', () => {
     const alert = await screen.findByRole('alert')
     expect(alert.textContent).toContain('Nepodařilo se spojit se serverem')
     fireEvent.click(within(alert).getByRole('button', { name: /Zkusit znovu/ }))
-    expect(await screen.findAllByRole('article')).toHaveLength(5)
+    expect(await screen.findAllByRole('article')).toHaveLength(10)
   })
 
   it('chyba serveru (HTTP 500) je chyba, ne prázdný den', async () => {
@@ -133,7 +140,7 @@ describe('Oblíbené', () => {
 
     renderAt('/oblibene')
     expect(screen.getAllByRole('article')).toHaveLength(1)
-    expect(screen.getByText('Událost číslo 1.')).toBeTruthy()
-    expect(JSON.parse(window.localStorage.getItem('tento-den:favorites'))[0].id).toBe(1)
+    expect(screen.getByText('Událost číslo 10.')).toBeTruthy()
+    expect(JSON.parse(window.localStorage.getItem('tento-den:favorites'))[0].id).toBe(10)
   })
 })
