@@ -70,7 +70,7 @@ function Day({ date, favorites, nameDayCountry }) {
             number={number}
             word={word}
             kicker={isToday ? 'Dnes · Tento den' : 'Tento den'}
-            tagline="Deset výročí, která stojí za to znát – z Česka i ze světa."
+            tagline="Deset výjimečných událostí, které stojí za to znát – z Česka i ze světa."
             nameDays={<NameDays nameDays={state.status === 'ready' ? state.nameDays : null} country={country} onCountry={setCountry} />}
           />
           <DayNav date={date} />

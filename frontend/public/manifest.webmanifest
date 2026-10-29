@@ -1,7 +1,7 @@
 {
   "name": "Tento den",
   "short_name": "Tento den",
-  "description": "Každý den deset výročí z Wikipedie – z Česka i ze světa – se jmeninami (CZ/SK) a státními svátky.",
+  "description": "Každý den deset výjimečných událostí z Česka i ze světa – se jmeninami (CZ/SK) a státními svátky.",
   "lang": "cs",
   "start_url": "./",
   "scope": "./",
