@@ -3,7 +3,7 @@
 Každý den pět zajímavých výročí z Wikipedie – ze světa i z Česka. Mobilní webová aplikace
 (PWA, hlavně iPhone v Safari) s **REST API v PHP 8.3 / Nette 3.2** a **frontendem v Reactu**.
 
-> **Živé demo:** `https://<účet>.github.io/tento-den/` *(statická verze, nasazuje GitHub Actions)*
+> **Živé demo:** <https://petrstastny1.github.io/tento-den/> *(statická verze bez backendu, nasazuje GitHub Actions)*
 
 <p>
   <img src="docs/screenshots/den-light.png" alt="Obrazovka dne ve světlém režimu" width="260">
