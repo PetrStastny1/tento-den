@@ -1,7 +1,7 @@
 COMPOSE := docker compose
 PHP_IMAGE := php:8.3-fpm-alpine
 
-.PHONY: up down test lint check-env init-env migrate import-day import-year
+.PHONY: up down test lint check-env init-env migrate import-day import-year refresh-signals export-static
 
 ## Create .env with random passwords (never overwrites an existing one)
 init-env:
@@ -23,10 +23,11 @@ down:
 migrate:
 	$(COMPOSE) exec php php bin/migrate.php
 
-## Backend tests (Nette Tester, test database) and the repository hygiene test
+## Backend tests (Nette Tester, test database), repository hygiene test, frontend tests (Vitest)
 test:
 	$(COMPOSE) exec php vendor/bin/tester -C tests
 	$(COMPOSE) run --rm --no-deps -v "$(CURDIR)":/repo:ro -e REPO_ROOT=/repo php vendor/bin/tester -C tests/Hygiene
+	$(COMPOSE) exec node npm test
 
 ## Static analysis (PHPStan level 8) and frontend lint (oxlint)
 lint:
@@ -40,6 +41,17 @@ import-day:
 ## Import all 366 days: make import-year [RESUME=1]
 import-year:
 	$(COMPOSE) exec php php bin/console.php import:year $(if $(RESUME),--resume)
+
+## Refresh article signals (Wikidata sitelinks): make refresh-signals [ALL=1]
+refresh-signals:
+	$(COMPOSE) exec php php bin/console.php articles:refresh-signals $(if $(ALL),--all)
+
+## Export the five cards of all 366 days as static JSON into frontend/public/data/
+export-static:
+	$(COMPOSE) exec php php bin/console.php export:static --dir=temp/export
+	rm -rf frontend/public/data && mkdir -p frontend/public/data
+	cp backend/temp/export/*.json frontend/public/data/
+	cp docs/data-license.md frontend/public/data/README.md
 
 check-env:
 	@./bin/check-env.sh .env

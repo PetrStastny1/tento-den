@@ -302,3 +302,72 @@ Do kroku 3 měl Tracy logger adresář jen ve webovém vstupu; první zalogovan�
 shodilo import („Logging directory is not specified“). `bin/console.php` a `bin/migrate.php`
 proto startují přes `Bootstrap::bootConsoleApplication()` (Tracy s `log/`, bez kontroly migrací);
 testy používají `createContainer()` a logger si nahrazují pamětí.
+
+## Fáze A – výběr pětice a API (2026-10-29)
+
+### Signál: počet jazykových verzí z Wikidat (`wbgetentities`, `props=sitelinks`)
+50 položek na dotaz (218 dotazů na 10 887 článků, ~2 minuty se slušným klientem). Stejný HTTP
+klient jako import (User-Agent s kontaktem, 200 req/min, `Retry-After`, `maxlag`). Jediné
+neexistující ID shodí celou dávku (`no-such-entity` s `id` v těle) – zdroj ID zaznamená jako
+nenalezené a dávku zopakuje bez něj. Ukládá se po dávkách, přerušený běh pokračuje chybějícími.
+
+### Skóre a normalizace
+Sitelinks hlavního článku, jinak nejvyšší sitelinks neobecných odkazů. `log(1 + s) / log(1 + max)`
+v rámci **dne a sekce** – česká událost se 8 jazyky (Vznik Československa) se nesrovnává se
+Sochou Svobody (151). Čistá funkce (`EventScorer`), testy bez DB.
+
+### Filtr nudy jako čitelný seznam pojmenovaných pravidel (`config/selection.neon`)
+Úzká pravidla (sportovní výsledek, skóre zápasu, otevření obchodu, otevření stavby, vydání
+softwaru, nehoda bez obětí). Nudná událost se jen řadí za ostatní, nikdy nemizí. Výjimka pro
+články s ≥ 50 jazyky byla **odstraněna**: hlavní článek bývá kulisa, takže házená ve Švédsku
+„měla“ 296 jazyků článku *Švédsko* a filtrem prošla (zachyceno v reportu kvality).
+
+### Pětice se počítá při každém dotazu, neukládá se
+Je deterministická (pořadí: nenudná, skóre, ID), takže stejný den = stejná pětice bez tabulky
+výběrů a bez invalidace po importu nebo změně signálů. Pravidla: aspoň 2 české (pokud jsou),
+v prvním průchodu každá z jiného století, nudné až nakonec. `sensitive` je jen vlastnost karty
+(regulární výrazy v `config/selection.neon`), výběr neovlivňuje.
+
+### API: request DTO → `DayService` → repository → response DTO
+`ApiException` nese zprávu bezpečnou pro klienta (400/404/405); jiné chyby dostanou jen obecný
+text. Bezpečnostní hlavičky pro JSON API: `Content-Security-Policy: default-src 'none'`,
+`X-Frame-Options: DENY`, `Referrer-Policy: no-referrer`, `nosniff`, `Cross-Origin-Resource-Policy`.
+Odkaz na hlavní článek vede na jeho uloženou revizi (dohledatelnost).
+
+## Fáze B – frontend (2026-10-29)
+
+### Nové závislosti
+- `react-router` – trasy den / oblíbené a adresy sdílených karet (`/den/MM-DD#karta-ID`),
+- `lucide-react` – ikony (SF Symbols nesmí mimo platformy Apple),
+- `vitest`, `@testing-library/react`, `jsdom` (dev) – testy komponent v prostředí podobném prohlížeči.
+
+### Datová vrstva s dvěma režimy (`src/data/days.js`)
+`VITE_DATA_MODE=static` čte `public/data/MM-DD.json` (stejný formát jako `GET /api/day`),
+jinak živé API. Komponenty o režimu nevědí. Odpověď se kontroluje (datum, pole karet);
+chyba sítě i HTTP chyba jsou chybový stav, nikdy prázdný den.
+
+### Bezpečnost ve frontendu
+Texty jen jako text (žádné `dangerouslySetInnerHTML`), odkazy vykreslí jen pro `https://*.wikipedia.org`
+(licence pro `creativecommons.org`) s `rel="noopener noreferrer"`. Test podstrčí HTML a cizí odkaz.
+
+### Oblíbené jako snímek karty v `localStorage`
+Každý přístup v `try/catch`; bez úložiště appka funguje s oblíbenými v paměti a upozorní na to.
+Ukládá se kopie karty, takže seznam funguje i ve statickém demu bez `/api/events/{id}`.
+
+### Vzhled pro iPhone
+Velký titulek, který se při scrollu schová do průsvitné lišty (IntersectionObserver),
+`backdrop-filter` s neprůhledným fallbackem, `env(safe-area-inset-*)`, tmavý režim podle systému,
+dotykové plochy ≥ 44 px, animace jen `motion-safe`.
+
+### Screenshoty přes statický build v iframu 390 px
+Headless Chrome má minimální šířku okna 500 px; aplikace se proto vkládá do iframu široké 390 px
+a obrázek se ořízne. Snímky z dev serveru Vite občas zachytily stav načítání, proto ze statického
+buildu.
+
+## Fáze C – demo na GitHub Pages (2026-10-29)
+
+### Statická data v repozitáři, build v GitHub Actions
+`export:static` zapíše pětice 366 dní (1,4 MB) do `frontend/public/data/`; jsou commitnuté
+(s poznámkou o CC BY-SA), aby workflow nepotřeboval backend ani databázi. Workflow spustí lint
+a testy, postaví statický režim s `base` z `configure-pages`, zkopíruje `index.html` jako
+`404.html` (Pages nemá SPA fallback) a nasadí. Oprávnění jen po jobech (čtení / pages + id-token).

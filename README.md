@@ -1,98 +1,135 @@
 # Tento den
 
-Každý den pět zajímavých výročí z Wikipedie – ze světa i z Česka.
-Ukázkový projekt: **PHP 8.3 + Nette 3.2** (REST API) a **React + Vite + Tailwind** (SPA).
+Každý den pět zajímavých výročí z Wikipedie – ze světa i z Česka. Mobilní webová aplikace
+(PWA, hlavně iPhone v Safari) s **REST API v PHP 8.3 / Nette 3.2** a **frontendem v Reactu**.
 
-Popis projektu a pravidla vývoje: [CLAUDE.md](CLAUDE.md). Architektonická rozhodnutí:
-[docs/rozhodnuti.md](docs/rozhodnuti.md).
+> **Živé demo:** `https://<účet>.github.io/tento-den/` *(statická verze, nasazuje GitHub Actions)*
 
+<p>
+  <img src="docs/screenshots/den-light.png" alt="Obrazovka dne ve světlém režimu" width="260">
+  <img src="docs/screenshots/den-dark.png" alt="Obrazovka dne v tmavém režimu" width="260">
+  <img src="docs/screenshots/oblibene-light.png" alt="Oblíbené" width="260">
+</p>
+
+## Co aplikace dělá
+
+- Pro každý den roku vybere **5 výročí** z české Wikipedie: aspoň 2 z Česka (pokud existují),
+  každé pokud možno z jiného století, nudné události (sportovní výsledky, otevření obchodu,
+  vydání softwaru…) až nakonec.
+- Listování dny (šipky, přejetí prstem, výběr data), **sdílení karty** (Web Share API,
+  jinak zkopírování odkazu), **oblíbené** v prohlížeči.
+- U každé karty **zdroj na konkrétní revizi** stránky dne, odkaz na autory a licenci
+  CC BY-SA 4.0. Fakta se nevymýšlí ani neupravují – text je převzatý ze zdroje.
+- Karty o obětech, válkách a katastrofách jsou označené jako citlivé a mají střídmější vzhled.
+
+## Architektura
+
+```mermaid
+flowchart LR
+  subgraph Frontend [React + Vite + Tailwind]
+    UI[Obrazovky a komponenty] --> Data[src/data/days.js]
+  end
+  Data -->|živé API| Nginx
+  Data -->|statické demo| JSON[(public/data/MM-DD.json)]
+  subgraph Backend [PHP 8.3 + Nette 3.2]
+    Nginx[nginx] --> Presenter[Presenter = controller<br/>app/Api]
+    Presenter --> ReqDTO[Request DTO] --> Service[Služby<br/>app/Model]
+    Service --> Repo[Repository – jediné místo s SQL]
+    Repo --> DB[(MariaDB)]
+    Service --> RespDTO[Response DTO] --> Presenter
+  end
+  CLI[Konzolové příkazy: import, signály, export] --> Service
+  Service -->|import, cron| Wiki[(Wikipedie / Wikidata API)]
 ```
-tento-den/
-├── backend/
-│   ├── app/Api/        controllery (Nette presentery jako API endpointy)
-│   ├── app/Model/      služby, repozitáře, DTO (Events, Import, Wikipedia, Health)
-│   ├── app/Console/    konzolové příkazy (import)
-│   ├── app/Core/       infrastruktura (konfigurace, HTTP, DB, konzole)
-│   ├── migrations/     SQL migrace (Nextras Migrations)
-│   └── bin/            console.php, migrate.php
-├── frontend/    React SPA (Vite, Tailwind)
-├── docker/      Dockerfile pro PHP, nginx, skript testovací DB
-├── docs/        dokumentace, zdroje dat a rozhodnutí
-└── bin/         init-env.php, check-env.sh
-```
 
-## Požadavky
+- **Backend:** Controller (Nette presenter jako API endpoint) → Service → Repository, DTO pro
+  vstupy i výstupy, závislosti jen přes DI v konstruktoru, schéma jen přes migrace.
+- **Import** běží jen na serveru (konzole/cron): Parsoid HTML **konkrétní revize** stránky dne,
+  přísný parser (co nepřečte, shodí celý den), párování upravených vět se zachováním ID,
+  nejasné změny k ruční revizi, nic se nemaže.
+- **Výběr pětice:** počet jazykových verzí článku (Wikidata) normalizovaný logaritmicky v rámci
+  dne a sekce, filtr nudy jako čitelný seznam pravidel, deterministický výběr.
+- **Frontend:** jedna datová vrstva se dvěma režimy (živé API / statická data), texty jen jako text,
+  odkazy jen na Wikipedii.
 
-- Docker s Docker Compose v2
-- `make`
-
-PHP, Composer ani Node lokálně nepotřebujete – vše běží v kontejnerech.
+Podrobnosti a důvody: [docs/rozhodnuti.md](docs/rozhodnuti.md), zdroje dat:
+[docs/zdroje.md](docs/zdroje.md), kvalita výběru: [docs/kvalita.md](docs/kvalita.md),
+otázky k pohovoru: [docs/pohovor.md](docs/pohovor.md).
 
 ## Spuštění
 
+Potřeba: Docker s Compose v2 a `make` (PHP ani Node lokálně nejsou potřeba).
+
 ```bash
-make init-env        # vytvoří .env s náhodnými hesly (existující .env nepřepíše)
-# doplňte do .env WIKIMEDIA_CONTACT = kontaktní e-mail (posílá se v User-Agentu na Wikipedii)
-make up
+make init-env            # .env s náhodnými hesly; pak doplňte WIKIMEDIA_CONTACT (e-mail do User-Agentu)
+make up                  # nginx, php-fpm, MariaDB, Vite; založí i testovací DB
 make migrate
-make import-day DATE=10-28
+make import-year         # ~10 minut: 366 stránek dnů z cs.wikipedia
+make refresh-signals     # ~2 minuty: jazykové verze článků z Wikidat
 ```
 
-- aplikace: <http://localhost:8080>
-- API: <http://localhost:8080/api/health>
-- MariaDB: `127.0.0.1:3307` (jen z tohoto počítače)
+- aplikace: <http://localhost:8080>, API: <http://localhost:8080/api/day?date=10-28>
+- statická data pro demo: `make export-static` (zapíše `frontend/public/data/`)
+- další příkazy: `docker compose exec php php bin/console.php` (např. `events:review` – události
+  čekající na ruční rozhodnutí), ověřovací reporty v `backend/bin/report/`
 
-`make up` sestaví image, nainstaluje závislosti (Composer, npm), počká, až jsou všechny služby
-zdravé, a založí testovací databázi. Bez `.env` nebo s prázdnými hesly či kontaktem odmítne start.
-Web s neprovedenými migracemi v produkci nenastartuje (503), v developmentu jen varuje v logu.
-
-## Příkazy
-
-| Příkaz | Co dělá |
-|---|---|
-| `make up` | sestaví a spustí vše (nginx, php-fpm, MariaDB, Vite dev server) |
-| `make down` | zastaví kontejnery (data databáze zůstanou ve volume) |
-| `make init-env` | vytvoří `.env` z `.env.example` s náhodnými hesly |
-| `make migrate` | provede čekající migrace databáze |
-| `make import-day DATE=MM-DD` | importuje události jednoho dne z cs.wikipedia |
-| `make import-year [RESUME=1]` | importuje všech 366 dní; `RESUME=1` naváže na poslední běh a zopakuje jen neúspěšné dny |
-| `make test` | backendové testy (Nette Tester, testovací DB) a test hygieny repozitáře |
-| `make lint` | PHPStan (level 8) a oxlint |
-
-Další příkazy: `docker compose exec php php bin/console.php` vypíše seznam (např. `events:review` –
-události, u kterých import nerozhodl, zda jde o úpravu jiné; `articles:generic-candidates` –
-kandidáti na seznam obecných článků v `backend/config/generic-articles.neon`).
-
-Ověřovací reporty po importu (jen čtou, nic neopravují), spouštějí se v php kontejneru
-(`docker compose exec php php bin/report/…`):
-
-| Skript | Co ověřuje |
-|---|---|
-| `import-stats.php` | počty dní a událostí, medián/minimum na den, přepočet hlavního článku jen z DB |
-| `check-links.php [vzorek] [seed]` | shodu DB s výstupem **stejného** parseru na vzorku dní (stáhne HTML uložené revize) |
-| `compare-wikitext-links.php [min. rozdíl]` | nezávislou hrubou kontrolu parseru: odkazy ve wikitextu vs. DB po dnech |
-
-Po změně `docker/nginx/default.conf` je potřeba `docker compose restart nginx`.
-
-## Proměnné prostředí (`.env`)
-
-| Proměnná | Význam |
-|---|---|
-| `APP_ENV` | `development` (debug režim) nebo `production`; jiná hodnota = aplikace nenastartuje |
-| `DB_NAME`, `DB_USER` | databáze a aplikační uživatel MariaDB |
-| `DB_PASSWORD` | heslo aplikačního uživatele (povinné) |
-| `DB_ROOT_PASSWORD` | root heslo MariaDB, dostane ho jen kontejner databáze (povinné) |
-| `WIKIMEDIA_CONTACT` | kontaktní e-mail do User-Agentu požadavků na Wikimedia API (povinné) |
-| `HTTP_PORT` | port aplikace na 127.0.0.1 (výchozí 8080) |
-| `DB_HOST_PORT` | port MariaDB na 127.0.0.1 (výchozí 3307) |
-
-`.env` se nikdy necommituje; v repozitáři je jen `.env.example`. Konfigurace se při startu
-validuje (Nette Schema) a chyba vypíše všechny problémy najednou.
-
-## API
+### API
 
 | Metoda | Cesta | Odpověď |
 |---|---|---|
-| GET | `/api/health` | `200 {"status":"ok"}`, nebo `503 {"status":"error"}` když není dostupná databáze |
+| GET | `/api/day?date=MM-DD` | pětice dne; bez `date` dnešek v Europe/Prague |
+| GET | `/api/events/{id}` | jedna karta včetně stavu (`active`, `missing`, `needs_review`) |
+| GET | `/api/health` | `200 {"status":"ok"}`, nebo `503` bez dostupné DB |
 
-Chyby vrací API vždy jako JSON: `{"error":{"code":404,"message":"Not Found"}}`.
+Jen GET (jinak 405), chyby vždy jako `{"error":{"code":…,"message":…}}`.
+
+### Proměnné prostředí (`.env`, necommituje se)
+
+| Proměnná | Význam |
+|---|---|
+| `APP_ENV` | `development` nebo `production`; jiná hodnota = aplikace nenastartuje |
+| `DB_NAME`, `DB_USER`, `DB_PASSWORD` | databáze a aplikační uživatel MariaDB |
+| `DB_ROOT_PASSWORD` | root heslo MariaDB, dostane ho jen kontejner databáze |
+| `WIKIMEDIA_CONTACT` | kontaktní e-mail do User-Agentu požadavků na Wikimedia API |
+| `HTTP_PORT`, `DB_HOST_PORT` | porty na 127.0.0.1 (výchozí 8080, 3307) |
+
+Konfigurace se při startu validuje (Nette Schema); web s neprovedenými migracemi v produkci
+nenastartuje.
+
+## Testy a kontroly
+
+```bash
+make test    # backend (Nette Tester, testovací DB), test hygieny repozitáře, frontend (Vitest)
+make lint    # PHPStan level 8, oxlint
+```
+
+Testy běží offline nad uloženými odpověďmi Wikipedie (`backend/tests/fixtures/`), včetně
+skutečných editací z historie stránek (přeformulování, oprava faktu, vandalismus a jeho vrácení).
+
+## Zdroje a licence
+
+- Texty událostí: **česká Wikipedie**, licence [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.cs).
+  Wikipedie není záruka pravdivosti, ale dohledatelnosti: každá karta odkazuje na revizi
+  (`oldid`), ze které text pochází, a na historii s autory.
+- Jazykové verze: Wikidata (CC0). Žádné obrázky.
+- Data ve `frontend/public/data/` a fixtures v testech jsou CC BY-SA 4.0, ne licence kódu.
+
+## Stav a plán
+
+**Hotové:** import všech 366 dní, aktualizace se zachováním identity událostí, výběr pětice
+se signálem z Wikidat, REST API, PWA frontend, statické demo.
+
+**Známá omezení:**
+- *Hlavní článek* události je zatím „první neobecný odkaz“ – často kulisa (stát, město) místo
+  předmětu události. Signál proto měří oblibu článku, ne vždy význam události; ze „zlaté sady“
+  8 známých výročí je v pětici svého dne zatím 1 ([docs/kvalita.md](docs/kvalita.md)).
+- Pravidlo „každá karta z jiného století“ často vytlačí důležité události 20. století.
+- 8. 12. a 26. 12. mají jen jednu českou událost.
+
+**Přijde:** výběr hlavního článku ověřený na hodnoticí sadě, zobrazení článků, AI podání
+(vtipně edukační komentář oddělený od faktů), angličtina, offline PWA.
+
+## Jak vznikl
+
+Postaveno s pomocí AI asistenta (Claude Code). Zadání, architekturu, pravidla výběru a kontrolu
+výstupů jsem dělal já.
