@@ -72,6 +72,15 @@ services:
 	- App\Model\Selection\BoringFilter(App\Model\Selection\TextRules(%selection.boringRules%))
 	- App\Model\Selection\SensitivityClassifier(App\Model\Selection\TextRules(%selection.sensitiveRules%))
 
+	# state holidays and significant days (Act No. 245/2000 Coll.)
+	- App\Model\StateDays\StateDayCalendar(%stateDays%)
+	- App\Model\StateDays\StateDayArticleRepository
+	- App\Model\StateDays\StateDayArticleService
+	- App\Model\StateDays\StateDayCheck
+	articleSummarySource:
+		type: App\Model\StateDays\ArticleSummarySource
+		create: App\Model\Wikipedia\RestSummarySource
+
 	# console
 	- App\Core\Console\ConsoleApplication(typed(App\Core\Console\Command))
 	- App\Console\ImportDayCommand
@@ -80,3 +89,4 @@ services:
 	- App\Console\EventsReviewCommand
 	- App\Console\RefreshSignalsCommand
 	- App\Console\ExportStaticCommand
+	- App\Console\RefreshStateDaysCommand

@@ -3,7 +3,8 @@
 /**
  * Quality report of the selection as Markdown (docs/kvalita.md): the ten cards of random days
  * and the "golden set" of well-known anniversaries – whether they made it into their day's ten,
- * and if not, why. Fixes nothing.
+ * and if not, why – and all state holidays and significant days (Act No. 245/2000 Coll.): was the
+ * commemorated event found, or the article summary stored. Fixes nothing.
  * Usage: php bin/report/selection-quality.php [days, default 12] [seed, default 20261029]
  */
 
@@ -14,15 +15,15 @@ require __DIR__ . '/../../vendor/autoload.php';
 use App\Model\Events\MonthDay;
 use App\Model\Events\Year;
 use App\Model\Selection\Candidate;
-use App\Model\Selection\DaySelector;
+use App\Model\Selection\Card;
 use App\Model\Selection\DayService;
+use App\Model\StateDays\StateDayCheck;
 
 $dayCount = (int) ($argv[1] ?? 12);
 mt_srand((int) ($argv[2] ?? 20261029));
 
 $container = (new App\Bootstrap(getenv()))->bootConsoleApplication();
 $dayService = $container->getByType(DayService::class);
-$selector = $container->getByType(DaySelector::class);
 
 // day, year, a fragment identifying exactly one event text, label
 $golden = [
@@ -48,14 +49,15 @@ $days = MonthDay::all();
 foreach ((array) array_rand($days, $dayCount) as $index) {
 	$day = $days[$index];
 	$analysis = $dayService->analyze($day);
-	$chosen = $selector->select($analysis->candidates);
+	$chosen = $dayService->day($day)->cards; // as the API shows it, commemorated events first
 	printf("### %s (%d událostí: Česko %d, Svět %d)\n\n", $day->dayPageTitle(), count($analysis->candidates),
 		count(array_filter($analysis->candidates, fn(Candidate $c) => $c->section->value === 'cz')),
 		count(array_filter($analysis->candidates, fn(Candidate $c) => $c->section->value === 'world')));
 	echo "| Rok | Sekce | Jazyků | Text | Hlavní článek |\n|---|---|---|---|---|\n";
-	foreach ($chosen as $candidate) {
-		$event = $analysis->events[$candidate->id];
-		printf("| %s | %s | %d | %s | %s |\n", Year::format($event->year), $section($event->section->value), $analysis->rawSignals[$candidate->id],
+	foreach ($chosen as $card) {
+		$event = $card->data;
+		printf("| %s | %s | %d | %s%s | %s |\n", Year::format($event->year), $section($event->section->value), $analysis->rawSignals[$event->id],
+			$card->stateDay === null ? '' : "**{$card->stateDay->type->label()}: {$card->stateDay->name}** – ",
 			str_replace('|', '\|', $short($event->text)), $event->primaryTitle ?? '–');
 	}
 	echo "\n";
@@ -67,7 +69,7 @@ $goldenHits = 0;
 foreach ($golden as [$dayString, $year, $fragment, $label]) {
 	$day = MonthDay::fromString($dayString);
 	$analysis = $dayService->analyze($day);
-	$chosenIds = array_map(fn(Candidate $c) => $c->id, $selector->select($analysis->candidates));
+	$chosenIds = array_map(fn(Card $c) => $c->data->id, $dayService->day($day)->cards);
 	$matching = array_values(array_filter(
 		$analysis->candidates,
 		fn(Candidate $c) => $c->year === $year && str_contains($analysis->events[$c->id]->text, $fragment),
@@ -100,3 +102,31 @@ foreach ($golden as [$dayString, $year, $fragment, $label]) {
 	printf("| %s %d | %s | %s | %s |\n", $day->dayPageTitle(), $year, $label, $inTen ? 'ano' : 'ne', $reason);
 }
 printf("\nV desítce svého dne: **%d z %d**.\n", $goldenHits, count($golden));
+
+echo "\n## Státní svátky a významné dny\n\n";
+echo "Podle zákona č. 245/2000 Sb. ([aktuální znění](https://www.zakonyprolidi.cz/cs/2000-245)), `backend/config/state-days.neon`.\n";
+echo "Den s historickou událostí: úryvek musí najít přesně jednu aktivní událost a ta musí být v desítce první.\n";
+echo "Den bez události: samostatná karta s úvodem článku (pohyblivé svátky jen v roce, kdy na daný den připadají).\n\n";
+echo "| Datum | Oficiální název | Typ | Událost / článek | Nalezeno | Poznámka |\n|---|---|---|---|---|---|\n";
+$errors = 0;
+foreach ($container->getByType(StateDayCheck::class)->run() as $check) {
+	$stateDay = $check['stateDay'];
+	$date = $stateDay->date !== null
+		? $stateDay->date->dayPageTitle()
+		: sprintf('Velikonoce %+d (%s)', $stateDay->easterOffset, $stateDay->dateIn((int) date('Y'))->format());
+	if ($stateDay->hasEvent()) {
+		$what = sprintf('%d: „%s“', $stateDay->eventYear, $stateDay->eventText);
+		$note = match (true) {
+			$check['ok'] => 'v desítce první',
+			$check['matches'] === 0 => '**CHYBA: úryvek nenašel žádnou aktivní událost**',
+			$check['matches'] > 1 => sprintf('**CHYBA: úryvek našel %d událostí**', $check['matches']),
+			default => '**CHYBA: událost není v desítce první**',
+		};
+	} else {
+		$what = sprintf('článek „%s“', $stateDay->article);
+		$note = $check['ok'] ? sprintf('úvod z revize %d', $check['summary']?->revisionId) : '**CHYBA: úvod článku není stažený**';
+	}
+	$errors += (int) !$check['ok'];
+	printf("| %s | %s | %s | %s | %s | %s |\n", $date, $stateDay->name, $stateDay->type->label(), str_replace('|', '\\|', $what), $check['ok'] ? 'ano' : 'ne', $note);
+}
+printf("\nChyb: **%d**.\n", $errors);

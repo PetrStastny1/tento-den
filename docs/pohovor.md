@@ -50,7 +50,8 @@ User-Agent s kontaktem z `.env`, sériově nejvýš 200 požadavků/min, při 42
 ### 8. Jak vybíráte karty dne?
 Signál = počet jazykových verzí článku z Wikidat, logaritmicky normalizovaný zvlášť pro Česko a
 Svět. Pak deterministický výběr 10 karet: aspoň 3 české, nudné až nakonec, jinak podle skóre;
-století rozhoduje jen při shodném skóre. Zobrazují se od nejnovější po nejstarší. Známé omezení:
+století rozhoduje jen při shodném skóre. Události připomínané státním svátkem nebo významným
+dnem (zákon č. 245/2000 Sb.) jsou vždy v desítce a první. Zobrazují se od nejnovější po nejstarší. Známé omezení:
 hlavní článek bývá kulisa, proto zlatá sada vychází slabě (4 z 8) – měřím to reportem.
 → [EventScorer](../backend/app/Model/Selection/EventScorer.php), [DaySelector](../backend/app/Model/Selection/DaySelector.php),
 [kvalita.md](kvalita.md)

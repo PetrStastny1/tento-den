@@ -1,7 +1,7 @@
 COMPOSE := docker compose
 PHP_IMAGE := php:8.3-fpm-alpine
 
-.PHONY: up down test lint check-env init-env migrate import-day import-year refresh-signals export-static
+.PHONY: up down test lint check-env init-env migrate import-day import-year refresh-signals refresh-state-days export-static
 
 ## Create .env with random passwords (never overwrites an existing one)
 init-env:
@@ -45,6 +45,10 @@ import-year:
 ## Refresh article signals (Wikidata sitelinks): make refresh-signals [ALL=1]
 refresh-signals:
 	$(COMPOSE) exec php php bin/console.php articles:refresh-signals $(if $(ALL),--all)
+
+## Download the introductions of articles about state holidays and significant days without an event
+refresh-state-days:
+	$(COMPOSE) exec php php bin/console.php state-days:refresh
 
 ## Export the ten cards of all 366 days as static JSON into frontend/public/data/
 export-static:

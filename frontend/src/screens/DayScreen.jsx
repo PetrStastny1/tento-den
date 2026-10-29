@@ -3,11 +3,12 @@ import { useEffect, useRef, useState } from 'react'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router'
 import { DayNav } from '../components/DayNav.jsx'
 import { EventCard } from '../components/EventCard.jsx'
+import { HolidayCard } from '../components/HolidayCard.jsx'
 import { Hero } from '../components/Hero.jsx'
 import { EmptyState, ErrorState, LoadingState } from '../components/States.jsx'
 import { TopBar } from '../components/TopBar.jsx'
 import { fetchDay } from '../data/days.js'
-import { formatDayTitle, isMonthDay, shiftDay, todayInPrague } from '../lib/dates.js'
+import { formatDayTitle, isMonthDay, shiftDay, todayInPrague, yearInPrague } from '../lib/dates.js'
 import { applyDayHue } from '../lib/theme.js'
 import { useSwipe } from '../lib/useSwipe.js'
 
@@ -36,13 +37,14 @@ function Day({ date, favorites }) {
 
   useEffect(() => {
     const controller = new AbortController()
-    fetchDay(date, { signal: controller.signal })
-      .then((data) => setState({ status: 'ready', cards: data.cards }))
+    // only "today" has a known year, so only then movable holidays (Easter) can be shown
+    fetchDay(date, { signal: controller.signal, year: isToday ? yearInPrague() : undefined })
+      .then((data) => setState({ status: 'ready', holidays: data.holidays, cards: data.cards }))
       .catch((error) => {
         if (error?.name !== 'AbortError') setState({ status: 'error', message: error.message })
       })
     return () => controller.abort()
-  }, [date, attempt])
+  }, [date, attempt, isToday])
 
   useEffect(() => {
     if (state.status === 'ready' && location.hash) {
@@ -76,6 +78,7 @@ function Day({ date, favorites }) {
           {state.status === 'ready' && state.cards.length === 0 && (
             <EmptyState icon={CalendarX2} title="Pro tento den nic nemáme">Zkuste předchozí nebo další den.</EmptyState>
           )}
+          {state.status === 'ready' && state.holidays.map((holiday) => <HolidayCard key={holiday.id} holiday={holiday} />)}
           {state.status === 'ready' && state.cards.map((card, index) => (
             <EventCard key={card.id} card={card} index={index} saved={favorites.isSaved(card.id)} onToggleFavorite={favorites.toggle} />
           ))}

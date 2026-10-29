@@ -23,6 +23,11 @@ export function todayInPrague(now = new Date()) {
   return `${get('month')}-${get('day')}`
 }
 
+// the year in Prague decides the movable holidays (Easter) of "today"
+export function yearInPrague(now = new Date()) {
+  return Number(new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Prague', year: 'numeric' }).format(now))
+}
+
 export function shiftDay(monthDay, offset) {
   const all = allMonthDays()
   const index = all.indexOf(monthDay)

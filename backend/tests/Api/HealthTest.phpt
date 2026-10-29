@@ -20,6 +20,8 @@ use Tracy\ILogger;
 
 require __DIR__ . '/../bootstrap.php';
 
+TestContainer::lockDatabase(); // other tests empty the shared test database in parallel
+
 
 /**
  * @param array<string, string> $env

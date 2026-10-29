@@ -15,8 +15,8 @@ use App\Model\Wikipedia\WikipediaUrl;
  */
 final readonly class CardResponse implements \JsonSerializable
 {
-	private const License = 'CC BY-SA 4.0';
-	private const LicenseUrl = 'https://creativecommons.org/licenses/by-sa/4.0/deed.cs';
+	public const License = 'CC BY-SA 4.0';
+	public const LicenseUrl = 'https://creativecommons.org/licenses/by-sa/4.0/deed.cs';
 
 
 	public function __construct(
@@ -39,6 +39,7 @@ final readonly class CardResponse implements \JsonSerializable
 			'section' => $event->section->value,
 			'text' => $event->text,
 			'sensitive' => $this->card->sensitive,
+			'stateDay' => $this->card->stateDay === null ? null : new StateDayResponse($this->card->stateDay),
 			'source' => [
 				'title' => $event->sourceTitle,
 				'revisionUrl' => WikipediaUrl::revision($event->sourceTitle, $event->sourceRevisionId),

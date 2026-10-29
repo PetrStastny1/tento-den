@@ -69,7 +69,7 @@ Skóre = počet jazykových verzí hlavního článku (jinak nejlepšího neobec
 
 | Rok | Sekce | Jazyků | Text | Hlavní článek |
 |---|---|---|---|---|
-| 2004 | Česko | 45 | Do výkonu základní vojenské služby v Armádě České republiky narukovali poslední branci. Jejich propuštěním do civilu 21. 12. přestala všeob… | Základní vojenská služba |
+| 1920 | Česko | 5 | **Významný den: Den české vlajky** – Československé národní shromáždění schválilo zákonem č. 252 definitivní podobu československé vlajky. | Národní shromáždění republiky Československé (1920–1939) |
 | 1988 | Svět | 217 | v Budapešti studenti a mladí intelektuálové založili Svaz mladých demokratů, dnes známý jako Fidesz. | Budapešť |
 | 1983 | Svět | 300 | V Řecku byl uzákoněn pětidenní pracovní týden a osmihodinový pracovní den. | Řecko |
 | 1981 | Svět | 249 | Prezident USA Ronald Reagan byl střelen do hrudi před hotelem ve Washingtonu atentátníkem Johnem Hinckleym mladším. | Ronald Reagan |
@@ -189,8 +189,8 @@ Skóre = počet jazykových verzí hlavního článku (jinak nejlepšího neobec
 
 | Datum | Událost | V desítce | Proč ne v desítce |
 |---|---|---|---|
-| 28. říjen 1918 | vznik Československa | ne | skóre 0.50 (8 jazyků, hlavní článek: Vznik Československa), 9. z 15 v sekci; nejslabší karta v desítce má 0.88 |
-| 17. listopad 1989 | začátek sametové revoluce | ne | skóre 0.45 (9 jazyků, hlavní článek: Veřejná bezpečnost), 10. z 16 v sekci; nejslabší karta v desítce má 0.86 |
+| 28. říjen 1918 | vznik Československa | ano |  |
+| 17. listopad 1989 | začátek sametové revoluce | ano |  |
 | 1. leden 1993 | vznik samostatné České republiky | ano |  |
 | 21. srpen 1968 | invaze vojsk Varšavské smlouvy | ano |  |
 | 20. červenec 1969 | přistání Apolla 11 na Měsíci | ne | skóre 0.79 (97 jazyků, hlavní článek: Program Apollo), 10. z 24 v sekci; nejslabší karta v desítce má 0.84 |
@@ -198,4 +198,49 @@ Skóre = počet jazykových verzí hlavního článku (jinak nejlepšího neobec
 | 12. duben 1961 | let Jurije Gagarina | ano |  |
 | 6. červen 1944 | vylodění v Normandii | ne | skóre 0.71 (60 jazyků, hlavní článek: Operace Overlord), 16. z 21 v sekci; nejslabší karta v desítce má 0.70 |
 
-V desítce svého dne: **4 z 8**.
+V desítce svého dne: **6 z 8**.
+
+## Státní svátky a významné dny
+
+Podle zákona č. 245/2000 Sb. ([aktuální znění](https://www.zakonyprolidi.cz/cs/2000-245)), `backend/config/state-days.neon`.
+Den s historickou událostí: úryvek musí najít přesně jednu aktivní událost a ta musí být v desítce první.
+Den bez události: samostatná karta s úvodem článku (pohyblivé svátky jen v roce, kdy na daný den připadají).
+
+| Datum | Oficiální název | Typ | Událost / článek | Nalezeno | Poznámka |
+|---|---|---|---|---|---|
+| 1. leden | Den obnovy samostatného českého státu | Státní svátek | 1993: „Vznikly Česká republika a Slovenská republika“ | ano | v desítce první |
+| 8. květen | Den vítězství | Státní svátek | 1945: „rozkaz k bezpodmínečné kapitulaci“ | ano | v desítce první |
+| 5. červenec | Den slovanských věrozvěstů Cyrila a Metoděje | Státní svátek | článek „Den slovanských věrozvěstů Cyrila a Metoděje“ | ano | úvod z revize 26224536 |
+| 6. červenec | Den upálení mistra Jana Husa | Státní svátek | 1415: „Jan Hus jakožto domnělý kacíř upálen“ | ano | v desítce první |
+| 28. září | Den české státnosti | Státní svátek | 935: „byl zavražděn kníže Václav“ | ano | v desítce první |
+| 28. říjen | Den vzniku samostatného československého státu | Státní svátek | 1918: „vyhlášen samostatný československý stát“ | ano | v desítce první |
+| 17. listopad | Den boje za svobodu a demokracii a Mezinárodní den studentstva | Státní svátek | 1989: „zásah Veřejné bezpečnosti proti studentské demonstraci“ | ano | v desítce první |
+| 1. leden | Nový rok | Ostatní svátek | článek „Nový rok“ | ano | úvod z revize 26136929 |
+| Velikonoce -2 (04-03) | Velký pátek | Ostatní svátek | článek „Velký pátek“ | ano | úvod z revize 25784969 |
+| Velikonoce +1 (04-06) | Velikonoční pondělí | Ostatní svátek | článek „Velikonoční pondělí“ | ano | úvod z revize 26258375 |
+| 1. květen | Svátek práce | Ostatní svátek | článek „Svátek práce“ | ano | úvod z revize 26167536 |
+| 24. prosinec | Štědrý den | Ostatní svátek | článek „Štědrý den“ | ano | úvod z revize 25484352 |
+| 25. prosinec | 1. svátek vánoční | Ostatní svátek | článek „Slavnost Narození Páně“ | ano | úvod z revize 26162207 |
+| 26. prosinec | 2. svátek vánoční | Ostatní svátek | článek „Svátek svatého Štěpána“ | ano | úvod z revize 24546039 |
+| 16. leden | Den památky Jana Palacha | Významný den | 1969: „zapálil student Jan Palach“ | ano | v desítce první |
+| 27. leden | Den památky obětí holocaustu a předcházení zločinům proti lidskosti | Významný den | 1945: „Osvobození koncentračního tábora v Osvětimi“ | ano | v desítce první |
+| 8. březen | Mezinárodní den žen | Významný den | článek „Mezinárodní den žen“ | ano | úvod z revize 25735491 |
+| 9. březen | Den památky obětí vyhlazení terezínského rodinného tábora v Osvětimi - Březince | Významný den | článek „Terezínský rodinný tábor“ | ano | úvod z revize 26259178 |
+| 12. březen | Den přístupu České republiky k Severoatlantické smlouvě (NATO) | Významný den | 1999: „vstoupila do NATO“ | ano | v desítce první |
+| 28. březen | Den narození Jana Ámose Komenského | Významný den | článek „Jan Amos Komenský“ | ano | úvod z revize 26320762 |
+| 30. březen | Den české vlajky | Významný den | 1920: „definitivní podobu československé vlajky“ | ano | v desítce první |
+| 7. duben | Den vzdělanosti | Významný den | 1348: „zakládací listinu pražské univerzity“ | ano | v desítce první |
+| 1. květen | Den přistoupení České republiky k Evropské unii | Významný den | 2004: „Česko vstoupilo do Evropské unie“ | ano | v desítce první |
+| 5. květen | Květnové povstání českého lidu | Významný den | 1945: „Vypuklo Květnové povstání českého lidu“ | ano | v desítce první |
+| 15. květen | Den rodin | Významný den | článek „Mezinárodní den rodiny“ | ano | úvod z revize 25690095 |
+| 27. květen | Den národního vzdoru | Významný den | 1942: „provedli atentát na Reinharda Heydricha“ | ano | v desítce první |
+| 10. červen | Den památky obětí vyhlazení obce Lidice | Významný den | 1942: „vyhladili vesnici Lidice“ | ano | v desítce první |
+| 18. červen | Den hrdinů druhého odboje | Významný den | 1942: „odhalen úkryt parašutistů“ | ano | v desítce první |
+| 25. červen | Den odchodu okupačních vojsk | Významný den | článek „Odsun sovětských vojsk z Československa“ | ano | úvod z revize 26319397 |
+| 27. červen | Den památky obětí komunistického režimu | Významný den | 1950: „popravena byla Milada Horáková“ | ano | v desítce první |
+| 21. srpen | Den památky obětí invaze a následné okupace vojsky Varšavské smlouvy | Významný den | 1968: „Vojenský zásah armád pěti států Varšavské smlouvy“ | ano | v desítce první |
+| 8. říjen | Památný den sokolstva | Významný den | 1941: „zakázána organizace Sokol“ | ano | v desítce první |
+| 12. říjen | Den samizdatu | Významný den | článek „Den samizdatu“ | ano | úvod z revize 26085443 |
+| 11. listopad | Den válečných veteránů | Významný den | 1918: „Příměřím z Compiègne“ | ano | v desítce první |
+
+Chyb: **0**.

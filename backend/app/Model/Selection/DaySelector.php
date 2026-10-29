@@ -9,12 +9,13 @@ use App\Model\Events\Section;
 
 /**
  * Picks the ten cards of a day (pure and deterministic – the same input gives the same ten).
+ * Events a state holiday or significant day commemorates are always chosen and come first.
  * Each next card is the best remaining candidate by, in this order:
  * 1. not dull before dull,
  * 2. higher score,
  * 3. only at an equal score: a century not yet among the chosen cards,
  * 4. lower event id.
- * The three Czech cards (when the day has them) are chosen first by the same order.
+ * Three Czech cards (when the day has them) are guaranteed, chosen by the same order.
  * No limit by age: anything from antiquity to the present can be chosen.
  */
 final class DaySelector
@@ -25,17 +26,29 @@ final class DaySelector
 
 	/**
 	 * @param list<Candidate> $candidates
-	 * @return list<Candidate> in display order: newest first
+	 * @param list<int> $forcedIds events commemorated by a state day, in the order of the act
+	 * @return list<Candidate> in display order: forced first, then newest first
 	 */
-	public function select(array $candidates): array
+	public function select(array $candidates, array $forcedIds = []): array
 	{
-		$chosen = [];
-		$czech = array_values(array_filter($candidates, fn(Candidate $c): bool => $c->section === Section::Czech));
-		$this->fill($chosen, $czech, self::MinCzech);
+		$forced = [];
+		foreach ($forcedIds as $id) {
+			foreach ($candidates as $candidate) {
+				if ($candidate->id === $id && !in_array($candidate, $forced, true)) {
+					$forced[] = $candidate;
+				}
+			}
+		}
+
+		$chosen = $forced;
+		$isCzech = fn(Candidate $c): bool => $c->section === Section::Czech;
+		$missingCzech = max(0, self::MinCzech - count(array_filter($chosen, $isCzech)));
+		$this->fill($chosen, array_values(array_filter($candidates, $isCzech)), count($chosen) + $missingCzech);
 		$this->fill($chosen, $candidates, self::Cards);
 
-		usort($chosen, fn(Candidate $a, Candidate $b): int => [$b->year, $a->id] <=> [$a->year, $b->id]);
-		return $chosen;
+		$rest = array_values(array_filter($chosen, fn(Candidate $c): bool => !in_array($c, $forced, true)));
+		usort($rest, fn(Candidate $a, Candidate $b): int => [$b->year, $a->id] <=> [$a->year, $b->id]);
+		return [...$forced, ...$rest];
 	}
 
 

@@ -15,7 +15,9 @@ use Nette\Http\IResponse;
 
 
 /**
- * GET /api/day?date=MM-DD – the ten cards of a day, newest first (default: today in Europe/Prague).
+ * GET /api/day?date=MM-DD[&year=YYYY] – holidays without an event and the ten cards of a day: events
+ * commemorated by a state day first, then newest first. Without a date: today in Europe/Prague,
+ * including this year's movable holidays; with a date they need the year.
  */
 final class DayPresenter implements IPresenter
 {
@@ -33,8 +35,9 @@ final class DayPresenter implements IPresenter
 			throw ApiException::methodNotAllowed();
 		}
 
-		$input = DayRequest::fromQuery($request->getParameter('date'));
+		$input = DayRequest::fromQuery($request->getParameter('date'), $request->getParameter('year'));
 		$day = $input->day ?? $this->dayService->today();
-		return new JsonResponse(new DayResponse($day, $this->dayService->cardsForDay($day)));
+		$year = $input->day === null ? ($input->year ?? $this->dayService->currentYear()) : $input->year;
+		return new JsonResponse(new DayResponse($day, $this->dayService->day($day, $year)));
 	}
 }

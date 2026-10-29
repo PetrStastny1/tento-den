@@ -34,6 +34,9 @@ export function EventCard({ card, saved, onToggleFavorite, index = 0, showDate =
             {card.yearLabel}
           </p>
           <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 font-rounded text-[13px] font-semibold text-ink-faint">
+            {card.stateDay && (
+              <span className="rounded-full bg-accent-ink px-2.5 py-1 text-paper">{card.stateDay.typeLabel}</span>
+            )}
             <span className="rounded-full bg-paper/80 px-2.5 py-1 text-ink-soft ring-1 ring-hairline">{sectionLabel}</span>
             <span>{showDate ? `${formatDayTitle(card.date)} · ` : ''}{yearsAgo(card.year)}</span>
           </p>
@@ -53,7 +56,10 @@ export function EventCard({ card, saved, onToggleFavorite, index = 0, showDate =
         </div>
       </header>
 
-      <p className="relative mt-4 text-pretty font-serif text-[19px] leading-[1.5] text-ink">{card.text}</p>
+      {card.stateDay && (
+        <p className="relative mt-4 text-balance font-serif text-[22px] font-semibold leading-snug text-accent-ink">{card.stateDay.name}</p>
+      )}
+      <p className={`relative text-pretty font-serif text-[19px] leading-[1.5] text-ink ${card.stateDay ? 'mt-2' : 'mt-4'}`}>{card.text}</p>
 
       {card.article && (
         <ExternalLink

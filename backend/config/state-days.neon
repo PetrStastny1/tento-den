@@ -1,0 +1,53 @@
+# State holidays, other holidays and significant days of the Czech Republic exactly as listed in
+# Act No. 245/2000 Coll. (zákon č. 245/2000 Sb.), current version as of 13 May 2026 (version 12):
+# https://www.zakonyprolidi.cz/cs/2000-245 – § 1 státní svátky, § 2 ostatní svátky, § 4 významné dny.
+#
+# date: MM-DD, or easter: days from Easter Sunday (movable holidays, only shown when the year is known)
+# name: the official name from the act, type: state | other | significant, source: paragraph of the act
+# event: the historical event of the day page the day commemorates – year and a text fragment that must
+#        match exactly one active event (it is then always among the ten cards and first)
+# article: for days without such an event: the cs.wikipedia article whose summary is shown on a card
+#
+# Which event a day commemorates was checked against the article „Státní svátky Česka“ (column
+# „Připomíná“); when the day page does not have that very event, the day gets an article instead.
+parameters:
+	stateDays:
+		# § 1 státní svátky
+		- {date: '01-01', name: 'Den obnovy samostatného českého státu', type: state, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p1', event: {year: 1993, text: 'Vznikly Česká republika a Slovenská republika'}}
+		- {date: '05-08', name: 'Den vítězství', type: state, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p1', event: {year: 1945, text: 'rozkaz k bezpodmínečné kapitulaci'}}
+		- {date: '07-05', name: 'Den slovanských věrozvěstů Cyrila a Metoděje', type: state, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p1', article: 'Den slovanských věrozvěstů Cyrila a Metoděje'}
+		- {date: '07-06', name: 'Den upálení mistra Jana Husa', type: state, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p1', event: {year: 1415, text: 'Jan Hus jakožto domnělý kacíř upálen'}}
+		- {date: '09-28', name: 'Den české státnosti', type: state, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p1', event: {year: 935, text: 'byl zavražděn kníže Václav'}}
+		- {date: '10-28', name: 'Den vzniku samostatného československého státu', type: state, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p1', event: {year: 1918, text: 'vyhlášen samostatný československý stát'}}
+		- {date: '11-17', name: 'Den boje za svobodu a demokracii a Mezinárodní den studentstva', type: state, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p1', event: {year: 1989, text: 'zásah Veřejné bezpečnosti proti studentské demonstraci'}}
+
+		# § 2 ostatní svátky
+		- {date: '01-01', name: 'Nový rok', type: other, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p2', article: 'Nový rok'}
+		- {easter: -2, name: 'Velký pátek', type: other, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p2', article: 'Velký pátek'}
+		- {easter: 1, name: 'Velikonoční pondělí', type: other, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p2', article: 'Velikonoční pondělí'}
+		- {date: '05-01', name: 'Svátek práce', type: other, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p2', article: 'Svátek práce'}
+		- {date: '12-24', name: 'Štědrý den', type: other, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p2', article: 'Štědrý den'}
+		- {date: '12-25', name: '1. svátek vánoční', type: other, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p2', article: 'Slavnost Narození Páně'}
+		- {date: '12-26', name: '2. svátek vánoční', type: other, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p2', article: 'Svátek svatého Štěpána'}
+
+		# § 4 významné dny
+		- {date: '01-16', name: 'Den památky Jana Palacha', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', event: {year: 1969, text: 'zapálil student Jan Palach'}}
+		- {date: '01-27', name: 'Den památky obětí holocaustu a předcházení zločinům proti lidskosti', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', event: {year: 1945, text: 'Osvobození koncentračního tábora v Osvětimi'}}
+		- {date: '03-08', name: 'Mezinárodní den žen', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', article: 'Mezinárodní den žen'}
+		- {date: '03-09', name: 'Den památky obětí vyhlazení terezínského rodinného tábora v Osvětimi - Březince', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', article: 'Terezínský rodinný tábor'}
+		- {date: '03-12', name: 'Den přístupu České republiky k Severoatlantické smlouvě (NATO)', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', event: {year: 1999, text: 'vstoupila do NATO'}}
+		- {date: '03-28', name: 'Den narození Jana Ámose Komenského', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', article: 'Jan Amos Komenský'}
+		- {date: '03-30', name: 'Den české vlajky', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', event: {year: 1920, text: 'definitivní podobu československé vlajky'}}
+		- {date: '04-07', name: 'Den vzdělanosti', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', event: {year: 1348, text: 'zakládací listinu pražské univerzity'}}
+		- {date: '05-01', name: 'Den přistoupení České republiky k Evropské unii', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', event: {year: 2004, text: 'Česko vstoupilo do Evropské unie'}}
+		- {date: '05-05', name: 'Květnové povstání českého lidu', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', event: {year: 1945, text: 'Vypuklo Květnové povstání českého lidu'}}
+		- {date: '05-15', name: 'Den rodin', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', article: 'Mezinárodní den rodiny'}
+		- {date: '05-27', name: 'Den národního vzdoru', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', event: {year: 1942, text: 'provedli atentát na Reinharda Heydricha'}}
+		- {date: '06-10', name: 'Den památky obětí vyhlazení obce Lidice', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', event: {year: 1942, text: 'vyhladili vesnici Lidice'}}
+		- {date: '06-18', name: 'Den hrdinů druhého odboje', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', event: {year: 1942, text: 'odhalen úkryt parašutistů'}}
+		- {date: '06-25', name: 'Den odchodu okupačních vojsk', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', article: 'Odsun sovětských vojsk z Československa'}
+		- {date: '06-27', name: 'Den památky obětí komunistického režimu', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', event: {year: 1950, text: 'popravena byla Milada Horáková'}}
+		- {date: '08-21', name: 'Den památky obětí invaze a následné okupace vojsky Varšavské smlouvy', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', event: {year: 1968, text: 'Vojenský zásah armád pěti států Varšavské smlouvy'}}
+		- {date: '10-08', name: 'Památný den sokolstva', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', event: {year: 1941, text: 'zakázána organizace Sokol'}}
+		- {date: '10-12', name: 'Den samizdatu', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', article: 'Den samizdatu'}
+		- {date: '11-11', name: 'Den válečných veteránů', type: significant, source: 'https://www.zakonyprolidi.cz/cs/2000-245#p4', event: {year: 1918, text: 'Příměřím z Compiègne'}}

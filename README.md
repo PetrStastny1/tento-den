@@ -20,6 +20,13 @@ Každý den deset zajímavých výročí z Wikipedie – ze světa i z Česka. M
   aspoň 3 z Česka (pokud existují), jinak podle skóre; nudné události (sportovní výsledky,
   otevření obchodu, vydání softwaru…) až nakonec, rozmanitost století rozhoduje jen při
   shodném skóre. Karty jdou **od nejnovější po nejstarší**.
+- **Státní svátky a významné dny** podle [zákona č. 245/2000 Sb.](https://www.zakonyprolidi.cz/cs/2000-245)
+  (všech 34: státní svátky, ostatní svátky, významné dny; `backend/config/state-days.neon`).
+  Připomíná-li den konkrétní událost ze stránky dne (28. 10. 1918, 17. 11. 1989…), je ta událost
+  vždy v desítce, první, se štítkem „Státní svátek“ / „Významný den“ a oficiálním názvem. Den bez
+  takové události (Nový rok, Vánoce, Den rodin…) má nahoře vlastní kartu s úvodem článku
+  z Wikipedie; do desítky se nepočítá. Velký pátek a Velikonoční pondělí jen „dnes“, kdy je
+  známý rok – při prohlížení dne a měsíce se vynechají.
 - Všechny karty jsou stejně velké: rok, „před X lety“, štítek Česko / Svět, celý text
   z Wikipedie, odkaz na článek, atribuce, oblíbené a sdílení.
 - Listování dny (šipky, přejetí prstem, výběr data), **sdílení karty** (Web Share API,
@@ -75,6 +82,7 @@ make up                  # nginx, php-fpm, MariaDB, Vite; založí i testovací 
 make migrate
 make import-year         # ~10 minut: 366 stránek dnů z cs.wikipedia
 make refresh-signals     # ~2 minuty: jazykové verze článků z Wikidat
+make refresh-state-days  # úvody článků o svátcích bez historické události
 ```
 
 - aplikace: <http://localhost:8080>, API: <http://localhost:8080/api/day?date=10-28>
@@ -87,7 +95,7 @@ make refresh-signals     # ~2 minuty: jazykové verze článků z Wikidat
 
 | Metoda | Cesta | Odpověď |
 |---|---|---|
-| GET | `/api/day?date=MM-DD` | 10 karet dne od nejnovější; bez `date` dnešek v Europe/Prague |
+| GET | `/api/day?date=MM-DD[&year=YYYY]` | `holidays` (svátky bez události) a `cards` (10 karet: připomínané události svátků první, pak od nejnovější); `year` určuje pohyblivé svátky; bez `date` dnešek v Europe/Prague včetně roku |
 | GET | `/api/events/{id}` | jedna karta včetně stavu (`active`, `missing`, `needs_review`) |
 | GET | `/api/health` | `200 {"status":"ok"}`, nebo `503` bez dostupné DB |
 
@@ -125,6 +133,9 @@ skutečných editací z historie stránek (přeformulování, oprava faktu, vand
   Wikipedie není záruka pravdivosti, ale dohledatelnosti: každá karta odkazuje na revizi
   (`oldid`), ze které text pochází, a na historii s autory.
 - Jazykové verze: Wikidata (CC0). Žádné obrázky.
+- Seznam svátků a významných dnů: [zákon č. 245/2000 Sb.](https://www.zakonyprolidi.cz/cs/2000-245)
+  v aktuálním znění (k 13. 5. 2026); úvody karet svátků z REST `page/summary` české Wikipedie,
+  s revizí a atribucí jako u událostí (CC BY-SA 4.0).
 - Data ve `frontend/public/data/` a fixtures v testech jsou CC BY-SA 4.0, ne licence kódu.
 
 ## Stav a plán
@@ -135,7 +146,8 @@ se signálem z Wikidat, REST API, PWA frontend, statické demo.
 **Známá omezení** (výběr karet je zatím **experimentální**):
 - *Hlavní článek* události je zatím „první neobecný odkaz“ – často kulisa (stát, město) místo
   předmětu události. Signál proto měří oblibu článku, ne vždy význam události; ze „zlaté sady“
-  8 známých výročí jsou v desítce svého dne 4 ([docs/kvalita.md](docs/kvalita.md)).
+  8 známých výročí jsou v desítce svého dne 6 – dvě z nich díky státním svátkům
+  ([docs/kvalita.md](docs/kvalita.md)).
 - Skóre se normalizuje zvlášť pro Česko a Svět, takže nejlepší české události mají vždy kolem
   1,0 a konkurují nejlepším světovým i nad rámec tří českých míst.
 - 8. 12. a 26. 12. mají jen jednu českou událost.

@@ -437,3 +437,27 @@ ne rokem a sekcí.
   uložené ve větvi `experiment/bubliny`. Důvod: další závislosti a mapová data, pomalejší první
   vykreslení (Lighthouse mobile výkon 82, tato verze 93) a AI vrstva, kterou by bylo třeba trvale hlídat.
   Na `main` z nich nezůstala žádná závislost, tabulka ani migrace.
+
+## Státní svátky a významné dny podle zákona (2026-10-29)
+
+- **Zdroj je zákon, ne ruční výběr.** Seznam (`config/state-days.neon`) je přesně § 1, § 2 a § 4
+  zákona č. 245/2000 Sb. v aktuálním znění (ověřeno na zakonyprolidi.cz, verze 12 k 13. 5. 2026):
+  oficiální názvy, typ, odkaz na paragraf. Ruční „přišpendlení“ oblíbených událostí by bylo
+  subjektivní a neověřitelné; zákon je oficiální, úplný a každý si ho může zkontrolovat.
+- **Viditelný štítek.** Událost, kterou svátek připomíná, je v desítce i s nízkým skóre – proto
+  nese štítek „Státní svátek“ / „Významný den“ a oficiální název. Čtenář vidí, proč tam je; skóre
+  se tím nepřepisuje.
+- **Párování přes úryvek, nic se neodhaduje.** U dne s historickou událostí je rok a úryvek textu;
+  musí najít právě jednu aktivní událost dne. Jinak se nic nevynucuje a report (`docs/kvalita.md`)
+  ukáže chybu. Kterou událost den připomíná, je ověřené podle článku „Státní svátky Česka“
+  (sloupec „Připomíná“); když stránka dne tu událost nemá (Den samizdatu připomíná protest z roku
+  1988, Mezinárodní den žen demonstraci z roku 1917), dostane den kartu s článkem.
+- **Karta svátku bez události** má úvod článku z REST `page/summary` (uložený s revizí, atribuce
+  CC BY-SA) a do desítky se nepočítá. Úvod se nezkracuje (byla by to úprava zdrojového textu),
+  dlouhý se jen vizuálně složí na pět řádků s tlačítkem „Celý úvod“.
+- **Pohyblivé svátky** (Velký pátek, Velikonoční pondělí) se počítají z data Velikonoc
+  (gregoriánský algoritmus) a ukazují se jen, když je známý rok: v API parametr `year`, bez
+  data „dnes“ včetně roku; statický export má `movable.json` podle přesných dat na 10 let dopředu.
+- **Odkaz na zákon jen jako text** na kartě („podle zákona č. 245/2000 Sb.“): odkazy v aplikaci
+  vedou jen na Wikipedii; odkaz na zákon je v README a v konfiguraci.
+- Golden set: 6 z 8 v desítce (28. 10. 1918 a 17. 11. 1989 díky státním svátkům).

@@ -65,6 +65,12 @@ final readonly class MonthDay
 	}
 
 
+	public function equals(self $other): bool
+	{
+		return $this->month === $other->month && $this->day === $other->day;
+	}
+
+
 	public function format(): string
 	{
 		return sprintf('%02d-%02d', $this->month, $this->day);
