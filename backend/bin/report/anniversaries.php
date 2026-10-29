@@ -28,8 +28,8 @@ echo "# Kulatá výročí ke kontrole\n\n";
 echo "Vygenerováno `backend/bin/report/anniversaries.php` (" . (new DateTimeImmutable('now', new DateTimeZone('UTC')))->format('Y-m-d') . ").\n\n";
 echo "Kulaté: 25, 50, 75, 100, 150, 200, 250, 300 a dál násobky 100 let. Nejvýš jedno denně, jen velká událost:\n";
 echo "a) událost státního svátku nebo významného dne (zákon č. 245/2000 Sb.), nebo\n";
-printf("b) hlavní článek je sám událostí velkého typu (Wikidata P31/P279*: %s), jeho datum na Wikidatech je v roce události a má aspoň **%d** jazykových verzí.\n\n",
-	implode(', ', $config->eventClasses), $config->minSitelinks);
+printf("b) vlastní článek události (hlavní, jinak první odkazovaný, který vyhoví) je sám událostí velkého typu (Wikidata P31/P279*: %s), jeho datum na Wikidatech je v roce události a má aspoň **%d** jazykových verzí u světových, **%d** u českých událostí.\n\n",
+	implode(', ', $config->eventClasses), $config->minSitelinks['world'], $config->minSitelinks['cz']);
 echo "Nevhodné škrtněte – zapíšou se do `backend/config/anniversary-exclusions.neon` (jen vyřazení; pak se ukáže další v pořadí, nebo nic).\n";
 
 foreach ($years as $year) {

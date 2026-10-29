@@ -27,7 +27,7 @@ final class RefreshStateDaysCommand implements Command
 
 	public function getDescription(): string
 	{
-		return 'Stáhne úvody článků o svátcích a významných dnech bez historické události (REST page/summary)';
+		return 'Stáhne úvody článků o svátcích a významných dnech bez historické události (úvodní odstavec článku)';
 	}
 
 

@@ -7,6 +7,7 @@ namespace App\Api\Dto;
 use App\Model\NameDays\Country;
 use App\Model\NameDays\CountryNameDays;
 use App\Model\NameDays\NameDay;
+use App\Model\NameDays\NameVariants;
 use App\Model\Wikipedia\WikipediaUrl;
 
 
@@ -54,8 +55,10 @@ final readonly class NameDaysResponse implements \JsonSerializable
 				return [
 					'name' => $entry['nameDay']->name,
 					'note' => $entry['nameDay']->note,
+					'variantOf' => $entry['variantOf'],
 					'meaning' => $meaning === null ? null : [
 						'title' => $meaning->title,
+						'aboutName' => NameVariants::nameOfArticle($meaning->title),
 						'extract' => $meaning->extract,
 						'url' => WikipediaUrl::revision($meaning->title, $meaning->revisionId, $language),
 						'source' => $this->source($meaning->title, $meaning->revisionId, $language, $meaning->fetchedAt),

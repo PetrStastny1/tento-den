@@ -66,6 +66,23 @@ foreach ($rows as [$monthDay, $sk, $cs]) {
 	printf("| %s | %s | %s |\n", $date($monthDay), $sk, $cs);
 }
 
+echo "\n## Varianty jmen (ke kontrole)\n\n";
+echo "Jen z dat: (a) článek o jménu přesměrovává na článek jiného jména téhož dne, (b) stejná položka Wikidat,\n";
+echo "(c) položky spojuje P460 „said to be the same as“ nebo P1560 „jméno pro druhé pohlaví“. Hlavní je jméno uvedené dřív.\n\n";
+echo "| Režim | Datum | Varianta | Hlavní jméno | Pravidlo |\n|---|---|---|---|---|\n";
+$variantCount = 0;
+foreach (MonthDay::all() as $day) {
+	foreach (array_filter($service->forDay($day)) as $countryDays) {
+		foreach ($countryDays->names as $entry) {
+			if ($entry['variantOf'] !== null) {
+				$variantCount++;
+				printf("| %s | %s | %s | %s | %s |\n", $countryDays->country->label(), $day->dayPageTitle(), $entry['nameDay']->name, $entry['variantOf']['name'], $entry['variantOf']['rule']);
+			}
+		}
+	}
+}
+printf("\nVariant celkem: **%d**.\n", $variantCount);
+
 $days = MonthDay::all();
 $sample = (array) array_rand($days, 10);
 foreach (Country::cases() as $country) {

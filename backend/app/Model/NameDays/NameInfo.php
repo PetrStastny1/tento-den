@@ -12,6 +12,9 @@ use App\Model\Import\ArticleSummary;
  */
 final readonly class NameInfo
 {
+	/**
+	 * @param list<string> $relatedItems Wikidata P460 and P1560 of the name item
+	 */
 	public function __construct(
 		public string $name,
 		public Country $country,
@@ -19,6 +22,7 @@ final readonly class NameInfo
 		public ?ArticleSummary $meaning,
 		public ?Bearer $bearer,
 		public \DateTimeImmutable $checkedAt,
+		public array $relatedItems = [],
 	) {
 	}
 }

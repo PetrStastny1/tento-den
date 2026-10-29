@@ -32,10 +32,11 @@ final class NameDayService
 			return null;
 		}
 		$main = array_values(array_filter($all, fn(NameDay $n): bool => $n->line === 1));
-		$infos = $this->infos->findByNames($country, array_map(fn(NameDay $n): string => $n->name, $main));
+		$infos = $this->infos->findByNames($country, array_map(fn(NameDay $n): string => $n->name, $all));
+		$variants = NameVariants::find(array_map(fn(NameDay $n): string => $n->name, $all), $infos);
 		return new CountryNameDays(
 			$country,
-			array_map(fn(NameDay $n): array => ['nameDay' => $n, 'info' => $infos[$n->name] ?? null], $main),
+			array_map(fn(NameDay $n): array => ['nameDay' => $n, 'info' => $infos[$n->name] ?? null, 'variantOf' => $variants[$n->name] ?? null], $main),
 			array_values(array_filter($all, fn(NameDay $n): bool => $n->line > 1)),
 			$all[0]->sourceTitle,
 			$all[0]->sourceRevisionId,

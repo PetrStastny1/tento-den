@@ -6,6 +6,7 @@ namespace App\Model\NameDays;
 
 use App\Model\Import\ArticleSummary;
 use Nette\Database\Explorer;
+use Nette\Utils\Json;
 
 
 final class NameInfoRepository
@@ -20,6 +21,7 @@ final class NameInfoRepository
 	{
 		$values = [
 			'wikidata_item' => $info->wikidataItem,
+			'related_items' => $info->relatedItems === [] ? null : Json::encode($info->relatedItems),
 			'article_title' => $info->meaning?->title,
 			'extract' => $info->meaning?->extract,
 			'article_revision_id' => $info->meaning?->revisionId,
@@ -57,6 +59,7 @@ final class NameInfoRepository
 				$row->article_title === null ? null : new ArticleSummary((string) $row->article_title, (string) $row->extract, (int) $row->article_revision_id, $checkedAt),
 				$row->bearer_item === null ? null : new Bearer((string) $row->bearer_item, (string) $row->bearer_name, (string) $row->bearer_article, (int) $row->bearer_sitelinks, $row->bearer_occupations === null ? null : (string) $row->bearer_occupations),
 				$checkedAt,
+				$row->related_items === null ? [] : array_values(array_map('strval', (array) Json::decode($row->related_items))),
 			);
 		}
 		return $result;

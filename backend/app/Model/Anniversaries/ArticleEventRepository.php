@@ -17,15 +17,15 @@ final class ArticleEventRepository
 
 
 	/**
-	 * Wikidata items of the primary articles of active events (only unchecked ones unless $all).
+	 * Wikidata items of all articles linked from active events (only unchecked ones unless $all).
 	 * @return list<string>
 	 */
-	public function primaryItems(bool $all): array
+	public function linkedItems(bool $all): array
 	{
 		return array_map(fn($row): string => (string) $row->wikibase_item, $this->database->fetchAll('
 			SELECT DISTINCT a.wikibase_item
 			FROM events e
-			JOIN event_articles ea ON ea.event_id = e.id AND ea.is_primary = 1
+			JOIN event_articles ea ON ea.event_id = e.id
 			JOIN articles a ON a.page_id = ea.page_id
 			WHERE e.status = ? AND a.wikibase_item IS NOT NULL' . ($all ? '' : ' AND a.event_checked_at IS NULL') . '
 			ORDER BY a.wikibase_item', 'active'));

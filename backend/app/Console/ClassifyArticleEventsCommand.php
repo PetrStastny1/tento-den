@@ -27,7 +27,7 @@ final class ClassifyArticleEventsCommand implements Command
 
 	public function getDescription(): string
 	{
-		return 'Zjistí z Wikidat, které hlavní články jsou samy velkou událostí, a jejich datum (jen nezjištěné, --all všechny)';
+		return 'Zjistí z Wikidat, které odkazované články jsou samy velkou událostí, a jejich datum (jen nezjištěné, --all všechny)';
 	}
 
 

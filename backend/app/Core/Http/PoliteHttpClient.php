@@ -9,7 +9,8 @@ use App\Core\Clock\Clock;
 
 /**
  * Keeps requests within the Wikimedia rate limit and retries temporary failures:
- * requests are sent serially at most $requestsPerMinute, 429/503 wait for Retry-After
+ * requests are sent serially at most $requestsPerMinute, 429/503 wait for Retry-After (502/504 from
+ * a gateway are retried the same way – the Wikidata Query Service answers them under load)
  * (or back off exponentially from 5 s), network errors are retried too.
  */
 final class PoliteHttpClient implements HttpClient
@@ -42,7 +43,7 @@ final class PoliteHttpClient implements HttpClient
 				continue;
 			}
 
-			if (!in_array($response->status, [429, 503], true)) {
+			if (!in_array($response->status, [429, 502, 503, 504], true)) {
 				return $response;
 			}
 			if ($attempt >= $this->maxAttempts) {

@@ -15,8 +15,10 @@ use Nette\Utils\JsonException;
 
 
 /**
- * A known bearer from the Wikidata Query Service: humans with the given name (P735) and a citizenship
- * (P27) of the country or Czechoslovakia who have an article on the Wikipedia of the mode.
+ * A known bearer from the Wikidata Query Service: humans with the given name (P735) born (P19) in a
+ * place that lies in today's Czechia (CZ) or Slovakia (SK) (P17 of the place), with an article on the
+ * Wikipedia of the mode. The place of birth, not the citizenship: Jan Hus, Charles IV or Comenius have
+ * the Kingdom of Bohemia as their citizenship, not Czechia or Czechoslovakia.
  * - Never: an occupation (P106, or a subclass) in erotica or pornography; someone convicted (P1399)
  *   who has no occupation in the fields below – known mainly for a crime. A conviction alone does not
  *   exclude: political prisoners (Václav Havel, Milada Horáková) were convicted too.
@@ -29,9 +31,9 @@ use Nette\Utils\JsonException;
 final class WikidataQueryBearerSource implements BearerSource
 {
 	private const Endpoint = 'https://query.wikidata.org/sparql';
-	private const Citizenships = [
-		'cz' => ['Q213', 'Q33946'], // Czech Republic, Czechoslovakia
-		'sk' => ['Q214', 'Q33946'], // Slovakia, Czechoslovakia
+	private const BirthCountries = [
+		'cz' => 'Q213', // Czech Republic
+		'sk' => 'Q214', // Slovakia
 	];
 	private const ExcludedOccupations = [
 		'Q488111',   // pornographic film actor
@@ -71,7 +73,7 @@ final class WikidataQueryBearerSource implements BearerSource
 		}
 		$language = $country->language();
 		$values = fn(array $items): string => implode(' ', array_map(fn(string $q): string => "wd:$q", $items));
-		$citizenships = $values(self::Citizenships[$country->value]);
+		$birthCountry = self::BirthCountries[$country->value];
 		$excludedOccupations = $values(self::ExcludedOccupations);
 		$notableFields = $values(self::NotableFields);
 		$excludedPeople = $excluded === [] ? '' : 'FILTER(?person NOT IN (' . implode(', ', array_map(fn(string $q): string => "wd:$q", $excluded)) . '))';
@@ -82,8 +84,8 @@ final class WikidataQueryBearerSource implements BearerSource
 			    SELECT ?person ?sitelinks ?article WHERE {
 			      {
 			        SELECT DISTINCT ?person ?sitelinks ?article WHERE {
-			          ?person wdt:P735 wd:$nameItem ; wdt:P31 wd:Q5 ; wikibase:sitelinks ?sitelinks ; wdt:P27 ?country .
-			          VALUES ?country { $citizenships }
+			          ?person wdt:P735 wd:$nameItem ; wdt:P31 wd:Q5 ; wikibase:sitelinks ?sitelinks ; wdt:P19 ?birthplace .
+			          ?birthplace wdt:P17 wd:$birthCountry .
 			          ?article schema:about ?person ; schema:isPartOf <https://$language.wikipedia.org/> .
 			          $excludedPeople
 			        }

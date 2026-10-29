@@ -53,7 +53,7 @@ final class ActionApiNameArticleSource implements NameArticleSource
 			foreach ($titles as $title) {
 				$item = $items[$title] ?? null;
 				if ($item !== null && isset($givenNames[$item['item']])) {
-					$result[$name] = new NameArticle($item['title'], $item['item']);
+					$result[$name] = new NameArticle($item['title'], $item['item'], $givenNames[$item['item']]);
 					break;
 				}
 			}
@@ -103,7 +103,7 @@ final class ActionApiNameArticleSource implements NameArticleSource
 
 	/**
 	 * @param list<string> $items
-	 * @return array<string, true> items that are an instance of a given name
+	 * @return array<string, list<string>> items that are an instance of a given name => their P460 and P1560 items
 	 * @throws SourceException
 	 */
 	private function givenNames(array $items): array
@@ -114,7 +114,14 @@ final class ActionApiNameArticleSource implements NameArticleSource
 			foreach ($data['entities'] ?? [] as $id => $entity) {
 				foreach ($entity['claims']['P31'] ?? [] as $claim) {
 					if (in_array($claim['mainsnak']['datavalue']['value']['id'] ?? null, self::GivenNameClasses, true)) {
-						$result[(string) $id] = true;
+						$related = [];
+						foreach ([...($entity['claims']['P460'] ?? []), ...($entity['claims']['P1560'] ?? [])] as $link) {
+							$value = $link['mainsnak']['datavalue']['value']['id'] ?? null;
+							if (is_string($value)) {
+								$related[] = $value;
+							}
+						}
+						$result[(string) $id] = array_values(array_unique($related));
 					}
 				}
 			}

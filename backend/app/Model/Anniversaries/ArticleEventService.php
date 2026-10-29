@@ -9,7 +9,7 @@ use App\Model\Import\SourceException;
 
 
 /**
- * Marks primary articles that are themselves events of a big type, with the years of their date
+ * Marks linked articles that are themselves events of a big type, with the years of their date
  * (server only, console; like the sitelinks signal).
  */
 final class ArticleEventService
@@ -30,7 +30,7 @@ final class ArticleEventService
 	public function refresh(bool $all): array
 	{
 		$result = ['items' => 0, 'events' => 0];
-		foreach (array_chunk($this->articles->primaryItems($all), 250) as $batch) {
+		foreach (array_chunk($this->articles->linkedItems($all), 250) as $batch) {
 			foreach ($this->source->classify($batch, array_keys($this->config->eventClasses)) as $item => $event) {
 				$this->articles->save($item, $event['class'], $event['years'], $this->clock->now());
 				$result['items']++;

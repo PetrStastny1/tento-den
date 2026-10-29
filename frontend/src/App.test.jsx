@@ -292,6 +292,33 @@ describe('Jmeniny', () => {
     }
   })
 
+  it('varianta: „Sylva – varianta jména Silvie“, význam uvedený jako význam jména Silvie, nositel jen pro tvar Sylva', async () => {
+    const silvieMeaning = { ...nameDays.cz.names[0].meaning, title: 'Silvie', aboutName: 'Silvie', extract: 'Silvie je ženské jméno.' }
+    const day = {
+      ...nameDays.cz,
+      names: [
+        { name: 'Silvie', note: null, variantOf: null, meaning: silvieMeaning, bearer: { name: 'Silvie Maryško', wikidataId: 'Q1', url: 'https://cs.wikipedia.org/wiki/Silvie_Mary%C5%A1ko' } },
+        { name: 'Silvána', note: null, variantOf: null, meaning: null, bearer: null },
+        { name: 'Sylva', note: null, variantOf: { name: 'Silvie', rule: 'a' }, meaning: silvieMeaning, bearer: null },
+      ],
+      otherNames: [],
+    }
+    mockFetch(jsonResponse(dayResponse('10-29', undefined, [], { cz: day, sk: null })))
+    renderAt('/den/10-29')
+
+    const block = await screen.findByRole('region', { name: 'Jmeniny' })
+    expect(nameButtons(block)).toEqual(['Silvie', 'Sylva']) // Silvána: plain text
+    fireEvent.click(within(block).getByRole('button', { name: 'Sylva' }))
+    const panel = screen.getByRole('dialog', { name: 'Sylva' })
+    expect(panel.textContent).toContain('Sylva – varianta jména Silvie')
+    expect(panel.textContent).toContain('Význam jména Silvie')
+    expect(within(panel).queryByText(/Známý nositel/)).toBeNull()
+    fireEvent.click(within(block).getByRole('button', { name: 'Silvie' }))
+    const main = screen.getByRole('dialog', { name: 'Silvie' })
+    expect(main.textContent).not.toContain('varianta')
+    expect(main.textContent).toContain('Význam a původ')
+  })
+
   it('29. 10. ukáže Silvii (CZ)', async () => {
     const silvie = { ...nameDays.cz, names: [{ name: 'Silvie', note: null, meaning: null, bearer: null }, { name: 'Silvána', note: null, meaning: null, bearer: null }, { name: 'Sylva', note: null, meaning: null, bearer: null }], otherNames: [] }
     mockFetch(jsonResponse(dayResponse('10-29', undefined, [], { cz: silvie, sk: null })))

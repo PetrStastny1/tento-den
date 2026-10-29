@@ -15,7 +15,7 @@ use App\Model\Events\Section;
 final readonly class CardData
 {
 	/**
-	 * @param list<array{title: string, sitelinks: int|null}> $links linked articles in text order
+	 * @param list<array{title: string, sitelinks: int|null, eventClass?: ?string, eventYears?: list<int>}> $links linked articles in text order
 	 * @param list<int> $primaryEventYears years of the primary article's date when it is itself an event
 	 */
 	public function __construct(

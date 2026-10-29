@@ -1,11 +1,16 @@
 # Round anniversaries (25, 50, 75, 100, 150, 200, 250, 300, then every 100 years) of big events only.
 # An event is big when a state holiday or significant day commemorates it (state-days.neon), or when
-# its primary article is itself an event of one of these types (Wikidata P31/P279*), its date in
-# Wikidata (P585, P580 or P571) falls in the year of the event, and the article has at least
-# minSitelinks language editions. Reasons for the classes and the threshold: docs/rozhodnuti.md.
+# its own article – the primary article, or else the first linked article that qualifies – is itself
+# an event of one of these types (Wikidata P31/P279*), dated (P585, P580 or P571) in the year of the
+# event, with at least minSitelinks language editions (by section: Czech events have fewer).
+# Not the general „document“ (Q49848): through its subclasses it covers websites, software and award
+# ceremonies (Wikipedia, MediaWiki, the Oscars); the specific types of documents below stay.
+# Reasons for the classes and the thresholds: docs/rozhodnuti.md.
 parameters:
 	anniversaries:
-		minSitelinks: 60   # upper quartile of the 587 event articles whose date matches their event (median 37)
+		minSitelinks:
+			world: 60   # upper quartile of the 587 event articles whose date matches their event (median 37)
+			cz: 15      # Czech events are written about in fewer languages (Charta 77: 36)
 		eventClasses:
 			Q198: válka
 			Q10931: revoluce
@@ -19,3 +24,9 @@ parameters:
 			Q752783: let člověka do vesmíru
 			Q3839081: katastrofa
 			Q13418847: historická událost
+			Q131569: smlouva
+			Q62662439: deklarace
+			Q46337: manifest
+			Q697279: petice
+			Q206021: let
+			Q2401485: expedice

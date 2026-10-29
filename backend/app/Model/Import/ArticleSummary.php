@@ -6,7 +6,7 @@ namespace App\Model\Import;
 
 
 /**
- * The introduction of a Wikipedia article (REST page/summary) of an exact revision.
+ * The introduction of a Wikipedia article (the first paragraph of its lead, word for word) of an exact revision.
  */
 final readonly class ArticleSummary
 {

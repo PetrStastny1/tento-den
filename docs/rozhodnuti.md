@@ -452,7 +452,7 @@ ne rokem a sekcí.
   ukáže chybu. Kterou událost den připomíná, je ověřené podle článku „Státní svátky Česka“
   (sloupec „Připomíná“); když stránka dne tu událost nemá (Den samizdatu připomíná protest z roku
   1988, Mezinárodní den žen demonstraci z roku 1917), dostane den kartu s článkem.
-- **Karta svátku bez události** má úvod článku z REST `page/summary` (uložený s revizí, atribuce
+- **Karta svátku bez události** má úvod článku (první odstavec, viz „Úvod článku doslova“; uložený s revizí, atribuce
   CC BY-SA) a do desítky se nepočítá. Úvod se nezkracuje (byla by to úprava zdrojového textu),
   dlouhý se jen vizuálně složí na pět řádků s tlačítkem „Celý úvod“.
 - **Pohyblivé svátky** (Velký pátek, Velikonoční pondělí) se počítají z data Velikonoc
@@ -481,9 +481,10 @@ ne rokem a sekcí.
 - **Význam jen z článku o jménu.** Kandidáti „Jméno (jméno)“ → „Jméno“ (cs), „Meno (prvé meno)“
   → „Meno (meno)“ → „Meno“ (sk), přesměrování se sledují; článek se bere, jen když jeho položka
   Wikidat je instancí křestního jména (P31 = given name / male / female / unisex). „Sibyla“
-  (prorokyně) tak nevyhraje nad „Sibyla (jméno)“. Úvod z REST `page/summary` s revizí.
-- **Známý nositel z Wikidat** (WDQS): P735 = položka jména, P31 = člověk, P27 = Česko nebo
-  Československo (CZ), Slovensko nebo Československo (SK), článek na Wikipedii režimu. Z 50 s
+  (prorokyně) tak nevyhraje nad „Sibyla (jméno)“. Úvod článku (první odstavec) s revizí.
+- **Známý nositel z Wikidat** (WDQS): P735 = položka jména, P31 = člověk, místo narození na území
+  dnešního Česka (CZ), resp. Slovenska (SK) – viz níže „Nositelé podle místa narození“ –, článek
+  na Wikipedii režimu. Z 50 s
   nejvíc sitelinks vyhrává ten, jehož popisek jménem začíná (jinak by „Jan“ byl Miloš Forman –
   vlastním jménem Jan Tomáš), pak počet sitelinks. Dotaz ve dvou krocích kvůli době (25 s → 3 s
   u nejčastějšího jména). Nic se nenajde = nic se neukáže.
@@ -544,3 +545,41 @@ Příznak `sensitive` v API zůstává – použije ho AI podání (u tragédií
 - **Kontrola člověkem:** pravidla jsou hrubá (Wikidata nezná „vhodnost“), proto `docs/nositele.md`
   vypisuje všechna jména s nositelem a povoláním; nevhodné se zapíšou do
   `config/name-bearer-exclusions.neon` (jen vyřazení) a vybere se další v pořadí, nebo nikdo.
+
+## Nositelé podle místa narození (2026-10-29)
+
+Státní příslušnost (P27) vyřazovala historické osobnosti: Jan Hus, Karel IV. nebo Komenský ji mají
+„České království“, ne Česko či Československo. Proto rozhoduje místo narození (P19) na území dnešního
+Česka (CZ), resp. Slovenska (SK) – podle státu (P17) místa, který je na Wikidatech současný. Filtr
+erotiky a odsouzených zůstává, Jozef Tiso je vyřazený ručně po kontrole (docs/nositele.md).
+
+## Úvod článku doslova, ne REST page/summary (2026-10-29)
+
+REST `page/summary` vynechává text v závorkách: u „Klára“ zmizelo „(„jasná“, „svetlá“, ale aj
+„slávna“)“, u „Silvie“ „(také Sylvie, Silvia, Silva nebo Sylva)“ – tedy i věcný obsah. Úvod se proto
+bere z Parsoid HTML aktuální revize článku: první neprázdný odstavec před prvním nadpisem, mimo
+tabulky (infobox), vynechané jsou jen reference, styly a skryté prvky. Revize z hlavičky
+`Content-Revision-Id`. Chybějící tečka v úvodu „Klára“ nebyla chyba extrakce: v uložené revizi
+8160320 na sk.wikipedia opravdu chyběla, opravila ji až revize 8400261 (29. 10. 2026) – text se
+nedoplňuje, jen se znovu stáhne.
+
+## Varianty jmen jen z dat (2026-10-29)
+
+Jméno je variantou jiného jména téhož dne, jen když to říkají data: (a) článek o jménu přesměrovává
+na článek toho jména (Sylva → Silvie), (b) obě mají stejnou položku Wikidat, (c) položky spojuje
+P460 „said to be the same as“ nebo P1560 „jméno pro druhé pohlaví“. Podobnost písmen se nepoužívá.
+Hlavní je jméno uvedené na stránce dřív. Panel varianty říká „Sylva – varianta jména Silvie“ a význam
+uvádí jako „Význam jména Silvie“; nositel se hledá pro tvar Sylva. Seznam ke kontrole: docs/jmeniny.md.
+
+## Kulatá výročí: víc typů, hranice podle sekce, odkazovaný článek (2026-10-29)
+
+- **Typy navíc:** smlouva, deklarace, manifest, petice, let, expedice (P31/P279*). Obecný
+  „dokument“ (Q49848) ne: přes podtřídy zahrnuje weby, software i předávání cen – prošly by
+  Nupedia, MediaWiki, Wikislovník nebo 73. ročník Oscarů.
+- **Hranice podle sekce:** Svět 60, Česko 15 – české události mají méně jazykových verzí.
+- **Vlastní článek události** je hlavní článek, nebo první odkazovaný, který je sám velkou událostí
+  datovanou v roce události: u 4. 7. 1776 je hlavní článek „Kongres Spojených států amerických“
+  (kulisa, datum 1789), deklarace je až druhý odkaz. Datum musí dál sedět s rokem události.
+- **Charta 77 neprošla:** událost 1. 1. 1977 (i 6. 1.) odkazuje jen na článek „Charta 77“, který je
+  na Wikidatech „hnutí za lidská práva“ (Q13406660), ne dokument; samostatný článek o Prohlášení
+  stránka dne neodkazuje. Natvrdo se nepřidává.

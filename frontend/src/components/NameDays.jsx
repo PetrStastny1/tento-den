@@ -5,13 +5,13 @@ import { ExternalLink } from './ExternalLink.jsx'
 import { Flag } from './Flag.jsx'
 
 const TEXTS = {
-  cz: { region: 'Jmeniny', meaning: 'Význam a původ', bearer: 'Známý nositel', authors: 'autoři', close: 'Zavřít' },
-  sk: { region: 'Meniny', meaning: 'Význam a pôvod', bearer: 'Známy nositeľ', authors: 'autori', close: 'Zavrieť' },
+  cz: { region: 'Jmeniny', meaning: 'Význam a původ', meaningOf: 'Význam jména', variantOf: 'varianta jména', bearer: 'Známý nositel', authors: 'autoři', close: 'Zavřít' },
+  sk: { region: 'Meniny', meaning: 'Význam a pôvod', meaningOf: 'Význam mena', variantOf: 'variant mena', bearer: 'Známy nositeľ', authors: 'autori', close: 'Zavrieť' },
 }
 const COUNTRY_LABELS = { cz: 'Česko', sk: 'Slovensko' }
 
 // One sentence in the day card under the date: „Svátek má Silvie, Silvána a Sylva“ in the chosen
-// mode, flags on the right. A name is tappable only when we know its meaning or a bearer; it opens one small panel
+// mode, flags on the right. A name is tappable only when we know its meaning, a bearer or that it is a variant of another name of the day; it opens one small panel
 // (a popover on wide screens, a bottom sheet on a phone). No names in either country: no card.
 export function NameDays({ nameDays, country, onCountry }) {
   const [open, setOpen] = useState(null) // { name, anchor, trigger } – never more than one panel
@@ -34,7 +34,7 @@ export function NameDays({ nameDays, country, onCountry }) {
             {data.names.map((item, index) => (
               <span key={item.name}>
                 {index > 0 && (index === data.names.length - 1 ? ' a ' : ', ')}
-                {item.meaning || item.bearer ? (
+                {item.meaning || item.bearer || item.variantOf ? (
                   <button
                     type="button"
                     aria-haspopup="dialog"
@@ -126,14 +126,20 @@ function NamePanel({ entry, anchor, trigger, source, texts, onClose }) {
       >
         <div aria-hidden="true" className="mx-auto mb-2 h-1.5 w-10 rounded-full bg-hairline sm:hidden" />
         <div className="flex items-start justify-between gap-2">
-          <p className="pt-1.5 font-serif text-[22px] font-semibold text-ink">{entry.name}</p>
+          <p className="pt-1.5 font-serif text-[22px] font-semibold text-ink">
+            {entry.name}
+            {entry.variantOf && <span className="font-rounded text-[15px] font-semibold text-ink-soft"> – {texts.variantOf} {entry.variantOf.name}</span>}
+          </p>
           <button type="button" aria-label={texts.close} onClick={onClose} className="-mr-2 inline-flex size-11 items-center justify-center rounded-full text-ink-soft hover:bg-accent-wash">
             <X className="size-5" aria-hidden="true" />
           </button>
         </div>
         {meaning && (
           <>
-            <p className="font-rounded text-[12px] font-bold uppercase tracking-[0.14em] text-ink-faint">{texts.meaning}</p>
+            {/* the meaning of the main name when the article is about it (Sylva → the article Silvie) */}
+            <p className="font-rounded text-[12px] font-bold uppercase tracking-[0.14em] text-ink-faint">
+              {meaning.aboutName && meaning.aboutName !== entry.name ? `${texts.meaningOf} ${meaning.aboutName}` : texts.meaning}
+            </p>
             <p className="mt-1 line-clamp-6 text-pretty font-serif text-[17px] leading-[1.45] text-ink">{meaning.extract}</p>
           </>
         )}

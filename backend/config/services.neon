@@ -104,7 +104,7 @@ services:
 		type: App\Model\NameDays\BearerSource
 		create: App\Model\Wikipedia\WikidataQueryBearerSource
 	skSummarySource:
-		create: App\Model\Wikipedia\RestSummarySource(language: sk)
+		create: App\Model\Wikipedia\WikipediaLeadSource(language: sk)
 		autowired: false
 	- App\Model\NameDays\NameInfoService(csSummaries: @articleSummarySource, skSummaries: @skSummarySource)
 
@@ -115,7 +115,7 @@ services:
 	- App\Model\StateDays\StateDayCheck
 	articleSummarySource:
 		type: App\Model\Import\ArticleSummarySource
-		create: App\Model\Wikipedia\RestSummarySource
+		create: App\Model\Wikipedia\WikipediaLeadSource
 
 	# console
 	- App\Core\Console\ConsoleApplication(typed(App\Core\Console\Command))

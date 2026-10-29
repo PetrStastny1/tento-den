@@ -61,12 +61,17 @@ final class CardRepository
 		}
 		$links = [];
 		$linkRows = $this->database->fetchAll('
-			SELECT ea.event_id, a.title, a.sitelinks
+			SELECT ea.event_id, a.title, a.sitelinks, a.event_class, a.event_years
 			FROM event_articles ea JOIN articles a ON a.page_id = ea.page_id
 			WHERE ea.event_id IN (?)
 			ORDER BY ea.event_id, ea.position', array_map(fn(Row $row): int => $row->id, $rows));
 		foreach ($linkRows as $link) {
-			$links[$link->event_id][] = ['title' => (string) $link->title, 'sitelinks' => $link->sitelinks === null ? null : (int) $link->sitelinks];
+			$links[$link->event_id][] = [
+				'title' => (string) $link->title,
+				'sitelinks' => $link->sitelinks === null ? null : (int) $link->sitelinks,
+				'eventClass' => $link->event_class === null ? null : (string) $link->event_class,
+				'eventYears' => $link->event_years === null ? [] : array_values(array_map('intval', (array) Json::decode($link->event_years))),
+			];
 		}
 
 		return array_map(fn(Row $row): CardData => new CardData(

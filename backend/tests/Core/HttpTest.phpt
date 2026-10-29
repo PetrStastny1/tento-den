@@ -46,6 +46,16 @@ test('503 without Retry-After backs off exponentially from 5 seconds', function 
 });
 
 
+test('gateway errors 502 and 504 are retried like 503, other errors are returned', function () {
+	$clock = new FakeClock;
+	$http = new FakeHttpClient(new HttpResponse(502, [], ''), new HttpResponse(504, [], ''), ok());
+	Assert::same(200, (new PoliteHttpClient($http, $clock))->get('https://example.org/a')->status);
+	Assert::same([5.0, 10.0], $clock->sleeps);
+	$notFound = new FakeHttpClient(new HttpResponse(500, [], ''));
+	Assert::same(500, (new PoliteHttpClient($notFound, new FakeClock))->get('https://example.org/b')->status);
+});
+
+
 test('a Retry-After below 5 seconds is raised to the minimum', function () {
 	$clock = new FakeClock;
 	(new PoliteHttpClient(new FakeHttpClient(new HttpResponse(429, ['retry-after' => '1'], ''), ok()), $clock))->get('https://example.org/a');

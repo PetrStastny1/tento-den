@@ -3,4 +3,5 @@
 #
 # - {country: cz, name: 'Jan', bearer: 'Q1234', reason: 'proč se nemá ukazovat'}
 parameters:
-	nameBearerExclusions: []
+	nameBearerExclusions:
+		- {country: sk, name: 'Jozef', bearer: 'Q154346', reason: 'Jozef Tiso – prezident Slovenského štátu, kolaborace s nacistickým Německem, deportace Židů'}

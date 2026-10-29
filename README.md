@@ -34,9 +34,10 @@ Každý den deset zajímavých výročí z Wikipedie – ze světa i z Česka. M
   známý rok – při prohlížení dne a měsíce se vynechají.
 - **Kulaté výročí** (25, 50, 75, 100, 150, 200, 250, 300 a dál po 100 letech; př. n. l. správně,
   rok 0 neexistuje) – nejvýš jedno denně a jen u velké události: událost státního svátku nebo
-  významného dne, nebo událost, jejíž hlavní článek je sám velkou událostí (Wikidata: válka,
-  revoluce, bitva, povstání, zánik státu, vyhlášení nezávislosti, mírová smlouva, let do vesmíru,
-  katastrofa…), datovaný v roce události a s aspoň 60 jazykovými verzemi. Je vždy v desítce
+  významného dne, nebo událost, jejíž vlastní článek (hlavní, jinak první odkazovaný) je sám velkou
+  událostí (Wikidata: válka, revoluce, bitva, povstání, zánik státu, vyhlášení nezávislosti,
+  deklarace, manifest, petice, smlouva, let, expedice, katastrofa…), datovaný v roce události
+  a s aspoň 60 (Svět), resp. 15 (Česko) jazykovými verzemi. Je vždy v desítce
   nahoře se štítkem „100 let“; seznam ke kontrole člověkem v [docs/vyroci.md](docs/vyroci.md),
   vyřazená v `backend/config/anniversary-exclusions.neon`.
 - **Jmeniny** pod datem ve dvou režimech – **CZ** (výchozí) a **SK**, přepínač vlaječkou (volba
@@ -158,11 +159,11 @@ skutečných editací z historie stránek (přeformulování, oprava faktu, vand
   (`oldid`), ze které text pochází, a na historii s autory.
 - Jazykové verze: Wikidata (CC0). Žádné obrázky.
 - Seznam svátků a významných dnů: [zákon č. 245/2000 Sb.](https://www.zakonyprolidi.cz/cs/2000-245)
-  v aktuálním znění (k 13. 5. 2026); úvody karet svátků z REST `page/summary` české Wikipedie,
+  v aktuálním znění (k 13. 5. 2026); úvody karet svátků (první odstavec článku české Wikipedie, doslova),
   s revizí a atribucí jako u událostí (CC BY-SA 4.0).
 - Jmeniny: [česká Wikipedie](https://cs.wikipedia.org) (sekce „Svátky“ stránek dnů) a
   [slovenská Wikipedie](https://sk.wikipedia.org) (úvod stránek dnů), obě CC BY-SA 4.0; každý
-  blok odkazuje na revizi stránky dne. Význam jmen: úvody článků z REST `page/summary` české,
+  blok odkazuje na revizi stránky dne. Význam jmen: první odstavec článku české,
   resp. slovenské Wikipedie (CC BY-SA 4.0, s revizí a autory). Známí nositelé: Wikidata (CC0)
   přes Wikidata Query Service, odkaz vede na článek na cs.wikipedia, resp. sk.wikipedia.
   Vlajky jsou vlastní zjednodušené SVG (slovenský znak zjednodušený).

@@ -51,7 +51,7 @@ final class NameInfoService
 			foreach ($this->articles->find($batch, $country) as $name => $article) {
 				$meaning = $article === null ? null : $summaries->fetch($article->title);
 				$bearer = $article === null ? null : $this->bearers->find($article->wikidataItem, $name, $country, $this->exclusions->forName($country, $name));
-				$this->infos->save(new NameInfo($name, $country, $article?->wikidataItem, $meaning, $bearer, $this->clock->now()));
+				$this->infos->save(new NameInfo($name, $country, $article?->wikidataItem, $meaning, $bearer, $this->clock->now(), $article->relatedItems ?? []));
 				$result['names']++;
 				$result['meaning'] += (int) ($meaning !== null);
 				$result['bearer'] += (int) ($bearer !== null);

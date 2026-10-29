@@ -12,7 +12,7 @@ namespace App\Model\NameDays;
 final readonly class CountryNameDays
 {
 	/**
-	 * @param list<array{nameDay: NameDay, info: ?NameInfo}> $names
+	 * @param list<array{nameDay: NameDay, info: ?NameInfo, variantOf: ?array{name: string, rule: string}}> $names
 	 * @param list<NameDay> $otherNames
 	 */
 	public function __construct(
