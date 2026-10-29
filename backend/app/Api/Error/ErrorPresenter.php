@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Api\Error;
 
+use App\Api\ApiException;
 use Nette\Application\BadRequestException;
 use Nette\Application\IPresenter;
 use Nette\Application\Request;
@@ -43,7 +44,8 @@ final class ErrorPresenter implements IPresenter
 		return new JsonResponse([
 			'error' => [
 				'code' => $code,
-				'message' => IResponse::ReasonPhrases[$code] ?? 'Error',
+				// only our own client errors carry a message meant for the client
+				'message' => $exception instanceof ApiException ? $exception->getMessage() : (IResponse::ReasonPhrases[$code] ?? 'Error'),
 			],
 		]);
 	}

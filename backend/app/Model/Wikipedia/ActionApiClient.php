@@ -13,13 +13,14 @@ use Nette\Utils\JsonException;
 
 
 /**
- * MediaWiki Action API (cs.wikipedia.org/w/api.php) with the maxlag etiquette:
+ * MediaWiki Action API (cs.wikipedia.org or www.wikidata.org /w/api.php) with the maxlag etiquette:
  * replication lag is reported as HTTP 200 with error code "maxlag" in the body,
  * so the body is checked and the request retried after Retry-After.
  */
 final class ActionApiClient
 {
-	private const Endpoint = 'https://cs.wikipedia.org/w/api.php';
+	public const CsWikipedia = 'https://cs.wikipedia.org/w/api.php';
+	public const Wikidata = 'https://www.wikidata.org/w/api.php';
 	private const MaxLagSeconds = 5;
 	private const MinWaitSeconds = 5;
 
@@ -27,6 +28,7 @@ final class ActionApiClient
 	public function __construct(
 		private readonly HttpClient $http,
 		private readonly Clock $clock,
+		private readonly string $endpoint = self::CsWikipedia,
 		private readonly int $maxLagAttempts = 4,
 	) {
 	}
@@ -39,7 +41,7 @@ final class ActionApiClient
 	 */
 	public function query(array $params): array
 	{
-		$url = self::Endpoint . '?' . http_build_query($params + [
+		$url = $this->endpoint . '?' . http_build_query($params + [
 			'format' => 'json',
 			'formatversion' => '2',
 			'maxlag' => (string) self::MaxLagSeconds,
@@ -73,7 +75,7 @@ final class ActionApiClient
 				continue;
 			}
 			if (is_array($error)) {
-				throw new SourceException('Action API error: ' . ($error['code'] ?? '?') . ' – ' . ($error['info'] ?? ''));
+				throw new ActionApiErrorException(is_string($error['code'] ?? null) ? $error['code'] : '?', $error);
 			}
 			return $data;
 		}

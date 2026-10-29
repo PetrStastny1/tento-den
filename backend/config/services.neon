@@ -27,6 +27,8 @@ services:
 	# controllers
 	- App\Api\Health\HealthPresenter
 	- App\Api\Error\ErrorPresenter
+	- App\Api\Day\DayPresenter
+	- App\Api\Event\EventPresenter
 
 	# health
 	- App\Model\Health\HealthService
@@ -43,6 +45,13 @@ services:
 
 	# import
 	- App\Model\Wikipedia\ActionApiClient
+	wikidataApi:
+		create: App\Model\Wikipedia\ActionApiClient(endpoint: App\Model\Wikipedia\ActionApiClient::Wikidata)
+		autowired: false
+	sitelinksSource:
+		type: App\Model\Import\SitelinksSource
+		create: App\Model\Wikipedia\WikidataSitelinksSource(@wikidataApi)
+	- App\Model\Import\SignalRefreshService
 	dayPageSource:
 		type: App\Model\Import\DayPageSource
 		create: App\Model\Wikipedia\WikipediaDayPageSource
@@ -55,9 +64,19 @@ services:
 	- App\Model\Import\ImportLockRepository
 	- App\Model\Import\ImportReportRepository
 
+	# selection
+	- App\Model\Selection\CardRepository
+	- App\Model\Selection\EventScorer
+	- App\Model\Selection\DaySelector
+	- App\Model\Selection\DayService
+	- App\Model\Selection\BoringFilter(App\Model\Selection\TextRules(%selection.boringRules%))
+	- App\Model\Selection\SensitivityClassifier(App\Model\Selection\TextRules(%selection.sensitiveRules%))
+
 	# console
 	- App\Core\Console\ConsoleApplication(typed(App\Core\Console\Command))
 	- App\Console\ImportDayCommand
 	- App\Console\ImportYearCommand
 	- App\Console\GenericCandidatesCommand
 	- App\Console\EventsReviewCommand
+	- App\Console\RefreshSignalsCommand
+	- App\Console\ExportStaticCommand

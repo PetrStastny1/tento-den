@@ -37,6 +37,34 @@ final class ArticleRepository
 
 
 	/**
+	 * Wikidata items of articles whose signals are missing (or of all articles).
+	 * @return list<string>
+	 */
+	public function itemsForSignals(bool $all): array
+	{
+		return array_values(array_map('strval', $this->database->fetchPairs(
+			'SELECT page_id, wikibase_item FROM articles WHERE wikibase_item IS NOT NULL' . ($all ? '' : ' AND signals_fetched_at IS NULL') . ' ORDER BY page_id',
+		)));
+	}
+
+
+	/**
+	 * @param array<string, int|null> $sitelinks Wikidata item => count (null = item not found)
+	 */
+	public function updateSitelinks(array $sitelinks, \DateTimeImmutable $now): void
+	{
+		foreach ($sitelinks as $item => $count) {
+			$this->database->query(
+				'UPDATE articles SET sitelinks = ?, signals_fetched_at = ? WHERE wikibase_item = ?',
+				$count,
+				$now,
+				$item,
+			);
+		}
+	}
+
+
+	/**
 	 * How many events link each article – input for curating the list of generic articles.
 	 * @return list<array{title: string, events: int}>
 	 */

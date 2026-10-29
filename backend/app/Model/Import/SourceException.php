@@ -8,6 +8,6 @@ namespace App\Model\Import;
 /**
  * Data could not be loaded (outage, unexpected response). Never means "no data".
  */
-final class SourceException extends \RuntimeException
+class SourceException extends \RuntimeException
 {
 }

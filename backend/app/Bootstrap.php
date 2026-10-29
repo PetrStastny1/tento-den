@@ -90,6 +90,7 @@ final class Bootstrap
 		$configurator->addConfig($this->rootDir . '/config/services.neon');
 		$configurator->addConfig($this->rootDir . '/config/generic-articles.neon');
 		$configurator->addConfig($this->rootDir . '/config/day-page-rules.neon');
+		$configurator->addConfig($this->rootDir . '/config/selection.neon');
 		$configurator->addServices(['appConfig' => $this->config]);
 		return $configurator;
 	}

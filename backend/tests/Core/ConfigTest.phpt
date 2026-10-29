@@ -39,7 +39,7 @@ test('a valid environment gives typed configuration', function () {
 test('missing, empty or malformed values stop the start with a readable list', function () {
 	$cases = [
 		'WIKIMEDIA_CONTACT' => [['WIKIMEDIA_CONTACT' => null], "The mandatory item 'WIKIMEDIA_CONTACT' is missing."],
-		'contact not an e-mail' => [['WIKIMEDIA_CONTACT' => 'Petr'], "The item 'WIKIMEDIA_CONTACT' expects to be email, 'Petr' given."],
+		'contact not an e-mail' => [['WIKIMEDIA_CONTACT' => 'not-an-email'], "The item 'WIKIMEDIA_CONTACT' expects to be email, 'not-an-email' given."],
 		'empty password' => [['DB_PASSWORD' => ''], "The length of item 'DB_PASSWORD' expects to be in range 1.., 0 bytes given."],
 		'unknown environment' => [['APP_ENV' => 'staging'], "The item 'APP_ENV' expects to be 'development'|'production', 'staging' given."],
 		'port' => [['DB_PORT' => 'abc'], "The item 'DB_PORT' expects to match pattern '\\d{1,5}', 'abc' given."],

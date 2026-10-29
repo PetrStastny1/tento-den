@@ -1,0 +1,19 @@
+# Selection of the day's five cards. Readable lists of named rules (PHP regular expressions,
+# case-insensitive, Unicode). Conservative on purpose: the rules are narrow and a dull event is
+# only moved behind the others, never removed.
+parameters:
+	selection:
+
+		boringRules:
+			sportovní výsledek: '~\b(porazil[aiy]?|zvítězil[aiy]?|vyhrál[aiy]?|remizoval[aiy]?|zdolal[aiy]?)\b.{0,120}\b(utkání|zápas\w*|finál\w*|mistrovství|turnaj\w*|pohár\w*|lig[aeyu]|olympi\w*)~iu'
+			skóre zápasu: '~\b(utkání|zápas\w*|finál\w*)\b.{0,80}\b\d{1,2}\s*:\s*\d{1,2}\b~iu'
+			otevření obchodu: '~\b(otevřen\w*|otevřel\w*|zahájil\w* provoz)\b.{0,80}\b(obchod\w*|prodejn\w*|obchodní (dům|centrum)|supermarket\w*|hypermarket\w*|pobočk\w*|restaurac\w*|kavárn\w*|hotel\w*)~iu'
+			otevření stavby: '~\b(otevřen\w*|zprovozněn\w*|uveden\w* do provozu|zahájen\w* provoz)\b.{0,80}\b(most\w*|silnic\w*|dálnic\w*|úsek\w*|nádraží|stanic\w*|zastávk\w*|tunel\w*|parkovišt\w*|obchvat\w*|trať|tratě|lanovk\w*)~iu'
+			vydání softwaru: '~\b(vydán\w*|vyšl\w*|uvolněn\w*)\b.{0,60}\b(verz\w*|aktualizac\w*)\b~iu'
+			drobná nehoda: '~^(?!.*\b(zahynul\w*|zemřel\w*|obět\w*|mrtv\w*|zabit\w*|usmrcen\w*)).*\b(nehod\w*|sráž\w*|havári\w*)\b~iu'
+
+		sensitiveRules:
+			oběti: '~\b(zahynul\w*|zemřel\w*|obět\w*|mrtv\w*|zabit\w*|zabil\w*|usmrcen\w*|\w*vražd\w*|popraven\w*|umučen\w*|zraněn\w*|sebeupál\w*|sebevražd\w*)~iu'
+			válka a násilí: '~\b(válk\w*|válečn\w*|bitv\w*|útok\w*|zaútočil\w*|invaz\w*|okupac\w*|bombard\w*|nálet\w*|masakr\w*|genocid\w*|holokaust\w*|pogrom\w*|deportac\w*|koncentrační\w*|vyhlazovací\w*)~iu'
+			katastrofa: '~\b(katastrof\w*|neštěstí|zemětřesení|povodn\w*|povodeň|hurikán\w*|tsunami|tajfun\w*|výbuch\w*|explo\w*|požár\w*|vyhořel\w*|havári\w*|ztroskot\w*|epidemi\w*|pandemi\w*)~iu'
+			terorismus: '~\b(teror\w*|atentát\w*|únos\w*|rukojm\w*)~iu'
