@@ -1,11 +1,21 @@
+import { Navigate, Route, Routes } from 'react-router'
+import { TabBar } from './components/TabBar.jsx'
+import { useFavorites } from './lib/favorites.js'
+import { DayScreen } from './screens/DayScreen.jsx'
+import { FavoritesScreen } from './screens/FavoritesScreen.jsx'
+
 function App() {
+  const favorites = useFavorites()
   return (
-    <main className="mx-auto flex min-h-svh max-w-2xl flex-col justify-center px-4 py-12">
-      <h1 className="text-4xl font-bold tracking-tight text-stone-900">Tento den</h1>
-      <p className="mt-4 text-lg text-stone-600">
-        Zajímavá výročí dnešního dne. Už brzy.
-      </p>
-    </main>
+    <>
+      <Routes>
+        <Route path="/" element={<DayScreen favorites={favorites} />} />
+        <Route path="/den/:date" element={<DayScreen favorites={favorites} />} />
+        <Route path="/oblibene" element={<FavoritesScreen favorites={favorites} />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      <TabBar />
+    </>
   )
 }
 
