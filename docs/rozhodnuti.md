@@ -371,3 +371,39 @@ buildu.
 (s poznámkou o CC BY-SA), aby workflow nepotřeboval backend ani databázi. Workflow spustí lint
 a testy, postaví statický režim s `base` z `configure-pages`, zkopíruje `index.html` jako
 `404.html` (Pages nemá SPA fallback) a nasadí. Oprávnění jen po jobech (čtení / pages + id-token).
+
+## Redesign frontendu – „almanach dne“ (2026-10-29)
+
+### Barva dne podle ročního období
+Každý den dostane odstín (`--day-hue`) plynule interpolovaný přes rok: zimní modrá → jarní zelená →
+letní zlatá → podzimní oranžová → zimní fialová. Odstíny jsou v OKLCH, takže světlost (a tím kontrast)
+je stejná pro všechny barvy. Barví titulek, roky, aktivní ovládání a jemnou „auroru“ v pozadí –
+appka vypadá každý den trochu jinak bez jakýchkoli dat navíc.
+
+### Typografie bez externích fontů
+`ui-serif` (na Apple zařízeních New York) pro data, roky a texty událostí – redakční charakter;
+SF Pro / `ui-rounded` pro ovládání. Žádné stahování fontů, žádné SF Symbols (ikony Lucide).
+
+### Liquid Glass a hierarchie
+Plovoucí skleněné kapsle (navigace dnů, spodní lišta, kompaktní titulek po odscrollování)
+s `backdrop-filter` a neprůhledným fallbackem. Na desktopu dvousloupec s lepkavým hero panelem.
+Citlivé karty nemají barevný nádech ani barevný rok.
+
+### Přístupnost ověřená výpočtem, ne odhadem
+Kontrast všech dvojic barev (text na kartě, papíru, barevném nádechu, aktivní záložka, tlačítko
+Dnes) spočítán převodem OKLCH → sRGB pro 12 odstínů roku v obou režimech: minimum 5,14 : 1
+(AA vyžaduje 4,5 : 1). Viditelný focus v barvě dne, dotykové plochy ≥ 44 px, všechny animace
+(nástup karet, „pop“ srdíčka, pohyb aurory) vypnuté při `prefers-reduced-motion`.
+
+### Atribuce zůstává viditelná
+Rozbalovací `<details>` by v zavřeném stavu skryl odkazy i čtečkám a testům, proto je atribuce
+decentní řádek pod kartou: „Wikipedie, 28. říjen“ a odkazy Zdroj · autoři · CC BY-SA 4.0.
+
+### Pozadí jen na `html`
+Aurora je vrstva se záporným `z-index`; vlastní pozadí `body` by ji podle pořadí vykreslování
+CSS překrylo, proto barvu papíru nese jen `html`.
+
+### Screenshoty přes Chrome DevTools Protocol
+Skutečná emulace iPhonu (390 × 844, 3×) a `prefers-color-scheme`, čekání na vykreslené karty.
+`--screenshot` v headless Chromu měl minimální šířku 500 px a s nekonečnou animací pozadí
+fotil prázdnou stránku.

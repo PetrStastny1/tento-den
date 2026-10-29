@@ -1,10 +1,14 @@
 import { CalendarDays, Heart } from 'lucide-react'
 import { NavLink } from 'react-router'
 
+// Floating glass capsule, iOS 26 style.
 export function TabBar() {
   return (
-    <nav aria-label="Hlavní navigace" className="fixed inset-x-0 bottom-0 z-20 border-t border-black/10 pb-[env(safe-area-inset-bottom)] bar-surface dark:border-white/10">
-      <div className="mx-auto flex max-w-2xl">
+    <nav
+      aria-label="Hlavní navigace"
+      className="fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+14px)] z-30 flex justify-center px-4"
+    >
+      <div className="glass flex gap-1 rounded-full p-1.5">
         <Tab to="/" end icon={CalendarDays} label="Dnes" />
         <Tab to="/oblibene" icon={Heart} label="Oblíbené" />
       </div>
@@ -17,11 +21,11 @@ function Tab({ to, end, icon: Icon, label }) {
     <NavLink
       to={to}
       end={end}
-      className={({ isActive }) => `flex min-h-12 flex-1 flex-col items-center justify-center gap-0.5 text-[11px] font-medium ${
-        isActive ? 'text-orange-600 dark:text-orange-400' : 'text-stone-500 dark:text-stone-400'
+      className={({ isActive }) => `inline-flex min-h-11 items-center gap-2 rounded-full px-5 font-rounded text-[15px] font-semibold motion-safe:transition-colors ${
+        isActive ? 'bg-accent-wash text-accent-ink' : 'text-ink-soft hover:text-ink'
       }`}
     >
-      <Icon className="size-6" aria-hidden="true" />
+      <Icon className="size-5" aria-hidden="true" strokeWidth={2.2} />
       {label}
     </NavLink>
   )

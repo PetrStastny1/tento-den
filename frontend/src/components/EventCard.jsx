@@ -1,13 +1,17 @@
-import { Heart, Share } from 'lucide-react'
+import { ArrowUpRight, Globe, Heart, MapPin, Scroll, Share } from 'lucide-react'
 import { useState } from 'react'
+import { formatDayTitle } from '../lib/dates.js'
 import { cardUrl, shareCard } from '../lib/share.js'
+import { yearsAgo } from '../lib/theme.js'
 import { ExternalLink } from './ExternalLink.jsx'
 
 const SHARE_MESSAGES = { copied: 'Odkaz zkopírován', failed: 'Sdílení se nepodařilo' }
 
-export function EventCard({ card, saved, onToggleFavorite }) {
+export function EventCard({ card, saved, onToggleFavorite, index = 0, showDate = false }) {
   const [shareMessage, setShareMessage] = useState(null)
   const { sensitive } = card
+  const SectionIcon = card.section === 'cz' ? MapPin : Globe
+  const sectionLabel = card.section === 'cz' ? 'Česko' : 'Svět'
 
   async function handleShare() {
     const result = await shareCard(card, cardUrl(card))
@@ -17,53 +21,70 @@ export function EventCard({ card, saved, onToggleFavorite }) {
   return (
     <article
       id={`karta-${card.id}`}
-      aria-label={`${card.yearLabel}, ${card.section === 'cz' ? 'Česko' : 'Svět'}`}
-      className={`scroll-mt-28 rounded-3xl p-5 shadow-sm ring-1 ${
-        sensitive
-          ? 'bg-stone-100 ring-stone-200 dark:bg-stone-900 dark:ring-stone-800'
-          : 'bg-white ring-black/5 dark:bg-stone-900 dark:ring-white/10'
-      }`}
+      aria-label={`${card.yearLabel}, ${sectionLabel}`}
+      style={{ animationDelay: `${Math.min(index, 6) * 70}ms` }}
+      className="relative scroll-mt-24 overflow-hidden rounded-[28px] bg-card p-5 ring-1 ring-hairline shadow-[0_1px_2px_oklch(0.2_0.02_60/0.06),0_12px_32px_-16px_oklch(0.2_0.02_60/0.25)] motion-safe:animate-rise sm:p-6"
     >
-      <header className="flex items-start justify-between gap-3">
-        <div>
-          <p className={`text-4xl font-bold tabular-nums tracking-tight ${
-            sensitive ? 'text-stone-600 dark:text-stone-300' : 'text-orange-600 dark:text-orange-400'
-          }`}>
+      {!sensitive && (
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-accent-wash to-transparent" />
+      )}
+
+      <header className="relative flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className={`font-serif text-[56px] font-semibold leading-[0.95] tracking-tight tabular-nums ${sensitive ? 'text-ink-soft' : 'text-accent-ink'}`}>
             {card.yearLabel}
           </p>
-          <span className="mt-1 inline-block rounded-full bg-stone-200/70 px-2.5 py-0.5 text-xs font-medium text-stone-700 dark:bg-stone-800 dark:text-stone-300">
-            {card.section === 'cz' ? 'Česko' : 'Svět'}
-          </span>
+          <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 font-rounded text-[13px] font-semibold text-ink-faint">
+            <span className="inline-flex items-center gap-1 rounded-full bg-paper/80 px-2.5 py-1 text-ink-soft ring-1 ring-hairline">
+              <SectionIcon className="size-3.5" aria-hidden="true" strokeWidth={2.4} />
+              {sectionLabel}
+            </span>
+            <span>{showDate ? `${formatDayTitle(card.date)} · ` : ''}{yearsAgo(card.year)}</span>
+          </p>
         </div>
-        <div className="-mr-2 -mt-2 flex">
+        <div className="-mr-2 -mt-1 flex shrink-0">
           <IconButton label={saved ? 'Odebrat z oblíbených' : 'Přidat do oblíbených'} pressed={saved} onClick={() => onToggleFavorite(card)}>
-            <Heart className={`size-6 ${saved ? 'fill-rose-500 text-rose-500' : ''}`} aria-hidden="true" />
+            <Heart
+              key={saved ? 'saved' : 'not-saved'}
+              className={`size-6 ${saved ? 'fill-rose-500 text-rose-500 motion-safe:animate-pop' : ''}`}
+              aria-hidden="true"
+              strokeWidth={2}
+            />
           </IconButton>
           <IconButton label="Sdílet" onClick={handleShare}>
-            <Share className="size-6" aria-hidden="true" />
+            <Share className="size-6" aria-hidden="true" strokeWidth={2} />
           </IconButton>
         </div>
       </header>
 
-      <p className="mt-3 text-[17px] leading-relaxed text-stone-900 dark:text-stone-100">{card.text}</p>
+      <p className="relative mt-4 text-pretty font-serif text-[19px] leading-[1.5] text-ink">{card.text}</p>
 
       {card.article && (
-        <p className="mt-3 text-[15px] text-stone-600 dark:text-stone-400">
-          Více: <ExternalLink href={card.article.url}>{card.article.title}</ExternalLink>
-        </p>
+        <ExternalLink
+          href={card.article.url}
+          plain
+          className="relative mt-4 inline-flex min-h-11 max-w-full items-center gap-1.5 rounded-full bg-paper/80 px-4 font-rounded text-[15px] font-semibold text-accent-ink ring-1 ring-hairline hover:bg-accent-wash motion-safe:transition-colors"
+        >
+          <span className="truncate">{card.article.title}</span>
+          <ArrowUpRight className="size-4 shrink-0" aria-hidden="true" strokeWidth={2.4} />
+        </ExternalLink>
       )}
 
-      <footer className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-stone-500 dark:text-stone-400">
-        <ExternalLink href={card.source.revisionUrl} className="inline-flex min-h-11 items-center font-medium text-stone-700 dark:text-stone-300">
-          Zdroj
-        </ExternalLink>
-        <span>
-          Wikipedie, „{card.source.title}“ (<ExternalLink href={card.source.historyUrl}>autoři</ExternalLink>),{' '}
-          <ExternalLink href={card.source.licenseUrl} license>{card.source.license}</ExternalLink>
+      <footer className="relative mt-5 flex flex-wrap items-center justify-between gap-x-4 border-t border-hairline pt-1 text-[12px] text-ink-faint">
+        <span className="inline-flex min-h-11 items-center gap-1.5">
+          <Scroll className="size-3.5" aria-hidden="true" />
+          Wikipedie, „{card.source.title}“
+        </span>
+        <span className="inline-flex items-center gap-3">
+          <ExternalLink href={card.source.revisionUrl} className="inline-flex min-h-11 items-center font-semibold text-ink-soft">
+            Zdroj
+          </ExternalLink>
+          <ExternalLink href={card.source.historyUrl} className="inline-flex min-h-11 items-center">autoři</ExternalLink>
+          <ExternalLink href={card.source.licenseUrl} license className="inline-flex min-h-11 items-center">{card.source.license}</ExternalLink>
         </span>
       </footer>
 
-      <p role="status" className="text-sm text-stone-600 dark:text-stone-400">{shareMessage}</p>
+      <p role="status" className="relative text-sm font-medium text-ink-soft empty:hidden">{shareMessage}</p>
     </article>
   )
 }
@@ -75,7 +96,7 @@ function IconButton({ label, pressed, onClick, children }) {
       aria-label={label}
       aria-pressed={pressed}
       onClick={onClick}
-      className="inline-flex size-11 items-center justify-center rounded-full text-stone-600 hover:bg-stone-100 active:bg-stone-200 dark:text-stone-300 dark:hover:bg-stone-800 motion-safe:transition-colors"
+      className="inline-flex size-11 items-center justify-center rounded-full text-ink-soft hover:bg-accent-wash hover:text-ink motion-safe:transition active:scale-90"
     >
       {children}
     </button>

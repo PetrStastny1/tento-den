@@ -6,9 +6,12 @@ Každý den pět zajímavých výročí z Wikipedie – ze světa i z Česka. Mo
 > **Živé demo:** <https://petrstastny1.github.io/tento-den/> *(statická verze bez backendu, nasazuje GitHub Actions)*
 
 <p>
-  <img src="docs/screenshots/den-light.png" alt="Obrazovka dne ve světlém režimu" width="260">
-  <img src="docs/screenshots/den-dark.png" alt="Obrazovka dne v tmavém režimu" width="260">
-  <img src="docs/screenshots/oblibene-light.png" alt="Oblíbené" width="260">
+  <img src="docs/screenshots/iphone-den-light.png" alt="Den na iPhonu, světlý režim" width="250">
+  <img src="docs/screenshots/iphone-den-dark.png" alt="Den na iPhonu, tmavý režim" width="250">
+  <img src="docs/screenshots/iphone-oblibene-light.png" alt="Oblíbené na iPhonu" width="250">
+</p>
+<p>
+  <img src="docs/screenshots/desktop-den-light.png" alt="Den na desktopu, světlý režim" width="760">
 </p>
 
 ## Co aplikace dělá
@@ -50,7 +53,8 @@ flowchart LR
 - **Výběr pětice:** počet jazykových verzí článku (Wikidata) normalizovaný logaritmicky v rámci
   dne a sekce, filtr nudy jako čitelný seznam pravidel, deterministický výběr.
 - **Frontend:** jedna datová vrstva se dvěma režimy (živé API / statická data), texty jen jako text,
-  odkazy jen na Wikipedii.
+  odkazy jen na Wikipedii. Design „almanach dne“: každý den má barvu podle ročního období,
+  serifová typografie (systémové New York), skleněné plovoucí ovládání, tmavý režim, kontrast AA.
 
 Podrobnosti a důvody: [docs/rozhodnuti.md](docs/rozhodnuti.md), zdroje dat:
 [docs/zdroje.md](docs/zdroje.md), kvalita výběru: [docs/kvalita.md](docs/kvalita.md),

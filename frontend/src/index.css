@@ -1,31 +1,145 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   Tento den – design tokens. The day hue (--day-hue) is set by the day screen and
+   colours the accent, the aurora behind the content and the active controls.
+   --------------------------------------------------------------------------- */
+
 @theme {
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: ui-serif, "New York", "Iowan Old Style", "Charter", Georgia, serif;
+  --font-rounded: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, sans-serif;
+
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-wash: var(--accent-wash);
+  --color-glass: var(--glass);
+  --color-card: var(--card);
+  --color-hairline: var(--hairline);
+
+  --animate-rise: rise 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-pop: pop 0.35s cubic-bezier(0.3, 1.6, 0.5, 1);
+  --animate-drift: drift 24s ease-in-out infinite alternate;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px) scale(0.985); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes pop {
+    0% { transform: scale(1); }
+    45% { transform: scale(1.28); }
+    100% { transform: scale(1); }
+  }
+  @keyframes drift {
+    from { transform: translate3d(-3%, -2%, 0) scale(1); }
+    to { transform: translate3d(3%, 2%, 0) scale(1.08); }
+  }
+  @keyframes shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+  }
+}
+
+:root {
+  --day-hue: 40;
+  color-scheme: light dark;
+
+  /* light: warm paper, inks checked for WCAG AA on paper and on cards */
+  --paper: oklch(0.975 0.008 85);
+  --card: oklch(0.995 0.004 85);
+  --ink: oklch(0.22 0.015 60);
+  --ink-soft: oklch(0.40 0.015 60);
+  --ink-faint: oklch(0.48 0.012 60);
+  --hairline: oklch(0.22 0.02 60 / 0.10);
+  --glass: oklch(0.99 0.005 85 / 0.62);
+  --accent: oklch(0.62 0.17 var(--day-hue));
+  --accent-ink: oklch(0.45 0.15 var(--day-hue));
+  --accent-wash: oklch(0.93 0.05 var(--day-hue));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: oklch(0.15 0.01 60);
+    --card: oklch(0.205 0.012 60);
+    --ink: oklch(0.96 0.008 85);
+    --ink-soft: oklch(0.82 0.01 85);
+    --ink-faint: oklch(0.72 0.01 85);
+    --hairline: oklch(1 0 0 / 0.10);
+    --glass: oklch(0.23 0.012 60 / 0.58);
+    --accent: oklch(0.74 0.15 var(--day-hue));
+    --accent-ink: oklch(0.83 0.12 var(--day-hue));
+    --accent-wash: oklch(0.30 0.06 var(--day-hue));
+  }
 }
 
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
+    background: var(--paper);
   }
   body {
-    @apply bg-stone-100 font-sans text-stone-900 antialiased dark:bg-black dark:text-stone-100;
+    @apply min-h-svh font-sans text-ink antialiased; /* no background: it would cover the aurora (painted at z-index < 0) */
+    font-feature-settings: "kern", "liga";
+  }
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 12px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-/* translucent bars; without backdrop-filter support they are simply opaque */
-@utility bar-surface {
-  background-color: rgb(250 250 249 / 0.97);
+/* Liquid glass: translucent, blurred, with a light edge; opaque when backdrop-filter is missing */
+@utility glass {
+  background-color: var(--card);
+  border: 1px solid var(--hairline);
+  box-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 0.45),
+    0 10px 30px -12px oklch(0.2 0.02 60 / 0.28),
+    0 2px 6px -2px oklch(0.2 0.02 60 / 0.12);
   @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    background-color: rgb(250 250 249 / 0.72);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    backdrop-filter: saturate(180%) blur(20px);
+    background-color: var(--glass);
+    -webkit-backdrop-filter: saturate(180%) blur(22px);
+    backdrop-filter: saturate(180%) blur(22px);
   }
   @media (prefers-color-scheme: dark) {
-    background-color: rgb(28 25 23 / 0.97);
-    @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-      background-color: rgb(28 25 23 / 0.72);
-    }
+    box-shadow:
+      inset 0 1px 0 oklch(1 0 0 / 0.10),
+      0 10px 30px -12px oklch(0 0 0 / 0.6);
+  }
+}
+
+/* soft coloured light behind the content, tinted by the day */
+@utility aurora {
+  background:
+    radial-gradient(55% 38% at 10% 2%, oklch(0.86 0.13 var(--day-hue) / 0.85), transparent 72%),
+    radial-gradient(45% 35% at 100% 14%, oklch(0.88 0.1 calc(var(--day-hue) + 50) / 0.7), transparent 72%),
+    radial-gradient(70% 45% at 50% 100%, oklch(0.9 0.07 calc(var(--day-hue) - 40) / 0.5), transparent 72%);
+  @media (prefers-color-scheme: dark) {
+    background:
+      radial-gradient(55% 38% at 10% 2%, oklch(0.42 0.13 var(--day-hue) / 0.7), transparent 72%),
+      radial-gradient(45% 35% at 100% 14%, oklch(0.38 0.11 calc(var(--day-hue) + 50) / 0.5), transparent 72%),
+      radial-gradient(70% 45% at 50% 100%, oklch(0.32 0.07 calc(var(--day-hue) - 40) / 0.4), transparent 72%);
+  }
+}
+
+@utility shimmer {
+  background-image: linear-gradient(100deg, transparent 30%, oklch(1 0 0 / 0.5) 50%, transparent 70%);
+  background-size: 200% 100%;
+  @media (prefers-color-scheme: dark) {
+    background-image: linear-gradient(100deg, transparent 30%, oklch(1 0 0 / 0.07) 50%, transparent 70%);
   }
 }
