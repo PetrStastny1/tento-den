@@ -50,8 +50,10 @@ flowchart LR
 - **Import** běží jen na serveru (konzole/cron): Parsoid HTML **konkrétní revize** stránky dne,
   přísný parser (co nepřečte, shodí celý den), párování upravených vět se zachováním ID,
   nejasné změny k ruční revizi, nic se nemaže.
-- **Výběr pětice:** počet jazykových verzí článku (Wikidata) normalizovaný logaritmicky v rámci
-  dne a sekce, filtr nudy jako čitelný seznam pravidel, deterministický výběr.
+- **Výběr pětice (experimentální):** počet jazykových verzí článku (Wikidata) normalizovaný
+  logaritmicky v rámci dne a sekce, filtr nudy jako čitelný seznam pravidel, deterministický
+  výběr. Měří se na zlaté sadě a ručně hodnocených dnech ([docs/kvalita.md](docs/kvalita.md),
+  [docs/experiment-vyberu.md](docs/experiment-vyberu.md)).
 - **Frontend:** jedna datová vrstva se dvěma režimy (živé API / statická data), texty jen jako text,
   odkazy jen na Wikipedii. Design „almanach dne“: každý den má barvu podle ročního období,
   serifová typografie (systémové New York), skleněné plovoucí ovládání, tmavý režim, kontrast AA.
@@ -123,7 +125,7 @@ skutečných editací z historie stránek (přeformulování, oprava faktu, vand
 **Hotové:** import všech 366 dní, aktualizace se zachováním identity událostí, výběr pětice
 se signálem z Wikidat, REST API, PWA frontend, statické demo.
 
-**Známá omezení:**
+**Známá omezení** (výběr pětice je zatím **experimentální**):
 - *Hlavní článek* události je zatím „první neobecný odkaz“ – často kulisa (stát, město) místo
   předmětu události. Signál proto měří oblibu článku, ne vždy význam události; ze „zlaté sady“
   8 známých výročí jsou v pětici svého dne zatím 2 ([docs/kvalita.md](docs/kvalita.md)).

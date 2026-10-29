@@ -415,3 +415,11 @@ Nově je pořadí kandidátů: nenudná před nudnou → vyšší skóre → **p
 nezastoupené století → nižší ID; dvě česká místa se plní stejným pořadím jako první. Zlatá sada:
 2 z 8; zbylé chybí kvůli signálu (hlavní článek je kulisa nebo méně známý článek), ne kvůli
 pravidlu – vyřeší se v plné verzi výběrem hlavního článku.
+
+## Experiment s kvótami a penalizací obecných článků – nepřijat (2026-10-29)
+Pevné kvóty 2 + 3 a penalizace článků podle počtu odkazujících událostí byly změřeny zvlášť
+i dohromady na zlaté sadě a 12 dnech ([experiment-vyberu.md](experiment-vyberu.md)). Penalizace
+zlepšila zlatou sadu (3 z 8 místo 2), ale na 12 dnech byla horší (68 vs. 73 bodů ručního
+hodnocení); kvóty byly horší na dnech a stejné na sadě. Ponecháno jen to, co je lepší na obou –
+tedy nic; kód variant odstraněn. Zlatá sada se nově identifikuje konkrétním textem události,
+ne rokem a sekcí.
