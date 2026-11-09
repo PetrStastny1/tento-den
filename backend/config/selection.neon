@@ -1,14 +1,16 @@
 # Selection of the day's ten cards. Readable lists of named rules (PHP regular expressions,
-# case-insensitive, Unicode). Conservative on purpose: the rules are narrow and a dull event is
-# only moved behind the others, never removed.
+# case-insensitive, Unicode). No rule deletes an event: dull ones go behind the others, excluded
+# ones and duplicates of a type come last of all and fill a day only when nothing else is left.
 parameters:
 	selection:
 
 		boringRules:
-			sportovní výsledek: '~\b(porazil[aiy]?|zvítězil[aiy]?|vyhrál[aiy]?|remizoval[aiy]?|zdolal[aiy]?)\b.{0,120}\b(utkání|zápas\w*|finál\w*|mistrovství|turnaj\w*|pohár\w*|lig[aeyu]|olympi\w*)~iu'
-			skóre zápasu: '~\b(utkání|zápas\w*|finál\w*)\b.{0,80}\b\d{1,2}\s*:\s*\d{1,2}\b~iu'
+			sportovní výsledek: '~^(?!.*\b(olympi\w*|mistrovstv\w* (světa|Evropy)|mistr\w* (světa|Evropy)|(?-i:MS|ME)|světov\w* rekord\w*)\b).*\b(porazil[aiy]?|zvítězil[aiy]?|vyhrál[aiy]?|remizoval[aiy]?|zdolal[aiy]?)\b.{0,120}\b(utkání|zápas\w*|finál\w*|mistrovství|turnaj\w*|pohár\w*|lig[aeyu]|olympi\w*)~iu'
+			skóre zápasu: '~^(?!.*\b(olympi\w*|mistrovstv\w* (světa|Evropy)|mistr\w* (světa|Evropy)|(?-i:MS|ME)|světov\w* rekord\w*)\b).*\b(utkání|zápas\w*|finál\w*)\b.{0,80}\b\d{1,2}\s*:\s*\d{1,2}\b~iu'
 			otevření obchodu: '~\b(otevřen\w*|otevřel\w*|zahájil\w* provoz)\b.{0,80}\b(obchod\w*|prodejn\w*|obchodní (dům|centrum)|supermarket\w*|hypermarket\w*|pobočk\w*|restaurac\w*|kavárn\w*|hotel\w*)~iu'
-			otevření stavby: '~\b(otevřen\w*|zprovozněn\w*|uveden\w* do provozu|zahájen\w* provoz)\b.{0,80}\b(most\w*|silnic\w*|dálnic\w*|úsek\w*|nádraží|stanic\w*|zastávk\w*|tunel\w*|parkovišt\w*|obchvat\w*|trať|tratě|lanovk\w*)~iu'
+			otevření stavby: '~\b(otevřen\w*|zprovozněn\w*|uveden\w* do provozu|zahájen\w* provoz|prodloužen[aoy]?)\b.{0,80}\b(most\w*|silnic\w*|dálnic\w*|úsek\w*|nádraží|stanic\w*|zastávk\w*|tunel\w*|parkovišt\w*|obchvat\w*|trať|tratě|lanovk\w*)~iu'
+			přejmenování místa: '~^(?!.*\b(obět\w*|masakr\w*|zahynul\w*)\b)(?=.*\bpřejmenov\w*).*\b(zookout\w*|zoo|zoologick\w* zahrad\w*|náměstí|ulic[eií]|stanic\w*|nádraží|most\w*|nemocnic\w*|škol[auy])\b~iu'
+			soukromý sňatek: '~^(?!.*\b(král\w*|královn\w*|císař\w*|kníž\w*|kněžn\w*|princ\w*|vévod\w*|markrab\w*|kurfiřt\w*|arcivévod\w*|panovník\w*|následník\w*|dynast\w*|prvn\w+|poprvé)\b).*\b(oženil\w*|provdal\w*|provdán\w*|si vzal\w*|si bere|bere za ženu|vzal\w* za ženu)\b~iu'
 			vydání softwaru: '~\b(vydán\w*|vyšl\w*|uvolněn\w*)\b.{0,60}\b(verz\w*|aktualizac\w*)\b~iu'
 			drobná nehoda: '~^(?!.*\b(zahynul\w*|zemřel\w*|obět\w*|mrtv\w*|zabit\w*|usmrcen\w*)).*\b(nehod\w*|sráž\w*|havári\w*)\b~iu'
 
@@ -17,3 +19,51 @@ parameters:
 			válka a násilí: '~\b(válk\w*|válečn\w*|bitv\w*|útok\w*|zaútočil\w*|invaz\w*|okupac\w*|bombard\w*|nálet\w*|masakr\w*|genocid\w*|holokaust\w*|pogrom\w*|deportac\w*|koncentrační\w*|vyhlazovací\w*)~iu'
 			katastrofa: '~\b(katastrof\w*|neštěstí|zemětřesení|povodn\w*|povodeň|hurikán\w*|tsunami|tajfun\w*|výbuch\w*|explo\w*|požár\w*|vyhořel\w*|havári\w*|ztroskot\w*|epidemi\w*|pandemi\w*)~iu'
 			terorismus: '~\b(teror\w*|atentát\w*|únos\w*|rukojm\w*)~iu'
+
+		# Routine state agenda and minor sport. Applied only when no exception below matches.
+		excludedRules:
+			vláda: '~\b(jmenoval\w*|jmenován\w*|pověřil\w*|pověřen\w*|sestavil\w*|sestaven\w*|sestavením|demis\w*|podal\w* demisi|odstoupil\w*|rekonstrukc\w*)\b.{0,80}\b(vlád\w*|kabinet\w*|premiér\w*|ministersk\w*)~iu'
+			jmenování do funkce: '~^(?!.*\bprvn\w+).*(\b(jmenoval\w*|jmenován\w*|se stal\w*|stal\w* se|ujal\w* se)\b.{0,60}\b(ministr\w*|premiér\w*|velvyslan\w*|soudc\w*|guvernér\w*|předsed\w*)|\b(premiérem|ministrem|ministryní|velvyslancem|předsedou)\b.{0,40}\bse stal\w*)~iu'
+			volby: '~^(?!.*\b(prvn\w+|poprvé|svobodn\w+)\b).*(\b(parlamentní\w*|prezidentsk\w*|senátní\w*|komunální\w*|krajsk\w*|sněmovní\w*|obecní\w*|zemsk\w*) vol\w*|\bvoleb\b|\bve volbách\b|\b(znovu)?zvolen\w* (\S+ ){0,2}(prezident\w*|premiér\w*|kancléř\w*))~iu'
+			ratifikace smlouvy: '~\bratifik\w*\b.{0,80}\b(smlouv\w*|dohod\w*|úmluv\w*|protokol\w*|konvenc\w*)~iu'
+			běžná smlouva: '~\b(podepsal\w*|podepsán\w*|podepsan\w*|uzavřel\w*|uzavřen\w*|sjednal\w*)\b.{0,80}\b(smlouv\w*|dohod\w*|úmluv\w*|protokol\w*|konvenc\w*)~iu'
+			zasedání a usnesení: '~\b(zasedání|plénum|plenární\w*)\b.{0,40}\b(ÚV|ústřední\w*|předsednictv\w*|vlád\w*)|\b(ÚV|ústřední\w*|předsednictv\w*|vlád\w*)\b.{0,40}\b(zasedání|zasedal\w*|usnesení)\b|\bpřijal\w* usnesení\b~iu'
+			menší sport: '~^(?!.*\b(olympi\w*|mistrovstv\w* (světa|Evropy)|mistr\w* (světa|Evropy)|(?-i:MS|ME)|světov\w* rekord\w*|prvn\w+|poprvé|posledn\w+|rytířsk\w*|gladiátor\w*|nožem|atentát\w*|bitv\w*|zahynul\w*|havaroval\w*)\b).*\b(Fed Cup\w*|Federation Cup\w*|Davis\w* Cup\w*|Davisov\w* pohár\w*|Billie Jean King Cup\w*|pohár\w*|turnaj\w*|ligov\w*|extralig\w*|fotbalov\w* lig\w*|hokejov\w* lig\w*|Lig\w* mistrů|utkání|zápas\w*|fotbalist\w*|hokejist\w*|tenist\w*)\b~iu'
+
+		# Turning points: an excluded rule never applies to these.
+		exclusionExceptions:
+			vznik a zánik státu: '~\b(nezávisl\w*|samostatn\w*|osamostatn\w*|vyhlášen\w* (republik\w*|stát\w*|královstv\w*|císařstv\w*)|vznik\w*|zánik\w*|rozpad\w*|rozdělen\w*|dělení|sjednocen\w*|anex\w*|abdik\w*)~iu'
+			převrat a revoluce: '~\b(revoluc\w*|převrat\w*|puč\w*|povstán\w*|nekomunistick\w*|nacist\w*|NSDAP|krize|zrušen\w*)~iu'
+			válka a mír: '~\b(mírov\w*|\w*mír\b|příměří|kapitulac\w*|neútočení|mnichovsk\w*|válk\w*|invaz\w*|okupac\w*)~iu'
+			atentát: '~\b(atentát\w*|zavražd\w*)~iu'
+
+		# Excluded by the rule named on the left, but the event links an article of its own (the treaty
+		# itself has a Wikipedia article): such a treaty mattered, it is not routine.
+		articleExceptions:
+			běžná smlouva: '~(smlouv|dohod|úmluv|konvenc|pakt)~iu'
+
+		# Kinds of events: at most one of a kind on a day, the others are treated as excluded.
+		typeRules:
+			premiéra díla: '~\b(premiér[aouy]|premiéře) (\w+ )?(oper|hr[yaou]|film|balet|symfoni|dramat|muzikál|seriál)|\bměl\w* premiéru\b~iu'
+			vláda: '~\b(jmenoval\w*|jmenován\w*|pověř\w*|sestav\w*|demis\w*|nastoupil\w*|padl\w*|pád\w*|rezign\w*)\b.{0,80}\b(vlád\w*|kabinet\w*|premiér\w*)\b~iu'
+			volby: '~\b(voleb|volb\w*|volbách|zvolen\w*)\b~iu'
+			smlouva: '~\b(smlouv\w*|dohod\w*|úmluv\w*|pakt\w*|\w*mír\b|příměří)\b~iu'
+			korunovace: '~\b(korunov\w*|nastoupil\w* na trůn|intronizac\w*)~iu'
+			sport: '~\b(olympi\w*|mistrovstv\w*|mistr\w* (světa|Evropy)|(?-i:MS|ME)|pohár\w*|turnaj\w*|extralig\w*|fotbal\w*|hokej\w*|tenis\w*|medail\w*|světov\w* rekord\w*)\b~iu'
+			bitva: '~\b(bitv\w*)\b~iu'
+			přírodní katastrofa: '~\b(zemětřesení|povodn\w*|povodeň|hurikán\w*|tsunami|tajfun\w*|výbuch\w* sopky|erupc\w*)~iu'
+			atentát: '~\b(atentát\w*)~iu'
+			nezávislost: '~\b(nezávislost\w*)\b~iu'
+			abdikace: '~\b(abdik\w*|vzdal\w* se trůnu|vzdal\w* trůnu)~iu'
+			stát USA: '~\b\d+\. stát\w*~iu'
+			sňatek: '~\b(sňat\w*|svatb\w*|oženil\w*|provdal\w*)\b~iu'
+			koncil: '~\b(koncil\w*)\b~iu'
+			návštěva: '~\b(navštívil\w*|návštěv\w*)\b~iu'
+
+		# The kind of event the page is about: discoveries, firsts and lasts, ends of dynasties, curiosities.
+		remarkableRules:
+			konec rodu: '~\b(vymřel\w*|vymřen\w*|vymření|posledn\w+ (příslušník\w*|člen\w*|potom\w*|panovník\w*|král\w*|císař\w*|mužsk\w*|z rodu))~iu'
+			první svého druhu: '~\b(prvn\w+ (Evropan\w*|člověk\w*|člověk|žen\w*|Američan\w*|Čech\w*|Čechoslovák\w*)|poprvé v (historii|dějinách)|historicky prvn\w+|jako prvn\w+)~iu'
+			objev: '~^(?!.*\bplanetk\w*).*\b(objevil\w*|objeven\w*|objev|objevu|vynalezl\w*|vynalezen\w*|vynález|vynálezu|patentoval\w*)\b~iu'
+			ztroskotání: '~\b(ztroskot\w*)~iu'
+			kuriozita: '~\b(kuriózn\w*|bizarn\w*|omylem|nedopatřením)\b~iu'

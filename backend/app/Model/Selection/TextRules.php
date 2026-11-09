@@ -40,4 +40,13 @@ final readonly class TextRules
 		}
 		return null;
 	}
+
+
+	/**
+	 * Whether the rule of this name exists and matches; other rules are not tried.
+	 */
+	public function matchesRule(string $name, string $text): bool
+	{
+		return isset($this->rules[$name]) && preg_match($this->rules[$name], $text) === 1;
+	}
 }

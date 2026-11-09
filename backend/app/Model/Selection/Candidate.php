@@ -18,7 +18,22 @@ final readonly class Candidate
 		public int $year,
 		public float $score,
 		public ?string $boringReason,
+		public ?string $excludedReason = null,
+		public ?string $type = null,
+		public bool $remarkable = false,
 	) {
+	}
+
+
+	public function isBefore1800(): bool
+	{
+		return $this->year < 1800;
+	}
+
+
+	public function isModern(): bool
+	{
+		return $this->year >= 1900;
 	}
 
 

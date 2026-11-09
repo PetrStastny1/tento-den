@@ -22,8 +22,9 @@ Každý den deset výjimečných událostí z Česka i ze světa – se jmeninam
 ## Co aplikace dělá
 
 - Pro každý den roku vybere **10 výročí** z české Wikipedie (od starověku po současnost):
-  aspoň 3 z Česka (pokud existují), jinak podle skóre; nudné události (sportovní výsledky,
-  otevření obchodu, vydání softwaru…) až nakonec, rozmanitost století rozhoduje jen při
+  aspoň 3 z Česka (pokud existují), aspoň 4 před rokem 1800 a nejvýš 4 z let 1900+ (pokud je
+  čím je doplnit), jinak podle skóre. Nudné události jdou až za ostatní, rutinní politika, menší
+  sport a druhá událost stejného typu úplně nakonec; rozmanitost století rozhoduje jen při
   shodném skóre. Karty jdou **od nejnovější po nejstarší**.
 - **Státní svátky a významné dny** podle [zákona č. 245/2000 Sb.](https://www.zakonyprolidi.cz/cs/2000-245)
   (všech 34: státní svátky, ostatní svátky, významné dny; `backend/config/state-days.neon`).

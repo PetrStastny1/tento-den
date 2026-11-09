@@ -583,3 +583,60 @@ uvádí jako „Význam jména Silvie“; nositel se hledá pro tvar Sylva. Sezn
 - **Charta 77 neprošla:** událost 1. 1. 1977 (i 6. 1.) odkazuje jen na článek „Charta 77“, který je
   na Wikidatech „hnutí za lidská práva“ (Q13406660), ne dokument; samostatný článek o Prohlášení
   stránka dne neodkazuje. Natvrdo se nepřidává.
+
+## Přísnější výběr: vyřazení, kvóty podle stáří, typy událostí (2026-11-06)
+
+Výběr dával převahu 20. století (188 z 300 karet v listopadu), rutinní politice a menšímu sportu.
+Mění dvě starší rozhodnutí: „nudná událost nikdy nemizí“ platí dál, ale přibyla slabší vrstva
+vyřazených, a rozmanitost století už není jediný nástroj proti převaze novověku.
+
+- **Pořadí míst:** povinné události → 3 české (nejdřív před rokem 1800, počítají se do obou kvót)
+  → 4 před rokem 1800 → ostatní s limitem 4 z let 1900+ → novější nad limit → zbytek: nudné,
+  druhé události stejného typu, vyřazené. Kvóty podle stáří, ne podle sekce: experiment z 29. 10.
+  měřil kvóty 2 + 3 podle sekce, které jen měnily české karty za slabší světové.
+- **Vždy 10 karet:** vyřazení znamená „až úplně poslední“, ne „nikdy“. Den se nezkracuje.
+- **Kvóta na české nevrací vatu:** české kvóty berou jen dobré kandidáty, vyřazená česká karta má
+  stejně nízké pořadí jako ostatní vyřazené. Česká kvóta má přednost před limitem pro 1900+.
+- **Povinné události** (státní svátky, kulatá výročí) se do pravidel nezapočítávají jako vyřazené,
+  ale do kvót ano.
+- **Vyřazení je text, ne seznam výjimek v kódu:** `excludedRules` + `exclusionExceptions`
+  v `config/selection.neon`; přelom (vznik státu, převrat, válka, mír, atentát) vyřadit nejde.
+  Velký sport (OH, MS, ME, rekordy) už není ani v pravidlech nudy.
+- **Bonus 0,3 za vzor dobré události** (`remarkableRules`: konec rodu, první svého druhu, objev):
+  skóre je 0..1, takže bonus převáží rozdíl v jazycích, ale ne velký rozdíl ve významu.
+- **Cena:** zlatá sada klesla z 6 z 8 na 5 z 8: vypadl let Jurije Gagarina, protože se o limit
+  1900+ dělí s jinými. Apollo 11 a vylodění v Normandii nebyly v desítce ani předtím. (Gagarina
+  vrátilo doladění níž.)
+- **AI ve výběru dál není**, všechno je čitelné pravidlo a test.
+
+### Známý problém (na později): skóre podle jazyků patří obecnému článku
+Skóre bere počet jazykových verzí článku, který často není předmětem události. Fed Cup z 6. 11.
+(„Český ženský tenisový tým v Moskvě vyhrál Fed Cup.“) měl 281 jazyků, což je zjevně signál
+obecného článku, ne události. Vyřazení tenhle příklad jen schovalo, příčina zůstává: chybí výběr
+článku, který je předmětem události, případně seznam obecných článků je neúplný.
+
+## Doladění přísného výběru (2026-11-09)
+
+- **Česká přednost pro staré karty má práh skóre 0,3** (`DaySelector::MinCzechOldScore`). Bez něj
+  brala i karty, o kterých skoro nic nepíše (generální cechovní patent 1731 se 3 jazyky). Slabší
+  česká karta nemizí, jen soutěží jako ostatní. Práh 0,4 už bral zjevně dobré karty (Obnovené
+  zřízení zemské, stolice češtiny na univerzitě), 0,3 jich za rok ubere 27, většinou slabých.
+- **Skóre nezachytí všechno:** otec Jakuba Jana Ryby má 0,56 (článek o synovi), víc než vražda
+  knížete Václava (0,32). Na to je pravidlo nudy **„soukromý sňatek“** (sňatek bez panovníka, šlechtického
+  titulu nebo prvenství). Cena: i svatba Adolfa Hitlera s Evou Braunovou je teď nudná.
+- **„Otevření stavby“ chytá i prodloužení** (linka C Kačerov–Háje) a nové pravidlo **„přejmenování
+  místa“** přejmenování zoo, náměstí, ulic, stanic. Přejmenování státu nebo města nudné není (Siam →
+  Thajsko, Zlín → Gottwaldov).
+- **Smlouva s vlastním článkem není rutina** (`articleExceptions`): když událost odkazuje na článek
+  o smlouvě (Rapallská smlouva, Rakouská státní smlouva, Maastricht, Schengen), vyřazení „běžná
+  smlouva“ neplatí. Vlastní článek je čitelný doklad, že smlouva měla význam; text to neprozradí.
+  Ratifikace má vlastní pravidlo a výjimku nemá (jinak by prošla ratifikace Lisabonu Slovenskem).
+- **Návštěva už není vyřazená, jen typ** (nejvýš jedna denně). Pravidlo za rok chytilo 6 událostí
+  a většina byla významná (Nixon v Číně, de Gaulle v Montrealu, Tito v Praze 1968).
+- **Gagarin: bonus za prvenství, ne výjimka z limitu 1900+.** Pravidlo „první svého druhu“ chytá
+  i „jako první“ (85 událostí za rok, skoro všechny skutečná prvenství). Zlatá sada 6 z 8, podíl
+  1900+ beze změny. Výjimka z limitu pro skóre ≥ 0,95 by Gagarina vrátila taky, ale zvedla by 1900+
+  v listopadu ze 139 na 158 karet z 300 na úkor 19. století (53 → 39); normalizované skóre má 1,0
+  v každé sekci každý den, takže výjimka by limit prakticky zrušila.
+- **Fed Cup 2014 na 9. 11.** v aplikaci byl ze statického exportu z 29. 10. (stará verze výběru);
+  aktuální kód ho vyřadí jako menší sport. Test drží tvar toho dne.

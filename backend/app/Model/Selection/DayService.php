@@ -28,6 +28,7 @@ final class DayService
 		private readonly CardRepository $cards,
 		private readonly EventScorer $scorer,
 		private readonly BoringFilter $boringFilter,
+		private readonly EventClassifier $classifier,
 		private readonly SensitivityClassifier $sensitivity,
 		private readonly DaySelector $selector,
 		private readonly PrimaryArticleSelector $primaryArticles,
@@ -115,7 +116,17 @@ final class DayService
 			}
 			$rawSignals += $raw;
 			foreach ($this->scorer->normalize($raw) as $id => $score) {
-				$candidates[] = new Candidate($id, $section, $events[$id]->year, $score, $this->boringFilter->reason($events[$id]->text));
+				$text = $events[$id]->text;
+				$candidates[] = new Candidate(
+					$id,
+					$section,
+					$events[$id]->year,
+					$score,
+					$this->boringFilter->reason($text),
+					$this->classifier->excludedReason($text, array_map(fn(array $link): string => $link['title'], $events[$id]->links)),
+					$this->classifier->type($text),
+					$this->classifier->isRemarkable($text),
+				);
 			}
 		}
 		return new DayAnalysis($candidates, $rawSignals, $events);

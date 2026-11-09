@@ -96,7 +96,7 @@ foreach ($golden as [$dayString, $year, $fragment, $label]) {
 			$rank,
 			count($sameSection),
 			$chosenScores === [] ? 0 : min($chosenScores),
-			$best->boringReason === null ? '' : "; filtr nudy: {$best->boringReason}",
+			($best->boringReason === null ? '' : "; filtr nudy: {$best->boringReason}") . ($best->excludedReason === null ? '' : "; vyřazeno: {$best->excludedReason}"),
 		);
 	}
 	printf("| %s %d | %s | %s | %s |\n", $day->dayPageTitle(), $year, $label, $inTen ? 'ano' : 'ne', $reason);

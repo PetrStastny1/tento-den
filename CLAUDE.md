@@ -22,8 +22,9 @@ Původní cílový mix 5 karet (plán; aktuální stav je v sekci „Verze 1“ 
 
 ## Verze 1 (aktuální)
 
-- **Jen historické karty:** 10 výročí na den (svět + Česko, **aspoň 3 z Česka, pokud existují**),
-  od nejnovějšího; události státních svátků a významných dnů (zákon č. 245/2000 Sb.) vždy první.
+- **Jen historické karty:** vždy 10 výročí na den (svět + Česko, **aspoň 3 z Česka, pokud
+  existují**), od nejnovějšího; události státních svátků a významných dnů (zákon č. 245/2000 Sb.)
+  vždy první.
 - Jmeniny CZ (cs.wikipedia) a SK (sk.wikipedia), kulaté výročí velké události.
 - Automatický import a výběr z Wikipedie, REST API, React frontend.
 - Prohlížení výročí podle **dne + měsíce** (ne archiv konkrétních dat).
@@ -45,6 +46,11 @@ Původní cílový mix 5 karet (plán; aktuální stav je v sekci „Verze 1“ 
 - **Hlavní článek** události = první odkazovaný článek, který není rok, datum ani **obecný článek**
   (Praha, USA, Druhá světová válka… – konfigurovaný seznam).
 - K tomu filtry nudy (sport, otevření obchodu apod.) a rozmanitost století (jen při shodném skóre).
+- **Kvóty stáří:** aspoň 4 karty před rokem 1800, nejvýš 4 z let 1900+ (když kvalitní chybí,
+  doplní se nad limit). České karty mají přednost před limitem a berou se nejdřív před rokem 1800
+  (se skóre aspoň 0,3).
+- **Vyřazené** (rutinní politika, menší sport, druhá událost stejného typu; ne smlouva s vlastním
+  článkem) jdou až úplně nakonec, i při české kvótě. Pravidla, výjimky a typy jsou v `backend/config/selection.neon`.
 - **AI výběr nedělá.**
 
 ## Později (po verzi 1)

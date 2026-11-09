@@ -71,6 +71,13 @@ services:
 	- App\Model\Selection\DayService
 	- App\Model\Selection\BoringFilter(App\Model\Selection\TextRules(%selection.boringRules%))
 	- App\Model\Selection\SensitivityClassifier(App\Model\Selection\TextRules(%selection.sensitiveRules%))
+	- App\Model\Selection\EventClassifier(
+		excluded: App\Model\Selection\TextRules(%selection.excludedRules%)
+		exceptions: App\Model\Selection\TextRules(%selection.exclusionExceptions%)
+		articleExceptions: App\Model\Selection\TextRules(%selection.articleExceptions%)
+		types: App\Model\Selection\TextRules(%selection.typeRules%)
+		remarkable: App\Model\Selection\TextRules(%selection.remarkableRules%)
+	)
 
 	# round anniversaries of big events
 	- App\Model\Anniversaries\AnniversaryConfig(%anniversaries.eventClasses%, %anniversaries.minSitelinks%)
