@@ -80,6 +80,12 @@ test('dull rules from the configuration: matching and deliberately not matching 
 		['otevření stavby', 'Otevřen Švehlův most přes Lužnici v Táboře.'],
 		['otevření stavby', 'Linka C pražského metra byla prodloužena o úsek Kačerov–Háje.'],
 		['přejmenování místa', 'Dosavadní zookoutek ve Dvoře Králové nad Labem byl po pěti letech existence přejmenován na Východočeskou zoologickou zahradu.'],
+		['výroba a představení modelu', 'Automobilka Škoda Auto vyrobila poslední exemplář modelové řady Škoda Octavia první generace.'],
+		['výroba a představení modelu', 'Automobilka Škoda Auto představila veřejnosti čtvrtou generaci svého nejprodávanějšího modelu Škoda Octavia.'],
+		['výroba a představení modelu', 'AZNP Mladá Boleslav zahájily sériovou výrobu osobního automobilu Škoda 105/120.'],
+		['výroba a představení modelu', 'Škoda Auto vyrobila miliontý vůz typové řady Škoda Favorit.'],
+		['výroba a představení modelu', 'V NDR začala výroba vozů značky Trabant'],
+		['výroba a představení modelu', 'Na českém trhu se začal prodávat malý kompaktní automobil Škoda Fabia.'],
 		['soukromý sňatek', 'Stejnojmenný otec kantora a skladatele Jakuba Jany Ryby se oženil s Rozalií Karníkovou, dcerou učitele Jana Karníka.'],
 		['vydání softwaru', 'Byla vydána nová verze komunikačního programu ICQ pod názvem ICQ 6.'],
 		['drobná nehoda', 'Při srážce dvou tramvají se zranilo 12 lidí.'],
@@ -97,6 +103,11 @@ test('dull rules from the configuration: matching and deliberately not matching 
 		'Masakr v Úsobské ulici si vyžádal 16 obětí; ulice byla později přejmenována na ulici Obětí 6. května.',
 		'Anglický král Jindřich VIII. se oženil s Annou Boleynovou.', // a royal marriage is politics
 		'První občanský sňatek v Království českém.',
+		// firsts of their kind stay, and so does a product that is not a vehicle or a race won on one
+		'Mladoboleslavská společnost Laurin & Klement představila veřejnosti motocykl Laurin & Klement Typ 1, první samohybný stroj vlastní konstrukce.',
+		'První českomoravská továrna na stroje v Libni vyrobila první českou lokomotivu.',
+		'Sovětský svaz zahájil výrobu útočné pušky AK-47.',
+		'Zvítězil český závodník Václav Vondřich na motocyklu Slavia, vyrobeném automobilkou Laurin & Klement.',
 	] as $text) {
 		Assert::null($filter->reason($text), $text);
 	}

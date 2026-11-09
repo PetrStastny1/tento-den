@@ -640,3 +640,11 @@ obecného článku, ne události. Vyřazení tenhle příklad jen schovalo, př�
   v každé sekci každý den, takže výjimka by limit prakticky zrušila.
 - **Fed Cup 2014 na 9. 11.** v aplikaci byl ze statického exportu z 29. 10. (stará verze výběru);
   aktuální kód ho vyřadí jako menší sport. Test drží tvar toho dne.
+- **Nuda „výroba a představení modelu“:** zahájení a ukončení výroby, jubilejní a poslední kus,
+  představení modelu, generace nebo prototypu vozidla, uvedení na trh (59 událostí za rok, 45 z nich české
+  automobilky; skóre jim dává článek „Škoda Auto“ se 78 jazyky). Výjimkou jsou prvenství
+  („první česká/samohybný/praktický“, „poprvé“, „na světě“, „v historii“): L&K Typ 1, první česká
+  lokomotiva. Obecné „první“ výjimkou není, jinak by prošly „první sériové vozy Škoda 100/110“.
+  Padá i Trabant, VW Brouk, Ford Mustang a první sériový Ford T (milník pásové výroby drží
+  7. 10. 1913 „Henry Ford zavedl výrobní linku“). Přívlastek „vyrobený“ nestačí (vítězství
+  v závodě na motocyklu Slavia není výrobní zpráva).
